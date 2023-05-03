@@ -6,33 +6,40 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/03 15:18:10 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:50:55 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	ft_execute(char *path, char **argv)
+{
+	int id;
+	id = fork();
+	if (id == 0)
+	{
+		execve(path, argv, NULL);
+		exit(EXIT_SUCCESS);
+	}
+	wait (NULL);
+}
+
 int main()
 {
-	struct stat *test;
 	char **envarr;
 	int i;
-	int j;
-	char *argv[] = {"ls", "-la", NULL};
+	char *argv[] = {"rm", "-rf", "-rf", NULL};
+	char path[] = "/bin/rm";
 
-	j = 0;
 	i = 0;
-	test = NULL;
 	ft_printf("%d\n", access("/bin/ls", X_OK));
 	ft_printf("%s\n", getcwd(NULL, 0));
 	ft_printf("%d\n", chdir("./srcs"));
 	ft_printf("%s\n", getenv("PATH"));
 	envarr = ft_split(getenv("PATH"),':');
-	chdir("../../..");
-	getcwd(NULL, 0);
-	execve("/bin/ls", argv, NULL);
-
-
+	// chdir("/usr/bin/");
+	ft_printf("%s\n", getcwd(NULL, 0));
 	
-	
+	ft_execute(path, argv);
+	ft_printf("apres execute\n");
 }
