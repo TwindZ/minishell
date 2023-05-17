@@ -6,7 +6,7 @@
 #    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/05/03 09:38:10 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/05/17 17:24:00 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS_DIR = ./srcs/
 OBJS_DIR = ./srcs/objs_minishell/
 OBJS = $(SRCS:$(SCRS_DIR)%.c=$(OBJS_DIR)%.o)
 
-NAME = minishell
+NAME = exec
 
 CFLAGS = -Wall -Wextra -Werror -g -O0
 
