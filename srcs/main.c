@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/03 16:50:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/17 13:08:55 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	ft_execute(char *path, char **argv)
 
 int main()
 {
+
+	
 	char **envarr;
 	int i;
-	char *argv[] = {"rm", "-rf", "-rf", NULL};
-	char path[] = "/bin/rm";
+	char *argv[] = {"ls", "-la", NULL};
+	char path[] = "/bin/ls";
 
 	i = 0;
 	ft_printf("%d\n", access("/bin/ls", X_OK));
@@ -37,7 +39,7 @@ int main()
 	ft_printf("%d\n", chdir("./srcs"));
 	ft_printf("%s\n", getenv("PATH"));
 	envarr = ft_split(getenv("PATH"),':');
-	// chdir("/usr/bin/");
+	chdir("/usr/bin/");
 	ft_printf("%s\n", getcwd(NULL, 0));
 	
 	ft_execute(path, argv);
