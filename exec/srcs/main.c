@@ -110,7 +110,7 @@ int main()
 	// 	ft_execute(path, argv);
 	// }
 	// ft_printf("apres execute #1\n");
-	git commit
+	allo comment ca va
 	
 	return(0);
 }
