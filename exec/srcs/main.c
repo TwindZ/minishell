@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/22 13:32:15 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:34:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data *init_data()
 		data = malloc(sizeof(data));
 		
 	}
-	return (data)
+	return (data);
 }
 // void	ft_execute(char *path, char **argv, int fd)
 // {
@@ -46,38 +46,48 @@ t_data *init_data()
 
 int main()
 {
-	t_data data;
-	int fd;
-	// int ret;
-	int id ;
-	char *argv[] = {"ls", "-la", "-la", "-la", "-la", "-la", "/bin", NULL};
-	char path[] = "/bin/ls";
-	char *argv2[] = {"allo", "-e", NULL};
-	char path2[] = "/bin/cat";
-	int pfd[2];
+	char *line;
+
+	line = NULL;
 	
-	pipe(pfd);
-	data.pfdr = pfd[0];
-	data.pfdw = pfd[1];
-	
-	fd = open("allo.txt", O_RDWR);
-	
-	// ft_printf("%d\n", fd);
-	// dup2(fd, pfd);
-	id = fork();
-	if(id == 0)
+	while (1)
 	{
-		dup2(pfd[1], STDOUT_FILENO);
-		execve(path, argv, NULL);
+		line = (char *)readline("MINISHELL DLA MORT QUI TUE >");
+		add_history(line);
+		ft_printf("Ligne lu : %s\n", line);
 	}
-	id = fork();
-	if(id == 0)
-	{
-		dup2(pfd[0], STDIN_FILENO);
-		execve(path2, argv2, NULL);
-	}
-	close(data.pfdr);
-	close(data.pfdw);
+	// t_data data;
+	// int fd;
+	// // int ret;
+	// int id ;
+	// char *argv[] = {"ls", "-la", "-la", "-la", "-la", "-la", "/bin", NULL};
+	// char path[] = "/bin/ls";
+	// char *argv2[] = {"allo", "-e", NULL};
+	// char path2[] = "/bin/cat";
+	// int pfd[2];
+	
+	// pipe(pfd);
+	// data.pfdr = pfd[0];
+	// data.pfdw = pfd[1];
+	
+	// fd = open("allo.txt", O_RDWR);
+	
+	// // ft_printf("%d\n", fd);
+	// // dup2(fd, pfd);
+	// id = fork();
+	// if(id == 0)
+	// {
+	// 	dup2(pfd[1], STDOUT_FILENO);
+	// 	execve(path, argv, NULL);
+	// }
+	// id = fork();
+	// if(id == 0)
+	// {
+	// 	dup2(pfd[0], STDIN_FILENO);
+	// 	execve(path2, argv2, NULL);
+	// }
+	// close(data.pfdr);
+	// close(data.pfdw);
 	// ft_printf("%d\n", fd);
 	// ft_printf("%d\n", ret);
 	// ft_printf("%d\n", STDIN_FILENO);
@@ -95,8 +105,8 @@ int main()
 	// ft_printf("%d\n", access("/bin/ls", X_OK));
 	// ft_printf("%s\n", getcwd(NULL, 0));
 	// ft_printf("%d\n", chdir("./srcs"));
-	ft_printf("%s\n", getenv("PATH"));
-	envarr = ft_split(getenv("PATH"),':');
+	// ft_printf("%s\n", getenv("PATH"));
+	// envarr = ft_split(getenv("PATH"),':');
 	// chdir("/usr/bin/");
 	// ft_printf("%s\n", getcwd(NULL, 0));
 	// if(pipe == 0)
@@ -106,7 +116,6 @@ int main()
 	// 	ft_execute(path, argv);
 	// }
 	// ft_printf("apres execute #1\n");
-	git commit
 	
 	return(0);
 }
