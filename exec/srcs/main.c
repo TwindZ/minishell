@@ -6,7 +6,11 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/05/22 13:19:40 by emlamoth         ###   ########.fr       */
+=======
+/*   Updated: 2023/05/22 13:20:17 by emlamoth         ###   ########.fr       */
+>>>>>>> emman
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +110,7 @@ int main()
 	// 	ft_execute(path, argv);
 	// }
 	// ft_printf("apres execute #1\n");
-	test commit encore
-	
-	
+	git commit
 	
 	return(0);
 }
