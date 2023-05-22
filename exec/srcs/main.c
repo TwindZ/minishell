@@ -112,5 +112,11 @@ int main()
 	// ft_printf("apres execute #1\n");
 	git commit
 	nimporte koi
+	allo comment ca va
+
+	toujour en test
+
+	encore
+	
 	return(0);
 }
