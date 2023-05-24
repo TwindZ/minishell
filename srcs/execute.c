@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/22 17:34:30 by emlamoth         ###   ########.fr       */
+/*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
+/*   Updated: 2023/05/24 14:37:53 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data *init_data()
-{
-	static t_data *data;
+// t_data *init_data()
+// {
+// 	static t_data *data;
 	
-	if(!data)
-	{
-		data = malloc(sizeof(data));
+// 	if(!data)
+// 	{
+// 		data = malloc(sizeof(data));
 		
-	}
-	return (data);
-}
+// 	}
+// 	return (data);
+// }
 // void	ft_execute(char *path, char **argv, int fd)
 // {
 // 	int id;
@@ -44,18 +44,94 @@ t_data *init_data()
 	
 // }
 
-int main()
-{
-	char *line;
+// -------------------readline loop------------------------------
+	// char *line;
 
-	line = NULL;
+	// line = NULL;
 	
-	while (1)
+	// while (1)
+	// {
+	// 	line = (char *)readline("MINISHELL DLA MORT QUI TUE >");
+	// 	add_history(line);
+	// 	ft_printf("Ligne lu : %s\n", line);
+	// }
+
+	char *argv1[] = {"ls", "-la", NULL};
+	char path1[] = "/bin/ls";
+	char *argv2[] = {"cat", "-e", NULL};
+	char path2[] = "/bin/cat";
+	char *argv3[] = {"wc", "-w", NULL};
+	char path3[] = "usr/bin/wc";
+
+// int	*ft_new_pipe()
+// {
+// 	int fd[2];
+
+// 	pipe(fd);
+// 	return (fd);
+// }
+
+void mini_execute()
+{
+	int id;
+	int fd[2];
+	int front_pipe;
+	int back_pipe;
+
+	front_pipe = 0;
+	back_pipe = 0;
+	pipe(fd);
+	id = fork();
+	if (id == 0)
 	{
-		line = (char *)readline("MINISHELL DLA MORT QUI TUE >");
-		add_history(line);
-		ft_printf("Ligne lu : %s\n", line);
+		front_pipe = 1;
+		back_pipe = 0;
+		if (back_pipe)
+			dup2(fd[0], STDIN_FILENO);
+		if (front_pipe)
+			dup2(fd[1], STDOUT_FILENO);
+		execve(path1, argv1, NULL);
 	}
+	wait ();
+	ft_printf("test");
+	id = fork();
+	if (id == 0)
+	{
+		front_pipe = 0;
+		back_pipe = 1;
+		if (back_pipe)
+			dup2(fd[0], STDIN_FILENO);
+		if (front_pipe)
+			dup2(fd[1], STDOUT_FILENO);
+		execve(path2, argv2, NULL);
+	}
+	ft_printf("test");
+	wait (NULL);
+	ft_printf("test");
+	id = fork();
+	if (id == 0)
+	{
+		front_pipe = 0;
+		back_pipe = 1;
+		if (back_pipe)
+			dup2(fd[0], STDIN_FILENO);
+		if (front_pipe)
+			dup2(fd[1], STDOUT_FILENO);
+		execve(path3, argv3, NULL);
+	}
+	
+	
+	
+}
+
+// int	*ft_pipe()
+// {
+// 	int *fd[2];
+
+// 	pipe(fd);
+	
+// }
+	
 	// t_data data;
 	// int fd;
 	// // int ret;
@@ -116,6 +192,4 @@ int main()
 	// 	ft_execute(path, argv);
 	// }
 	// ft_printf("apres execute #1\n");
-	
-	return(0);
-}
+

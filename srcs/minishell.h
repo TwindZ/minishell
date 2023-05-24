@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/18 14:37:18 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/24 10:27:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # define READ_END 0
 # define WRITE_END 1
+
+#include <term.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <libc.h>
+#include "libft/libft.h"
 
 typedef struct s_ltkn
 {
@@ -39,10 +45,6 @@ typedef struct s_data
 	int		pfdr;
 }				t_data;
 
-#include <term.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <libc.h>
-#include "libft/libft.h"
+void mini_execute();
 
 #endif

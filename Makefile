@@ -6,19 +6,23 @@
 #    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/05/17 16:47:45 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/05/24 10:24:04 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main.c 			\
+SRCS =	main.c			\
+		execute.c			\
 	
+LIBRLINE = readline-8.2
+LIBRLINE_DIR = ./libs/readline/
+RLINE = $(LIBRLINE_DIR)libreadline.a
 LIBFT_DIR = ./srcs/libft/
 LIBFT = ./srcs/libft/libft.a
 SRCS_DIR = ./srcs/
 OBJS_DIR = ./srcs/objs_minishell/
 OBJS = $(SRCS:$(SCRS_DIR)%.c=$(OBJS_DIR)%.o)
 
-NAME = parse
+NAME = minishell
 
 CFLAGS = -Wall -Wextra -Werror -g -O0
 
@@ -28,7 +32,7 @@ GREEN = \033[1;32m
 RED = \033[1;31m
 NC = \033[0;0m
 
-all: $(NAME)
+all: readline $(NAME)
 
 $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
@@ -36,12 +40,24 @@ $(OBJS_DIR)%.o:$(SRCS_DIR)%.c
 	
 $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)
 	@echo "${GREEN}MINISHELL COMPILED${NC}"
 
+readline :
+	@mkdir -p $(LIBRLINE_DIR)
+	@if [ ! -f ./libs/readline/libreadline.a ]; then \
+		curl -O https://ftp.gnu.org/gnu/readline/$(LIBRLINE).tar.gz; \
+		tar -xf $(LIBRLINE).tar.gz; \
+		rm -rf $(LIBRLINE).tar.gz; \
+		cd $(LIBRLINE) && bash configure && make; \
+		mv ./libreadline.a ../libs/readline; \
+		rm -rf ../$(LIBRLINE); \
+		fi
+		
 clean:
 	@$(MAKE) clean -C ./srcs/libft
 	@rm -rf $(OBJS_DIR)
+	@rm -rf $(LIBRLINE_DIR)
 	@echo "${RED}MINISHELL OBJECTS DELETED${NC}"
 
 fclean: clean

@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 11:21:48 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/01/18 16:15:27 by emlamoth         ###   ########.fr       */
+/*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
+/*   Updated: 2023/05/24 10:57:44 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
+#define emman 1
+#define frank 0
 
-void	ft_putendl_fd(char *s, int fd)
+int main()
 {
-	char	c;
 
-	c = '\n';
-	while (*s)
-		write(fd, s++, 1);
-	write(fd, &c, 1);
+
+	if(emman)
+	{
+		ft_printf("emman\n");
+		mini_execute();
+	}
+
+	while(frank)
+	{
+		ft_printf("frank\n");
+	}
+	
 }
