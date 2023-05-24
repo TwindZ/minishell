@@ -6,7 +6,7 @@
 #    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/05/24 10:24:04 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/05/24 15:04:23 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,21 +44,23 @@ $(NAME): $(OBJS)
 	@echo "${GREEN}MINISHELL COMPILED${NC}"
 
 readline :
-	@mkdir -p $(LIBRLINE_DIR)
 	@if [ ! -f ./libs/readline/libreadline.a ]; then \
+		mkdir -p $(LIBRLINE_DIR); \
 		curl -O https://ftp.gnu.org/gnu/readline/$(LIBRLINE).tar.gz; \
 		tar -xf $(LIBRLINE).tar.gz; \
 		rm -rf $(LIBRLINE).tar.gz; \
 		cd $(LIBRLINE) && bash configure && make; \
 		mv ./libreadline.a ../libs/readline; \
 		rm -rf ../$(LIBRLINE); \
+		echo "${GREEN}READLINE INSTALLED${NC}"; \
 		fi
 		
 clean:
 	@$(MAKE) clean -C ./srcs/libft
 	@rm -rf $(OBJS_DIR)
-	@rm -rf $(LIBRLINE_DIR)
 	@echo "${RED}MINISHELL OBJECTS DELETED${NC}"
+	@rm -rf $(LIBRLINE_DIR)
+	@echo "${RED}READLINE DELETED${NC}"
 
 fclean: clean
 	@$(MAKE) fclean -C ./srcs/libft

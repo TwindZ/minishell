@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 10:57:44 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:43:19 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,25 @@
 #define emman 1
 #define frank 0
 
-int main()
+int main(int argc, char **argv, char **envp)
 {
-
+	(void) argc;
+	(void) argv;
+	(void) envp;
 
 	if(emman)
 	{
+		int i;
+		i = 0;
 		ft_printf("emman\n");
+		// while(ft_strncmp(envp[i], "_=", 2))
+		// {
+		// 	ft_printf("%s\n", envp[i++]);
+		// }
 		mini_execute();
 	}
 
-	while(frank)
+	if(frank)
 	{
 		ft_printf("frank\n");
 	}

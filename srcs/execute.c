@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 14:37:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/24 15:17:16 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 	char *argv2[] = {"cat", "-e", NULL};
 	char path2[] = "/bin/cat";
 	char *argv3[] = {"wc", "-w", NULL};
-	char path3[] = "usr/bin/wc";
+	char path3[] = "/usr/bin/wc";
 
 // int	*ft_new_pipe()
 // {
@@ -92,22 +92,22 @@ void mini_execute()
 			dup2(fd[1], STDOUT_FILENO);
 		execve(path1, argv1, NULL);
 	}
-	wait ();
-	ft_printf("test");
-	id = fork();
-	if (id == 0)
-	{
-		front_pipe = 0;
-		back_pipe = 1;
-		if (back_pipe)
-			dup2(fd[0], STDIN_FILENO);
-		if (front_pipe)
-			dup2(fd[1], STDOUT_FILENO);
-		execve(path2, argv2, NULL);
-	}
-	ft_printf("test");
 	wait (NULL);
-	ft_printf("test");
+	// ft_printf("test");
+	// id = fork();
+	// if (id == 0)
+	// {
+	// 	front_pipe = 0;
+	// 	back_pipe = 0;
+	// 	if (back_pipe)
+	// 		dup2(fd[0], STDIN_FILENO);
+	// 	if (front_pipe)
+	// 		dup2(fd[1], STDOUT_FILENO);
+	// 	execve(path2, argv2, NULL);
+	// }
+	// ft_printf("test");
+	// wait (NULL);
+	// ft_printf("test");
 	id = fork();
 	if (id == 0)
 	{

@@ -2,4 +2,7 @@
 *.ini
 *.plist
 *.a
+*SYM/
 minishell
+.vscode/
+libs/
