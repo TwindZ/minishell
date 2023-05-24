@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 15:43:19 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:19:58 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,34 @@
 #define emman 1
 #define frank 0
 
+t_data *ft_init_data(char **envp)
+{
+	static t_data *data;
+	
+	if(!data)
+	{
+		data = malloc(sizeof(data));
+		if(!data)
+			return (NULL);
+		data->envp = envp;
+		data->lcmd = NULL;
+		data->ltkn = NULL;
+		data->path = NULL;
+		data->pfdr = 0;
+		data->pfdw = 0;
+	}
+	return (data);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	(void) argc;
 	(void) argv;
-	(void) envp;
 
+	t_data *data;
+
+	data = ft_init_data(envp);
+	
 	if(emman)
 	{
 		int i;
@@ -29,7 +51,7 @@ int main(int argc, char **argv, char **envp)
 		// {
 		// 	ft_printf("%s\n", envp[i++]);
 		// }
-		mini_execute();
+		mini_execute(data);
 	}
 
 	if(frank)

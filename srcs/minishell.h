@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 10:27:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/24 16:21:51 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,15 @@ typedef struct s_lcmd
 
 typedef struct s_data
 {
-	t_ltkn 	ltkn;
-	t_lcmd	lcmd;
+	t_ltkn 	*ltkn;
+	t_lcmd	*lcmd;
 	char	**path;
+	char	**envp;
 	int		pfdw;
 	int		pfdr;
+	
 }				t_data;
 
-void mini_execute();
+void mini_execute(t_data *data);
 
 #endif
