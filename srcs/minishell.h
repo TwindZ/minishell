@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 16:21:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:56:42 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,19 @@ typedef struct s_data
 	t_lcmd	*lcmd;
 	char	**path;
 	char	**envp;
+	char 	*read;
+	int		rdflag;
+	int		dquote;
+	int		squote;
 	int		pfdw;
 	int		pfdr;
 	
 }				t_data;
 
-void mini_execute(t_data *data);
+void	mini_execute(t_data *data);
+void	mini_start(t_data *data);
+void	mini_exit(t_data *data);
+void	dquotes(t_data *data);
+void	squotes(t_data *data);
 
 #endif

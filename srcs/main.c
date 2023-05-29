@@ -6,13 +6,13 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/29 10:29:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:56:19 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define emman 1
-#define frank 0
+#define emman 0
+#define frank 1
 
 t_data *ft_init_data(char **envp)
 {
@@ -20,13 +20,17 @@ t_data *ft_init_data(char **envp)
 	
 	if(!data)
 	{
-		data = malloc(sizeof(data));
+		data = malloc(sizeof(t_data));
 		if(!data)
 			return (NULL);
 		data->envp = envp;
 		data->lcmd = NULL;
 		data->ltkn = NULL;
 		data->path = NULL;
+		data->read = NULL;
+		data->rdflag = 0;
+		data->dquote = 0;
+		data->squote = 0;
 		data->pfdr = 0;
 		data->pfdw = 0;
 	}
@@ -52,13 +56,14 @@ int main(int argc, char **argv, char **envp)
 		// 	ft_printf("%s\n", envp[i++]);
 		// }
 		mini_execute(data);
-		allo comment ca va
 	}
 
-// test
 	if(frank)
 	{
 		ft_printf("frank\n");
+		if (argc != 1)
+			mini_exit(data);
+		mini_start(data);
 	}
 	
 }
