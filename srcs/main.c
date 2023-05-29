@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 16:19:58 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/29 10:11:43 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int main(int argc, char **argv, char **envp)
 		// 	ft_printf("%s\n", envp[i++]);
 		// }
 		mini_execute(data);
+		allo comment ca va
 	}
 
 	if(frank)
