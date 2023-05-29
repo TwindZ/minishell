@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 16:21:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:30:26 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ typedef struct s_data
 	t_lcmd	*lcmd;
 	char	**path;
 	char	**envp;
-	int		pfdw;
-	int		pfdr;
+	int		oldfdw;
+	int		oldfdr;
+	int		newfdw;
+	int		newfdr;
 	
 }				t_data;
 

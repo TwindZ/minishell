@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/29 10:29:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:31:57 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ t_data *ft_init_data(char **envp)
 	
 	if(!data)
 	{
-		data = malloc(sizeof(data));
+		data = malloc(sizeof(t_data));
 		if(!data)
 			return (NULL);
 		data->envp = envp;
 		data->lcmd = NULL;
 		data->ltkn = NULL;
 		data->path = NULL;
-		data->pfdr = 0;
-		data->pfdw = 0;
+		data->newfdr = 0;
+		data->newfdw = 0;
+		data->oldfdr = 0;
+		data->oldfdw = 0;
 	}
 	return (data);
 }
@@ -52,7 +54,6 @@ int main(int argc, char **argv, char **envp)
 		// 	ft_printf("%s\n", envp[i++]);
 		// }
 		mini_execute(data);
-		allo comment ca va
 	}
 
 // test

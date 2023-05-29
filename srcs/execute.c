@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/24 17:07:40 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/29 15:25:07 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,78 +81,106 @@ void mini_execute(t_data *data)
 	int front_pipe;
 	int back_pipe;
 
-	front_pipe = 0;
+	front_pipe = 1;
 	back_pipe = 0;
-	
-	ft_new_pipe(data);
-	fd[1] = data->pfdw;
+	if(front_pipe == 1)
+	{
+		pipe(fd);
+	}
 	id = fork();
 	if (id == 0)
 	{
-		front_pipe = 1;
-		back_pipe = 0;
 		if (back_pipe)
 		{
 			dup2(fd[0], STDIN_FILENO);
+		}
+		else
+		{
+			close(fd[0]);
 		}
 		if (front_pipe)
 		{
 			dup2(fd[1], STDOUT_FILENO);
 		}
-		ft_printf("%d\n cmd 1", fd[0]);
-		ft_printf("%d\n cmd 1", fd[1]);
+		else
+		{
+			close(fd[1]);
+		}
 		execve(path1, argv1, data->envp);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
-	fd[0] = data->pfdr;
+	else
+	{
+		close(fd[1]);
+	}
 	wait (NULL);
-	ft_printf("test\n");
-	ft_new_pipe(data);
-	fd[1] = data->pfdw;
+	front_pipe = 1;
+	back_pipe = 1;
+	if(front_pipe == 1)
+	{
+		data->pfdr = fd[0];
+		pipe(fd);
+	}
 	id = fork();
 	if (id == 0)
 	{
-		front_pipe = 0;
-		back_pipe = 1;
 		if (back_pipe)
 		{
-			dup2(fd[0], STDIN_FILENO);
+			
+			dup2(data->pfdr, STDIN_FILENO);
+		}
+		else
+		{
+			close(fd[1]);
 		}
 		if (front_pipe)
 		{
 			dup2(fd[1], STDOUT_FILENO);
 		}
-		ft_printf("%d\n cmd 1", fd[0]);
-		ft_printf("%d\n cmd 1", fd[1]);
+		else
+		{
+			close(fd[1]);
+		}
 		execve(path2, argv2, data->envp);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
-	fd[0] = data->pfdr;
-	wait (NULL);
-	ft_printf("test\n");
-	ft_new_pipe(data);
-	fd[1] = data->pfdw;
+	else
+	{
+		close(fd[1]);
+	}
+	front_pipe = 0;
+	back_pipe = 1;
+	if(front_pipe == 1)
+	{
+		data->pfdr = fd[0];
+		pipe(fd);
+	}
 	id = fork();
 	if (id == 0)
 	{
-		front_pipe = 0;
-		back_pipe = 0;
 		if (back_pipe)
 		{
-			dup2(fd[0], STDIN_FILENO);
+			dup2(data->pfdr, STDIN_FILENO);
+		}
+		else
+		{
+			close(fd[1]);
 		}
 		if (front_pipe)
 		{
 			dup2(fd[1], STDOUT_FILENO);
 		}
-		ft_printf("%d\n cmd 1", fd[0]);
-		ft_printf("%d\n cmd 1", fd[1]);
+		else
+		{
+			close(fd[1]);
+		}
 		execve(path3, argv3, data->envp);
-		exit(EXIT_SUCCESS);
+		exit(EXIT_FAILURE);
 	}
-	fd[0] = data->pfdr;
-	wait (NULL);
-
+	else
+	{
+		close(fd[1]);
+	}
 }
 
 // int	*ft_pipe()
