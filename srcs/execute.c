@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/29 15:25:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:14:54 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,13 @@
 	char path2[] = "/usr/bin/grep";
 	char *argv3[] = {"cat", "-e", NULL};
 	char path3[] = "/bin/cat";
+	char *argv4[] = {"wc", NULL};
+	char path4[] = "/usr/bin/wc";
 
-void ft_new_pipe(t_data *data)
+void ft_pipe(t_data *data)
 {
 	int fd[2];
 	
-	pipe(fd);
-	data->pfdr = fd[0];
-	data->pfdw = fd[1];
-	ft_printf("%d\n", fd[0]);
-	ft_printf("%d\n", fd[1]);
 }
 
 void mini_execute(t_data *data)
@@ -83,104 +80,201 @@ void mini_execute(t_data *data)
 
 	front_pipe = 1;
 	back_pipe = 0;
+
 	if(front_pipe == 1)
-	{
 		pipe(fd);
-	}
 	id = fork();
 	if (id == 0)
 	{
 		if (back_pipe)
-		{
-			dup2(fd[0], STDIN_FILENO);
-		}
+			dup2(data->oldfdr, STDIN_FILENO);
 		else
-		{
-			close(fd[0]);
-		}
+			close(data->oldfdr);
 		if (front_pipe)
-		{
 			dup2(fd[1], STDOUT_FILENO);
-		}
 		else
-		{
 			close(fd[1]);
-		}
-		execve(path1, argv1, data->envp);
+		execve(path1, argv1, getenv);
 		exit(EXIT_FAILURE);
 	}
 	else
-	{
 		close(fd[1]);
-	}
 	wait (NULL);
 	front_pipe = 1;
 	back_pipe = 1;
+	if(back_pipe == 1)
+		data->oldfdr = fd[0];
 	if(front_pipe == 1)
-	{
-		data->pfdr = fd[0];
 		pipe(fd);
-	}
 	id = fork();
 	if (id == 0)
 	{
 		if (back_pipe)
-		{
-			
-			dup2(data->pfdr, STDIN_FILENO);
-		}
+			dup2(data->oldfdr, STDIN_FILENO);
 		else
-		{
-			close(fd[1]);
-		}
+			close(data->oldfdr);
 		if (front_pipe)
-		{
 			dup2(fd[1], STDOUT_FILENO);
-		}
 		else
-		{
 			close(fd[1]);
-		}
 		execve(path2, argv2, data->envp);
 		exit(EXIT_FAILURE);
 	}
 	else
-	{
 		close(fd[1]);
-	}
-	front_pipe = 0;
+	wait (NULL);
+	front_pipe = 1;
 	back_pipe = 1;
+	if(back_pipe == 1)
+		data->oldfdr = fd[0];
 	if(front_pipe == 1)
-	{
-		data->pfdr = fd[0];
 		pipe(fd);
-	}
 	id = fork();
 	if (id == 0)
 	{
 		if (back_pipe)
-		{
-			dup2(data->pfdr, STDIN_FILENO);
-		}
+			dup2(data->oldfdr, STDIN_FILENO);
 		else
-		{
-			close(fd[1]);
-		}
+			close(data->oldfdr);
 		if (front_pipe)
-		{
 			dup2(fd[1], STDOUT_FILENO);
-		}
 		else
-		{
 			close(fd[1]);
-		}
 		execve(path3, argv3, data->envp);
 		exit(EXIT_FAILURE);
 	}
 	else
-	{
 		close(fd[1]);
+	wait (NULL);
+	front_pipe = 0;
+	back_pipe = 1;
+	if(back_pipe == 1)
+		data->oldfdr = fd[0];
+	if(front_pipe == 1)
+		pipe(fd);
+	id = fork();
+	if (id == 0)
+	{
+		if (back_pipe)
+			dup2(data->oldfdr, STDIN_FILENO);
+		else
+			close(data->oldfdr);
+		if (front_pipe)
+			dup2(fd[1], STDOUT_FILENO);
+		else
+			close(fd[1]);
+		execve(path4, argv4, data->envp);
+		exit(EXIT_FAILURE);
 	}
+	else
+		close(fd[1]);
+	wait (NULL);
+	// front_pipe = 1;
+	// back_pipe = 1;
+	// if(back_pipe == 1)
+	// 	data->oldfdr = fd[0];
+	// if(front_pipe == 1)
+	// {
+	// 	pipe(fd);
+	// }
+	// id = fork();
+	// if (id == 0)
+	// {
+	// 	if (back_pipe)
+	// 	{
+			
+	// 		dup2(data->oldfdr, STDIN_FILENO);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(data->oldfdr);
+	// 	}
+	// 	if (front_pipe)
+	// 	{
+	// 		dup2(fd[1], STDOUT_FILENO);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(fd[1]);
+	// 	}
+	// 	execve(path2, argv2, data->envp);
+	// 	exit(EXIT_FAILURE);
+	// }
+	// else
+	// {
+	// 	close(fd[1]);
+	// }
+	// wait(NULL);
+	// front_pipe = 1;
+	// back_pipe = 1;
+	// data->oldfdr = fd[0];
+	// if(front_pipe == 1)
+	// {
+	// 	pipe(fd);
+	// }
+	// id = fork();
+	// if (id == 0)
+	// {
+	// 	if (back_pipe)
+	// 	{
+			
+	// 		dup2(data->oldfdr, STDIN_FILENO);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(data->oldfdr);
+	// 	}
+	// 	if (front_pipe)
+	// 	{
+	// 		dup2(fd[1], STDOUT_FILENO);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(fd[1]);
+	// 	}
+	// 	execve(path3, argv3, data->envp);
+	// 	exit(EXIT_FAILURE);
+	// }
+	// else
+	// {
+	// 	close(fd[1]);
+	// }
+	// wait(NULL);
+	// front_pipe = 0;
+	// back_pipe = 1;
+	// data->oldfdr = fd[0];
+	// if(front_pipe == 1)
+	// {
+	// 	pipe(fd);
+	// }
+	// id = fork();
+	// if (id == 0)
+	// {
+	// 	if (back_pipe)
+	// 	{
+			
+	// 		dup2(data->oldfdr, STDIN_FILENO);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(data->oldfdr);
+	// 	}
+	// 	if (front_pipe)
+	// 	{
+	// 		dup2(fd[1], STDOUT_FILENO);
+	// 	}
+	// 	else
+	// 	{
+	// 		close(fd[1]);
+	// 	}
+	// 	execve(path4, argv4, data->envp);
+	// 	exit(EXIT_FAILURE);
+	// }
+	// else
+	// {
+	// 	close(fd[1]);
+	// }
+	// wait(NULL);
 }
 
 // int	*ft_pipe()
