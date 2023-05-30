@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/29 16:50:02 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/30 10:20:16 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,14 @@ t_data *ft_init_data(char **envp)
 		data->lcmd = NULL;
 		data->ltkn = NULL;
 		data->path = NULL;
-		data->newfdr = 0;
-		data->newfdw = 0;
 		data->oldfdr = 0;
-		data->oldfdw = 0;
+		data->front_pipe = 0;
+		data->back_pipe = 0;
 		data->read = NULL;
 		data->line = NULL;
 		data->rdflag = 0;
 		data->dquote = 0;
 		data->squote = 0;
-		data->pfdr = 0;
-		data->pfdw = 0;
 	}
 	return (data);
 }
