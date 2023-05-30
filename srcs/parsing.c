@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/29 15:35:42 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/30 11:12:21 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	mini_start(t_data *data)
 		if (data->rdflag == 1)
 			free (data->read);
 		data->read = readline("Minishell>");
+		if (!data->read)
+			mini_exit(data);
 		data->rdflag = 1;
 		add_history(data->read);
 		dquotes(data);
@@ -80,31 +82,28 @@ void	prep_line(t_data *data)
 		mini_exit(data);
 	while (data->read[i])
 	{
-		while (data->read[i] == ' ' || data->read[i] == '\t')
+		if (data->read[i] == ' ')
 		{
-			if (data->line[j - 1] != '\t')
-				data->line[j++] = '\t';
+			if (data->line[j - 1] != '8')
+				data->line[j++] = '8';
 			i++;
-		}
-		if (data->read[i] == '"')
-		{
-			data->line[j++] = '\t';
-			i++;
-			while (data->read[i] != '"')
-			{
-				data->line[j++] = data->read[i++];
-				if (data->read[i] == '"')
-					data->line[j] = '\t';
-			}
-			// data->line[j] = '\t';
 		}
 		while (data->read[i] >= 33 && data->read[i] <= 126)
 		{
-			// if (data->read[i] == '"')
-			// 	break;
-			data->line[j] = data->read[i];
+			if (data->read[i] == '"')
+				break;
+			data->line[j++] = data->read[i++];
+		}
+		if (data->read[i] == '"')
+		{
+			if (data->line[j - 1] != '8')
+				data->line[j++] = '8';
 			i++;
-			j++;
+			while (data->read[i] != '"')
+				data->line[j++] = data->read[i++];
+			if (data->line[j - 1] != '8')
+				data->line[j++] = '8';
+			i++;
 		}
 	}
 	data->line[j] = '\0';
