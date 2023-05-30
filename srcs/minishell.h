@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 13:42:50 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/30 14:36:38 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,11 @@ typedef struct s_lcmd
 
 typedef struct s_data
 {
-	t_ltkn 	*ltkn;
-	t_lcmd	*lcmd;
-	char	**path;
-	char	**envp;
-	int		oldfdw;
+	//---emman-----
 	int		oldfdr;
-	int		newfdw;
-	int		newfdr;
+	int		back_pipe;
+	int		front_pipe;
+	//---frank-----
 	char 	*read;
 	char 	*line;
 	int		rdflag;
@@ -53,8 +50,12 @@ typedef struct s_data
 	int		j;
 	int		dquote;
 	int		squote;
-	int		pfdw;
-	int		pfdr;
+	//---common-----
+	char	**path;
+	char	**envp;
+	t_lcmd	*lcmd;
+	t_ltkn 	*ltkn;
+
 	
 }				t_data;
 
