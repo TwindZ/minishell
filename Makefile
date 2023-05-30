@@ -6,7 +6,7 @@
 #    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/05/29 10:58:51 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/05/30 13:24:23 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS =	main.c			\
 		execute.c		\
 		parsing.c		\
 		exit.c			\
+		make_list.c		\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/

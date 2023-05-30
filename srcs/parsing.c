@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/30 13:18:37 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:43:49 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	mini_start(t_data *data)
 		dquotes(data);
 		squotes(data);
 		prep_line(data);
-		
+		make_list(data);
 		ft_printf("%s\n", data->line);
 	}
 }
@@ -82,8 +82,8 @@ void	prep_line(t_data *data)
 	{
 		if (data->read[data->i] == ' ')
 		{
-			if (data->line[data->j - 1] != '8')
-				data->line[data->j++] = '8';
+			if (data->line[data->j - 1] != '\t')
+				data->line[data->j++] = '\t';
 			data->i++;
 		}
 		while (data->read[data->i] >= 33 && data->read[data->i] <= 126)
@@ -101,13 +101,13 @@ void	in_quotes(t_data *data)
 {
 	if (data->read[data->i] == '"')
 	{
-		if (data->line[data->j - 1] != '8')
-			data->line[data->j++] = '8';
+		if (data->line[data->j - 1] != '\t')
+			data->line[data->j++] = '\t';
 		data->i++;
 		while (data->read[data->i] != '"')
 			data->line[data->j++] = data->read[data->i++];
-		if (data->line[data->j - 1] != '8')
-			data->line[data->j++] = '8';
+		if (data->line[data->j - 1] != '\t')
+			data->line[data->j++] = '\t';
 		data->i++;
 	}
 }
