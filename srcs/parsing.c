@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/30 11:12:21 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:18:37 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	mini_start(t_data *data)
 		dquotes(data);
 		squotes(data);
 		prep_line(data);
+		
 		ft_printf("%s\n", data->line);
 	}
 }
@@ -69,42 +70,44 @@ void	squotes(t_data *data)
 
 void	prep_line(t_data *data)
 {
-	int i;
-	int j;
 	int	len;
 
-	i = 0;
-	j = 0;
-	len = 0;
+	data->i = 0;
+	data->j = 0;
 	len = ft_strlen(data->read);
 	data->line = malloc(sizeof(char) * len + 1);
 	if (!data->line)
 		mini_exit(data);
-	while (data->read[i])
+	while (data->read[data->i])
 	{
-		if (data->read[i] == ' ')
+		if (data->read[data->i] == ' ')
 		{
-			if (data->line[j - 1] != '8')
-				data->line[j++] = '8';
-			i++;
+			if (data->line[data->j - 1] != '8')
+				data->line[data->j++] = '8';
+			data->i++;
 		}
-		while (data->read[i] >= 33 && data->read[i] <= 126)
+		while (data->read[data->i] >= 33 && data->read[data->i] <= 126)
 		{
-			if (data->read[i] == '"')
+			if (data->read[data->i] == '"')
 				break;
-			data->line[j++] = data->read[i++];
+			data->line[data->j++] = data->read[data->i++];
 		}
-		if (data->read[i] == '"')
-		{
-			if (data->line[j - 1] != '8')
-				data->line[j++] = '8';
-			i++;
-			while (data->read[i] != '"')
-				data->line[j++] = data->read[i++];
-			if (data->line[j - 1] != '8')
-				data->line[j++] = '8';
-			i++;
-		}
+		in_quotes(data);
 	}
-	data->line[j] = '\0';
+	data->line[data->j] = '\0';
+}
+
+void	in_quotes(t_data *data)
+{
+	if (data->read[data->i] == '"')
+	{
+		if (data->line[data->j - 1] != '8')
+			data->line[data->j++] = '8';
+		data->i++;
+		while (data->read[data->i] != '"')
+			data->line[data->j++] = data->read[data->i++];
+		if (data->line[data->j - 1] != '8')
+			data->line[data->j++] = '8';
+		data->i++;
+	}
 }

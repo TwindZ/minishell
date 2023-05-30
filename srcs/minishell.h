@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/29 15:39:03 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:09:40 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ typedef struct s_data
 	char 	*read;
 	char 	*line;
 	int		rdflag;
+	int		i;
+	int		j;
 	int		dquote;
 	int		squote;
 	int		pfdw;
@@ -62,5 +64,6 @@ void	mini_exit(t_data *data);
 void	dquotes(t_data *data);
 void	squotes(t_data *data);
 void	prep_line(t_data *data);
+void	in_quotes(t_data *data);
 
 #endif
