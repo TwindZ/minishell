@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/30 13:54:15 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:23:40 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	make_list(t_data *data)
 	while (arg[data->i])
 	{
 		if(!data->ltkn)
-			data->ltkn = ft_lstlast_tkn(data->ltkn);
+			data->ltkn = ft_lstnew_tkn(arg[data->i]);
 		// ft_printf("%s\n", arg[data->i]);
 		else
 		{
@@ -57,4 +57,16 @@ t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn)
 			ltkn = ltkn->next;
 	}
 	return (ltkn);
+}
+
+void	print_list(t_data *data)
+{
+	t_ltkn	*temp;
+
+	temp = data->ltkn;
+	while (temp != NULL)
+	{
+		ft_printf("%s\n", temp->token);
+		temp = temp->next;
+	}	
 }

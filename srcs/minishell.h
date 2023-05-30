@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 14:36:38 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/30 15:15:44 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void	in_quotes(t_data *data);
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content);
 void	make_list(t_data *data);
+void	print_list(t_data *data);
 
+void	check_path(t_data *data);
 #endif
