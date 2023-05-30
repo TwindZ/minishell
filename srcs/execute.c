@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 12:51:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/30 13:21:14 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char path5[] = "/bin/echo";
 char *argv6[] = {"ls", "/usr/bin", NULL};
 char path6[] = "/bin/ls";
 	
-void set_io(t_data *data, int fd[2])
+static void set_io(t_data *data, int fd[2])
 {
 	if (data->back_pipe)
 		dup2(data->oldfdr, STDIN_FILENO);
@@ -37,7 +37,7 @@ void set_io(t_data *data, int fd[2])
 		close(fd[1]);
 }
 
-void ft_pipe(t_data *data, char *path, char **argv)
+static void ft_pipe(t_data *data, char *path, char **argv)
 {
 	// besoin de fonction pour front_pipe et de faire fonctionner avec t_data 
 	int id;
@@ -69,5 +69,4 @@ void mini_execute(t_data *data)
 	ft_pipe(data, path3, argv3);
 	data->front_pipe = 0;
 	ft_pipe(data, path4, argv4);
-	
 }
