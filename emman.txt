@@ -1,2 +1,3 @@
 !!!execve doit avoir un envp!!!!
 si une variable d'environement n'existe pas on ecrit rien
+valgrind --leak-check=full --trace-children=yes --show-leak-kinds=all --track-fds=yes --track-origins=yes
