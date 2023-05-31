@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 13:32:50 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:36:34 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ t_data *ft_init_data(char **envp)
 		data->j = 0;
 		data->dquote = 0;
 		data->squote = 0;
+		data->dquoteflag = 0;
+		data->squoteflag = 0;
 	}
 	return (data);
 }
@@ -66,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		ft_printf("frank\n");
 		if (argc != 1)
-			mini_exit(data);
+			exit(EXIT_FAILURE); //fonction de sorti à faire
 		mini_start(data);
 	}
 	

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   make_list.c                                        :+:      :+:    :+:   */
+/*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:32:25 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:36:05 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	make_list(t_data *data)
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
 	if (!arg)
-		mini_exit(data);
+		mini_free(data);
 	while (arg[data->i])
 	{
 		if(!data->ltkn)
-			data->ltkn = ft_lstlast_tkn(data->ltkn);
+			data->ltkn = ft_lstnew_tkn(arg[data->i]);
 		// ft_printf("%s\n", arg[data->i]);
 		else
 		{
@@ -57,4 +57,29 @@ t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn)
 			ltkn = ltkn->next;
 	}
 	return (ltkn);
+}
+
+void	print_list(t_data *data)
+{
+	t_ltkn	*temp;
+
+	temp = data->ltkn;
+	while (temp != NULL)
+	{
+		ft_printf("%s\n", temp->token);
+		temp = temp->next;
+	}	
+}
+
+void	free_ltkn(t_ltkn *ltkn)
+{
+	t_ltkn	*temp;
+
+	while (ltkn)
+	{
+		temp = ltkn->next;
+		free(ltkn);
+		ltkn = temp;
+	}
+	ltkn = NULL;
 }

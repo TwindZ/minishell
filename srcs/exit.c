@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/31 13:32:19 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:36:23 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_exit(t_data *data)
+void	mini_free(t_data *data)
 {
-	if (data->rdflag == 1)
-		free(data->read);
-	free(data);
-	exit(EXIT_FAILURE);
+	// if (data->rdflag == 1)
+	// free(data->read);
+	data->rdflag = 0;
+	free_ltkn(data->ltkn);
+	data->ltkn = NULL;
+	// free(data);
 }
