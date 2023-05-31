@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 16:53:32 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:13:46 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_data *ft_init_data(char **envp)
 		data->fd.cmd_next_in = 0;
 		data->fd.cmd_in = 0;
 		data->fd.cmd_out = 0;
+		data->file_out = 0;
 		data->front_pipe = 0;
 		data->back_pipe = 0;
 		data->read = NULL;

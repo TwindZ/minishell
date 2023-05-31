@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 16:53:03 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 18:08:48 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct	s_data
 {
 	//---emman-----
 	t_fd	fd;
+	int 	file_in;
+	int		file_out;
 	int		back_pipe;
 	int		front_pipe;
 	//---frank-----
