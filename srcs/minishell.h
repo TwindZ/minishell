@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 15:15:44 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:03:18 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 #include <libc.h>
 #include "libft/libft.h"
 
-typedef struct s_ltkn
+typedef struct	s_ltkn
 {
 	char			*token;
 	struct s_ltkn	*next;
 }				t_ltkn;
 
-typedef struct s_lcmd
+typedef struct	s_lcmd
 {
 	char			*cmdpath;
 	char			**argv;
@@ -36,7 +36,7 @@ typedef struct s_lcmd
 	struct s_lcmd	*next;
 }				t_lcmd;
 
-typedef struct s_data
+typedef struct	s_data
 {
 	//---emman-----
 	int		oldfdr;
@@ -52,6 +52,7 @@ typedef struct s_data
 	int		squote;
 	//---common-----
 	char	**path;
+	// char	*cmdpath;
 	char	**envp;
 	t_lcmd	*lcmd;
 	t_ltkn 	*ltkn;
@@ -71,6 +72,10 @@ t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content);
 void	make_list(t_data *data);
 void	print_list(t_data *data);
+void	make_list_lcmd(t_data *data, char *path);
+t_lcmd	*ft_lstnew_lcmd(char *content);
+t_lcmd	*ft_lstlast_lcmd(t_lcmd *lcmd);
+void	print_list_lcmd(t_data *data);
 
 void	check_path(t_data *data);
 #endif

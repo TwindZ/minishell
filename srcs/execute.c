@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 13:21:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 11:05:08 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char *argv3[] = {"cat", "-e", NULL};
 char path3[] = "/bin/cat";
 char *argv4[] = {"wc", NULL};
 char path4[] = "/usr/bin/wc";
-char *argv5[] = {"echo", "$", NULL};
+char *argv5[] = {"echo", "allo$USER toiallo", NULL};
 char path5[] = "/bin/echo";	
-char *argv6[] = {"ls", "/usr/bin", NULL};
+char *argv6[] = {"ls", "fbouchar", NULL};
 char path6[] = "/bin/ls";
 	
 static void set_io(t_data *data, int fd[2])
@@ -63,10 +63,10 @@ static void ft_pipe(t_data *data, char *path, char **argv)
 
 void mini_execute(t_data *data)
 {
-	data->front_pipe = 1;
-	ft_pipe(data, path1, argv1);
-	ft_pipe(data, path2, argv2);
-	ft_pipe(data, path3, argv3);
 	data->front_pipe = 0;
-	ft_pipe(data, path4, argv4);
+	ft_pipe(data, path5, argv5);
+	// ft_pipe(data, path2, argv2);
+	// ft_pipe(data, path3, argv3);
+	// data->front_pipe = 0;
+	// ft_pipe(data, path4, argv4);
 }

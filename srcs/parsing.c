@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/30 15:33:51 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 10:01:55 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	mini_start(t_data *data)
 		squotes(data);
 		prep_line(data);
 		make_list(data);
-		// print_list(data);
 		check_path(data);
-		ft_printf("%s\n", data->lcmd->cmdpath);
+		print_list_lcmd(data);
 	}
 }
 
