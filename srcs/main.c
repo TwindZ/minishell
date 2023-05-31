@@ -6,13 +6,13 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 10:45:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:24:31 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define emman 1
-#define frank 0
+#define emman 0
+#define frank 1
 
 t_data *ft_init_data(char **envp)
 {
@@ -37,6 +37,8 @@ t_data *ft_init_data(char **envp)
 		data->j = 0;
 		data->dquote = 0;
 		data->squote = 0;
+		data->dquoteflag = 0;
+		data->squoteflag = 0;
 	}
 	return (data);
 }
@@ -66,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		ft_printf("frank\n");
 		if (argc != 1)
-			mini_exit(data);
+			exit(EXIT_FAILURE); //fonction de sorti à faire
 		mini_start(data);
 	}
 	

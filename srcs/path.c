@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/31 10:39:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:01:10 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	check_path(t_data *data)
 	while (data->path[data->j])
 	{
 		path = ft_strjoin(data->path[data->j], "/", 0);
-		path = ft_strjoin(path, data->ltkn->token, 1);
+		path = ft_strjoin(path, data->ltkn->token, 1);//temporaire
 		data->i = access(path, X_OK);
 		if (data->i == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:50:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/31 10:02:50 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:19:05 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	make_list_lcmd(t_data *data, char *path)
 		temp = NULL;
 		if(!data->lcmd)
 			data->lcmd = ft_lstnew_lcmd(path);
-		// ft_printf("%s\n", arg[data->i]);
 		else
 		{
 			temp = data->lcmd;
@@ -61,4 +60,17 @@ void	print_list_lcmd(t_data *data)
 		ft_printf("%s\n", temp->cmdpath);
 		temp = temp->next;
 	}	
+}
+
+void	free_lcmd(t_lcmd *lcmd)
+{
+	t_lcmd	*temp;
+
+	while (lcmd)
+	{
+		temp = lcmd->next;
+		free(lcmd);
+		lcmd = temp;
+	}
+	lcmd = NULL;
 }
