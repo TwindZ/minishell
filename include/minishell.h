@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 14:36:38 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:31:03 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <libc.h>
-#include "libft/libft.h"
+#include "../srcs/libft/libft.h"
 
 typedef struct s_ltkn
 {

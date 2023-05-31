@@ -6,13 +6,13 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 14:36:21 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:32:50 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#define emman 1
-#define frank 0
+#include "../include/minishell.h"
+#define emman 0
+#define frank 1
 
 t_data *ft_init_data(char **envp)
 {

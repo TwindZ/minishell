@@ -6,11 +6,11 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/30 13:21:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/05/31 13:30:13 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 char *argv1[] = {"env", NULL};
 char path1[] = "/usr/bin/env";
