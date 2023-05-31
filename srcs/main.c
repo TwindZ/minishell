@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 15:36:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:53:32 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#define emman 0
-#define frank 1
+#define emman 1
+#define frank 0
 
 t_data *ft_init_data(char **envp)
 {
@@ -27,7 +27,9 @@ t_data *ft_init_data(char **envp)
 		data->lcmd = NULL;
 		data->ltkn = NULL;
 		data->path = NULL;
-		data->oldfdr = 0;
+		data->fd.cmd_next_in = 0;
+		data->fd.cmd_in = 0;
+		data->fd.cmd_out = 0;
 		data->front_pipe = 0;
 		data->back_pipe = 0;
 		data->read = NULL;

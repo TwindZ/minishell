@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 15:36:47 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:53:03 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,17 @@ typedef struct	s_lcmd
 	struct s_lcmd	*next;
 }				t_lcmd;
 
+typedef struct s_fd
+{
+	int	cmd_in;
+	int cmd_out;
+	int cmd_next_in;
+}				t_fd;
+
 typedef struct	s_data
 {
 	//---emman-----
-	int		oldfdr;
+	t_fd	fd;
 	int		back_pipe;
 	int		front_pipe;
 	//---frank-----

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 15:36:51 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:57:55 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ char path5[] = "/bin/echo";
 char *argv6[] = {"ls", "fbouchar", NULL};
 char path6[] = "/bin/ls";
 	
-static void set_io(t_data *data, int fd[2])
+static void set_io(t_data *data)
 {
 	if (data->back_pipe)
-		dup2(data->oldfdr, STDIN_FILENO);
+		dup2(data->fd.cmd_in, STDIN_FILENO);
 	else
-		close(data->oldfdr);
+		close(data->fd.cmd_in);
 	if (data->front_pipe)
-		dup2(fd[1], STDOUT_FILENO);
+		dup2(data->fd.cmd_out, STDOUT_FILENO);
 	else
-		close(fd[1]);
+		close(data->fd.cmd_out);
 }
 
 static void ft_pipe(t_data *data, char *path, char **argv)
@@ -44,19 +44,23 @@ static void ft_pipe(t_data *data, char *path, char **argv)
 	int fd[2];
 	
 	if(data->front_pipe == 1)
+	{
 		pipe(fd);
+		data->fd.cmd_next_in = fd[0];
+		data->fd.cmd_out = fd[1];
+	}
 	id = fork();
 	if (id == 0)
 	{		
-		set_io(data, fd);
+		set_io(data);
 		execve(path, argv, data->envp);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{	
-		data->oldfdr = fd[0];
+		data->fd.cmd_in = data->fd.cmd_next_in;
 		data->back_pipe = 1;
-		close(fd[1]);
+		close(data->fd.cmd_out);
 	}
 	wait (NULL);
 }
@@ -64,7 +68,7 @@ static void ft_pipe(t_data *data, char *path, char **argv)
 void mini_execute(t_data *data)
 {
 	data->front_pipe = 0;
-	ft_pipe(data, path5, argv5);
+	ft_pipe(data, path1, argv1);
 	// ft_pipe(data, path2, argv2);
 	// ft_pipe(data, path3, argv3);
 	// data->front_pipe = 0;

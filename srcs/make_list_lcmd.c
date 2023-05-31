@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_lcmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:50:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/31 15:19:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:45:31 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 void	make_list_lcmd(t_data *data, char *path)
 {
