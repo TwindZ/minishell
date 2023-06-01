@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/05/31 15:36:16 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/01 09:49:25 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ void	mini_start(t_data *data)
 			add_history(data->read);
 			if (whitespace(data) == 0)
 				break;
-			dquotes(data);
-			squotes(data);
-			prep_line(data);
-			make_list(data);
-			check_path(data);
-			print_list_lcmd(data);
-			mini_free(data);
+			fuckin_quotes(data);
+			// dquotes(data);
+			// squotes(data);
+			// prep_line(data);
+			// make_list(data);
+			// check_path(data);
+			// print_list_lcmd(data);
+			// mini_free(data);
 		}
 	}
 }
@@ -50,6 +51,73 @@ int	whitespace(t_data *data)
 	if (str[data->i] == '\0')
 		return (0);
 	return (1);
+}
+
+void	fuckin_quotes(t_data *data)
+{
+	int	i;
+	int	dquotes;
+	int	squotes;
+
+	i = 0;
+	dquotes = 0;
+	squotes = 0;
+	data->dquote = 0;
+	data->squote = 0;
+	data->dquoteflag = 0;
+	data->squoteflag = 0;
+	while (data->read[i])
+	{
+		if (data->read[i] == '"' || data->read[i] == 39)
+		{
+			if (data->read[i] == '"')
+			{
+				if (data->dquoteflag == 1 && data->squoteflag == 0)
+					data->dquoteflag = 0;
+				else
+					data->dquoteflag = 1;
+				dquotes = i;
+				data->dquote += 1;
+			}
+			if (data->read[i] == 39)
+			{
+				if (data->squoteflag == 1 && data->dquoteflag == 0)
+					data->squoteflag = 0;
+				else
+					data->squoteflag = 1;
+				squotes = i;
+				data->squote += 1;
+			}
+			if (data->squoteflag == 1 && data->dquoteflag == 1)
+			{
+				if (dquotes < squotes)
+				{
+					data->squoteflag = 0;
+					dquotes = 0;
+					data->squote -= 1;
+				}
+				else
+				{
+					data->dquoteflag = 0;
+					squotes = 0;
+					data->dquote -= 1;
+				}
+			}
+		}
+		i++;
+	}
+	if (data->dquote % 2 != 0)
+	{	
+		ft_printf("Double quote missing\n");
+		// mini_free(data);
+		// break;
+	}
+	if (data->squote % 2 != 0)
+	{	
+		ft_printf("single quote missing\n");
+		// mini_free(data);
+		// break;
+	}
 }
 
 void	dquotes(t_data *data)
