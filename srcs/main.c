@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/31 15:36:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:16:32 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,6 @@ t_data *ft_init_data(char **envp)
 		data->rdflag = 0;
 		data->i = 0;
 		data->j = 0;
-		data->dquote = 0;
-		data->squote = 0;
-		data->dquoteflag = 0;
-		data->squoteflag = 0;
 	}
 	return (data);
 }
@@ -71,5 +67,4 @@ int main(int argc, char **argv, char **envp)
 			exit(EXIT_FAILURE); //fonction de sorti à faire
 		mini_start(data);
 	}
-	
 }

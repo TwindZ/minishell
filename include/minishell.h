@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/01 09:42:40 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/01 11:10:24 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,36 @@ typedef struct	s_lcmd
 	struct s_lcmd	*next;
 }				t_lcmd;
 
+typedef struct	s_quotes
+{
+	int	idx;
+	int	spotdbl;
+	int	spotsgl;
+	int	dbl;
+	int	sgl;
+	int	dblflag;
+	int	sglflag;
+}				t_quotes;
+
 typedef struct	s_data
 {
 	//---emman-----
-	int		oldfdr;
-	int		back_pipe;
-	int		front_pipe;
+	int			oldfdr;
+	int			back_pipe;
+	int			front_pipe;
 	//---frank-----
-	char 	*read;
-	char 	*line;
-	int		rdflag;
-	int		i;
-	int		j;
-	int		dquote;
-	int		squote;
-	int		dquoteflag;
-	int		squoteflag;
+	char 		*read;
+	char 		*line;
+	int			rdflag;
+	int			i;
+	int			j;
+	t_quotes	quotes;
 	//---common-----
-	char	**path;
+	char		**path;
 	// char	*cmdpath;
-	char	**envp;
-	t_lcmd	*lcmd;
-	t_ltkn 	*ltkn;
+	char		**envp;
+	t_lcmd		*lcmd;
+	t_ltkn 		*ltkn;
 
 	
 }				t_data;
@@ -66,9 +74,11 @@ void	mini_execute(t_data *data);
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
 int		whitespace(t_data *data);
-void	fuckin_quotes(t_data *data);
-void	dquotes(t_data *data);
-void	squotes(t_data *data);
+int		fuckin_quotes(t_data *data);
+void	init_quotes(t_data *data);
+void	double_quotes(t_data *data);
+void	single_quotes(t_data *data);
+void	quotes_priority(t_data *data);
 void	prep_line(t_data *data);
 void	in_quotes(t_data *data);
 
