@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/01 14:04:52 by fbouchar         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/01 12:52:56 by emlamoth         ###   ########.fr       */
+>>>>>>> emman
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +67,31 @@ typedef struct	s_data
 	int			oldfdr;
 	int			back_pipe;
 	int			front_pipe;
+}				t_data;
+
+typedef struct s_fd
+{
+	int	cmd_in;
+	int cmd_out;
+	int cmd_next_in;
+}				t_fd;
+
+typedef struct s_exe_flag
+{
+
+	int 	file_in;
+	int		file_out_w;
+	int		file_out_a;
+	int		back_pipe;
+	int		front_pipe;
+}				t_exe_flag;
+
+typedef struct	s_data
+{
+	//---emman-----
+	t_fd		fd;
+	t_exe_flag	exe_flag;
+
 	//---frank-----
 	char 		*read;
 	char 		*line;
