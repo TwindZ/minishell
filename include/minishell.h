@@ -6,11 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/01 14:04:52 by fbouchar         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/01 12:52:56 by emlamoth         ###   ########.fr       */
->>>>>>> emman
+/*   Updated: 2023/06/01 16:05:02 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +56,6 @@ typedef struct	s_dolsign
 	char	*tocheck;
 	char	*towrite;
 }				t_dolsign;
-
-typedef struct	s_data
-{
-	//---emman-----
-	int			oldfdr;
-	int			back_pipe;
-	int			front_pipe;
-}				t_data;
 
 typedef struct s_fd
 {

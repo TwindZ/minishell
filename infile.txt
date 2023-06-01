@@ -2,7 +2,7 @@ SECURITYSESSIONID=186a7
 USER=emlamoth
 MallocNanoZone=0
 COMMAND_MODE=unix2003
-PATH=allo/Users/emlamoth/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Users/emlamoth/.brew/bin
+PATH=allo
 HOME=/Users/emlamoth
 SHELL=/bin/zsh
 LaunchInstanceID=FC742E1D-C3DB-4012-BEBA-5E2B6E27AB5C
@@ -37,3 +37,4 @@ ZDOTDIR=/Users/emlamoth
 USER_ZDOTDIR=/Users/emlamoth
 TERM=xterm-256color
 _=/usr/bin/env
+INFILE TEST LU

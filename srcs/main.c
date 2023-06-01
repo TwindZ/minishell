@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/01 15:21:58 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:10:54 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_data *ft_init_data(char **envp)
 		// data->ltkn = NULL;
 		// data->path = NULL;
 		// data->fd.cmd_next_in = 0;
-		// data->fd.cmd_in = 0;
-		// data->fd.cmd_out = 0;
+		// data->fd.cmd_in = -1;
+		// data->fd.cmd_out = -1;
 		// data->exe_flag.file_out_a = 0;
 		// data->exe_flag.file_out_w = 0;
 		// data->exe_flag.file_in = 0;
@@ -81,7 +81,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		ft_printf("frank\n");
 		if (argc != 1)
-			exit(EXIT_FAILURE); //fonction de sorti à faire
+			exit(EXIT_FAILURE);  //TODO fonction de sorti à faire
 		mini_start(data);
 	}
 }
