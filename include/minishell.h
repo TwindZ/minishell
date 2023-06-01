@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/01 11:10:24 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:04:52 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ typedef struct	s_quotes
 	int	sglflag;
 }				t_quotes;
 
+typedef struct	s_dolsign
+{
+	int		start;
+	int		end;
+	int		len;
+	int		idx;
+	char	*tocheck;
+	char	*towrite;
+}				t_dolsign;
+
 typedef struct	s_data
 {
 	//---emman-----
@@ -60,6 +70,7 @@ typedef struct	s_data
 	int			i;
 	int			j;
 	t_quotes	quotes;
+	t_dolsign	dolsign;
 	//---common-----
 	char		**path;
 	// char	*cmdpath;
@@ -81,6 +92,9 @@ void	single_quotes(t_data *data);
 void	quotes_priority(t_data *data);
 void	prep_line(t_data *data);
 void	in_quotes(t_data *data);
+void	dollar_sign(t_data *data);
+void	init_dollar(t_data *data);
+void	make_tocheck(t_data *data);
 
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content);

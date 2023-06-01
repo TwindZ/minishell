@@ -6,37 +6,11 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/01 11:15:20 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/01 15:12:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	mini_start(t_data *data)
-{
-	while (1)
-	{
-		while (1)
-		{
-			if (data->rdflag == 1)
-				free (data->read);
-			data->read = readline("Minishell>");
-			data->rdflag = 1;
-			if (ft_strlen(data->read) == 0)
-				break;
-			add_history(data->read);
-			if (whitespace(data) == 0)
-				break;
-			if (fuckin_quotes(data) == -1)
-				break;
-			prep_line(data);
-			make_list(data);
-			check_path(data);
-			print_list_lcmd(data);
-			mini_free(data);
-		}
-	}
-}
 
 int	whitespace(t_data *data)
 {
@@ -64,6 +38,7 @@ void	prep_line(t_data *data)
 		mini_free(data);
 	while (data->read[data->i])
 	{
+		dollar_sign(data);
 		if (data->read[data->i] == ' ')
 		{
 			if (data->line[data->j - 1] != '\t')
@@ -72,6 +47,7 @@ void	prep_line(t_data *data)
 		}
 		while (data->read[data->i] >= 33 && data->read[data->i] <= 126)
 		{
+			dollar_sign(data);
 			if (data->read[data->i] == '"' || data->read[data->i] == 39)
 				break;
 			data->line[data->j++] = data->read[data->i++];
@@ -86,8 +62,11 @@ void	in_quotes(t_data *data)
 	if (data->read[data->i] == '"')
 	{
 		data->i++;
+		dollar_sign(data);
 		while (data->read[data->i] != '"')
+		{
 			data->line[data->j++] = data->read[data->i++];
+		}
 		data->i++;
 	}
 	if (data->read[data->i] == 39)
