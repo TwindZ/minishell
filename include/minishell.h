@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/06/01 14:04:52 by fbouchar         ###   ########.fr       */
-=======
-/*   Updated: 2023/06/01 12:52:56 by emlamoth         ###   ########.fr       */
->>>>>>> emman
+/*   Updated: 2023/06/05 09:04:30 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +57,6 @@ typedef struct	s_dolsign
 	char	*towrite;
 }				t_dolsign;
 
-typedef struct	s_data
-{
-	//---emman-----
-	int			oldfdr;
-	int			back_pipe;
-	int			front_pipe;
-}				t_data;
-
 typedef struct s_fd
 {
 	int	cmd_in;
@@ -95,6 +83,7 @@ typedef struct	s_data
 	//---frank-----
 	char 		*read;
 	char 		*line;
+	char 		*linetemp;
 	int			rdflag;
 	int			i;
 	int			j;
@@ -106,8 +95,6 @@ typedef struct	s_data
 	char		**envp;
 	t_lcmd		*lcmd;
 	t_ltkn 		*ltkn;
-
-	
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -124,6 +111,7 @@ void	in_quotes(t_data *data);
 void	dollar_sign(t_data *data);
 void	init_dollar(t_data *data);
 void	make_tocheck(t_data *data);
+void	adjust_line(t_data *data);
 
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content);

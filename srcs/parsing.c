@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/01 15:12:39 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/05 11:34:33 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	prep_line(t_data *data)
 		mini_free(data);
 	while (data->read[data->i])
 	{
+		ft_printf("TEST\n");
 		dollar_sign(data);
 		if (data->read[data->i] == ' ')
 		{
@@ -65,6 +66,7 @@ void	in_quotes(t_data *data)
 		dollar_sign(data);
 		while (data->read[data->i] != '"')
 		{
+			dollar_sign(data);
 			data->line[data->j++] = data->read[data->i++];
 		}
 		data->i++;
