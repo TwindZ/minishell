@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:29:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/05 12:57:57 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:13:07 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	mini_start(t_data *data)
 			if (data->rdflag == 1)
 			{	
 				free (data->read);
-				free (data->line);
+				// free (data->line);
 			}
 			data->read = readline("Minishell>");
 			data->rdflag = 1;
@@ -36,6 +36,7 @@ void	mini_start(t_data *data)
 			if (ft_strlen(data->line) == 0)
 				break;
 			ft_printf("%s\n", data->line);
+			free (data->line);
 			// make_list(data);
 			// check_path(data);
 			// print_list(data);

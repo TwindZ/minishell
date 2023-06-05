@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/05 14:46:16 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/05 15:23:04 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,24 @@ void	adjust_line(t_data *data)
 {
 	int i;
 	int	line;
-	int	tocheck;
 	int towrite;
 
 	i = 0;
+	line = 0;
+	towrite = 0;
 	line = ft_strlen(data->line);
-	tocheck = ft_strlen(data->dolsign.tocheck);
 	towrite = ft_strlen(data->dolsign.towrite);
 	data->linetemp = NULL;//------------
 	data->linetemp = ft_calloc(line + 1, sizeof(char));
-	if (data->line[i] != '\0')
+	while (i < line)
 	{
-		while (data->line[i])
-		{
-			ft_printf("--%c--\n", data->line[i]);
-			data->linetemp[i] = data->line[i];
-			i++;
-		}
-		i = 0;
-		free (data->line);//----------
+		ft_printf("--%c--\n", data->line[i]);
+		data->linetemp[i] = data->line[i];
+		i++;
 	}
-	data->line = ft_calloc((line + towrite), sizeof(char));
+	i = 0;
+	free (data->line);//----------
+	data->line = ft_calloc((line + towrite + 1), sizeof(char));
 	ft_printf("%i\n", line);
 	ft_printf("%i\n", towrite);
 	ft_printf("%i\n", (line + towrite + 1));
@@ -91,12 +88,10 @@ void	adjust_line(t_data *data)
 		mini_free(data);
 	if (data->linetemp[i] != '\0')
 	{
-		line = data->j + towrite;
-		while (line != 0)//---------
+		while (data->linetemp[i])
 		{
 			data->line[i] = data->linetemp[i];
 			i++;
-			line--;
 		}
 		i = 0;
 	}
@@ -107,5 +102,6 @@ void	adjust_line(t_data *data)
 		i++;
 		towrite--;
 	}
-	free (data->linetemp);
+	if (data->linetemp != NULL)
+		free (data->linetemp);
 }
