@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/01 17:44:19 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:41:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ char *argv_wc[] = {"wc", NULL};
 char path_wc[] = "/usr/bin/wc";
 char *argv_echo[] = {"echo", "allo$USER toiallo", NULL};
 char path_echo[] = "/bin/echo";	
-char *argv_ls[] = {"ls", NULL};
+char *argv_ls[] = {"ls", "-l", "-a", NULL};
 char path_ls[] = "/bin/ls";
-	
+
 void open_infile(t_data *data)
 {
 	if(data->exe_flag.file_in)
@@ -43,7 +43,8 @@ void open_outfile(t_data *data)
 	}
 	else if(data->exe_flag.file_out_a)
 		data->fd.cmd_out = open(outfile, O_WRONLY | O_APPEND | O_CREAT, 00644);
-	//TODO erreur de creation a gerer
+	if (data->fd.cmd_out == -1)
+		ft_putstr_fd("minishell : file can't be create", 2);
 }
 
 void set_io(t_data *data)
@@ -97,21 +98,46 @@ void ft_pipe(t_data *data)
 	data->exe_flag.back_pipe = 1;  //TODO peut etre besoin de set ailleur a cause de outfile ?
 }
 
+void	heredoc(t_data *data)
+{
+	char 	*read;
+	read = NULL;
+	data->heredoc.end = ft_strjoin(NULL, "!", 0);
+	while(1)
+	{
+		read = readline(">");
+		if(!(ft_strncmp(read, data->heredoc.end, ft_strlen(data->heredoc.end))))
+			break;
+		data->heredoc.data = ft_strjoin(data->heredoc.data, read, 1);
+		free(read);
+		data->heredoc.data = ft_strjoin(data->heredoc.data, "\n", 1);
+	}
+	ft_pipe(data);
+	data->fd.cmd_in = data->fd.cmd_next_in;
+	ft_putstr_fd(data->heredoc.data, data->fd.cmd_out);
+	close(data->fd.cmd_out);
+	data->exe_flag.back_pipe = 1;
+	free(read);
+}
+
 void mini_execute(t_data *data)
 {
-	// data->exe_flag.file_in = 0;
-	// if(data->exe_flag.front_pipe)
-	data->exe_flag.file_in = 1;
+	
+	heredoc(data);
 	data->exe_flag.front_pipe = 1;
-	open_infile(data);
 	ft_pipe(data);
 	executer(data, path_cat, argv_cat);
-	ft_pipe(data);
-	executer(data, path_grep, argv_grep);
+	// data->exe_flag.file_in = 0;
+	// if(data->exe_flag.front_pipe)
+	// data->exe_flag.file_in = 1;
+	// open_infile(data);
+	// ft_pipe(data);
 	data->exe_flag.front_pipe = 0;
-	data->exe_flag.file_out_w = 1;
-	open_outfile(data);
 	executer(data, path_wc, argv_wc);
+	// data->exe_flag.file_out_w = 1;
+	// open_outfile(data);
+	// executer(data, path_grep, argv_grep);
+	// executer(data, path_wc, argv_wc);
 	// data->exe_flag.file_out_w = 0;
 	// if(data->exe_flag.front_pipe)
 	// if(data->exe_flag.front_pipe)

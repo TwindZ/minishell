@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/01 16:05:02 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/05 16:51:22 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ typedef struct	s_dolsign
 	char	*towrite;
 }				t_dolsign;
 
+typedef struct s_heredoc
+{
+	char	*end;
+	char	*data;
+	
+}				t_heredoc;
+
+typedef struct s_exe_cmd
+{
+	char			**meta;
+	char			**cmdpath;
+	char			***argv;
+}				t_exe_cmd;
+
 typedef struct s_fd
 {
 	int	cmd_in;
@@ -79,6 +93,8 @@ typedef struct	s_data
 	//---emman-----
 	t_fd		fd;
 	t_exe_flag	exe_flag;
+	t_exe_cmd	exe_cmd;
+	t_heredoc	heredoc;
 
 	//---frank-----
 	char 		*read;
