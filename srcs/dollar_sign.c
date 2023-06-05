@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/05 11:32:23 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:45:57 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	dollar_sign(t_data *data)
 	{
 		make_tocheck(data);
 		data->dolsign.towrite = getenv(data->dolsign.tocheck);
-		// ft_printf("%s", data->dolsign.towrite);
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
 		free(data->dolsign.tocheck);
@@ -48,7 +47,6 @@ void	make_tocheck(t_data *data)
 		data->i++;
 	data->dolsign.end = data->i;
 	data->dolsign.len = data->dolsign.end - data->dolsign.start;
-	// ft_printf("%i\n", data->dolsign.len);
 	data->dolsign.tocheck = malloc(sizeof(char) * data->dolsign.len + 1);
 	if (!data->dolsign.tocheck)
 		mini_free(data);
@@ -59,8 +57,6 @@ void	make_tocheck(t_data *data)
 		data->dolsign.idx++;
 	}
 	data->dolsign.tocheck[data->dolsign.idx] = '\0';
-	// ft_printf("%i\n", ft_strlen(data->dolsign.tocheck));
-	// ft_printf("->%s\n", data->dolsign.tocheck);
 }
 
 void	adjust_line(t_data *data)
@@ -75,26 +71,27 @@ void	adjust_line(t_data *data)
 	tocheck = ft_strlen(data->dolsign.tocheck);
 	towrite = ft_strlen(data->dolsign.towrite);
 	data->linetemp = NULL;//------------
-	data->linetemp = malloc(sizeof(char) * line + 1);
+	data->linetemp = ft_calloc(line + 1, sizeof(char));
 	if (data->line[i] != '\0')
 	{
 		while (data->line[i])
 		{
+			ft_printf("--%c--\n", data->line[i]);
 			data->linetemp[i] = data->line[i];
 			i++;
 		}
-		data->linetemp[i] = '\0';
 		i = 0;
 		free (data->line);//----------
 	}
-	data->line = malloc(sizeof(char) * (line + towrite - (tocheck + 1)) + 1);
+	data->line = ft_calloc((line + towrite), sizeof(char));
+	ft_printf("%i\n", line);
+	ft_printf("%i\n", towrite);
+	ft_printf("%i\n", (line + towrite + 1));
 	if (!data->line)
 		mini_free(data);
-	ft_printf("TEST1\n");
 	if (data->linetemp[i] != '\0')
 	{
-		line = data->dolsign.start - 2;
-		ft_printf("%i", line);
+		line = data->j + towrite;
 		while (line != 0)//---------
 		{
 			data->line[i] = data->linetemp[i];
@@ -110,8 +107,5 @@ void	adjust_line(t_data *data)
 		i++;
 		towrite--;
 	}
-	ft_printf("%i", data->j);
-	ft_printf("%i", i);
-	// data->line[data->j] = '\0';
 	free (data->linetemp);
 }
