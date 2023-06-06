@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/06 10:07:12 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:57:34 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,20 +124,20 @@ void	heredoc(t_data *data)
 void mini_execute(t_data *data)
 {
 	
-	heredoc(data);
-	// data->exe_flag.front_pipe = 1;
-	// ft_pipe(data);
-	executer(data, path_cat, argv_cat);
+	// heredoc(data);
+	data->exe_flag.front_pipe = 1;
+	ft_pipe(data);
+	executer(data, path_env, argv_env);
 	// data->exe_flag.file_in = 0;
 	// if(data->exe_flag.front_pipe)
 	// data->exe_flag.file_in = 1;
 	// open_infile(data);
-	// ft_pipe(data);
-	// data->exe_flag.front_pipe = 0;
-	// executer(data, path_wc, argv_wc);
+	ft_pipe(data);
+	executer(data, path_grep, argv_grep);
+	data->exe_flag.front_pipe = 0;
+	executer(data, path_cat, argv_cat);
 	// data->exe_flag.file_out_w = 1;
 	// open_outfile(data);
-	// executer(data, path_grep, argv_grep);
 	// executer(data, path_wc, argv_wc);
 	// data->exe_flag.file_out_w = 0;
 	// if(data->exe_flag.front_pipe)
