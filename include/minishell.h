@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/05 09:04:30 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/06 09:06:55 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct	s_dolsign
 	int		end;
 	int		len;
 	int		idx;
+	int		towritelen;
+	int		linelen;
 	char	*tocheck;
 	char	*towrite;
 }				t_dolsign;
@@ -101,13 +103,15 @@ void	mini_execute(t_data *data);
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
 int		whitespace(t_data *data);
+void	prep_line(t_data *data);
+void	in_quotes(t_data *data);
+
 int		fuckin_quotes(t_data *data);
 void	init_quotes(t_data *data);
 void	double_quotes(t_data *data);
 void	single_quotes(t_data *data);
 void	quotes_priority(t_data *data);
-void	prep_line(t_data *data);
-void	in_quotes(t_data *data);
+
 void	dollar_sign(t_data *data);
 void	init_dollar(t_data *data);
 void	make_tocheck(t_data *data);

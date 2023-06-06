@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:29:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/05 15:13:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:09:16 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	mini_start(t_data *data)
 				// free (data->line);
 			}
 			data->read = readline("Minishell>");
+			// if () ft_strncmp()
 			data->rdflag = 1;
 			if (ft_strlen(data->read) == 0)
 				break;
@@ -36,11 +37,11 @@ void	mini_start(t_data *data)
 			if (ft_strlen(data->line) == 0)
 				break;
 			ft_printf("%s\n", data->line);
-			free (data->line);
 			// make_list(data);
 			// check_path(data);
 			// print_list(data);
 			// mini_free(data);
+			free (data->line);
 		}
 	}
 }

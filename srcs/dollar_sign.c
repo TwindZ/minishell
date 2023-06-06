@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/05 15:23:04 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/06 09:55:28 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ void	adjust_line(t_data *data)
 	towrite = ft_strlen(data->dolsign.towrite);
 	data->linetemp = NULL;//------------
 	data->linetemp = ft_calloc(line + 1, sizeof(char));
-	while (i < line)
+	while (i < line || data->line[i])
 	{
-		ft_printf("--%c--\n", data->line[i]);
+		// ft_printf("--%c--\n", data->line[i]);
 		data->linetemp[i] = data->line[i];
 		i++;
 	}
 	i = 0;
 	free (data->line);//----------
-	data->line = ft_calloc((line + towrite + 1), sizeof(char));
+	data->line = ft_calloc((line + towrite + 2), sizeof(char));
 	ft_printf("%i\n", line);
 	ft_printf("%i\n", towrite);
 	ft_printf("%i\n", (line + towrite + 1));
@@ -95,13 +95,8 @@ void	adjust_line(t_data *data)
 		}
 		i = 0;
 	}
-	while (towrite != 0)
-	{
-		data->line[data->j] = data->dolsign.towrite[i];
-		data->j++;
-		i++;
-		towrite--;
-	}
+	while (towrite-- != 0)
+		data->line[data->j++] = data->dolsign.towrite[i++];
 	if (data->linetemp != NULL)
 		free (data->linetemp);
 }
