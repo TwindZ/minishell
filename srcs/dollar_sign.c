@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/06 11:11:54 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:55:34 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ void	make_tocheck(t_data *data)
 	while (data->dolsign.start < data->dolsign.end)
 	{
 		data->dolsign.tocheck[data->dolsign.idx]
-			= data->read[data->dolsign.start];
-		data->dolsign.start++;
+			= data->read[data->dolsign.start++];
+		if (data->dolsign.tocheck[0] >= 48 && data->dolsign.tocheck[0] <= 57)
+		{
+			data->i = data->dolsign.start;
+			break;
+		}
 		data->dolsign.idx++;
 	}
 	data->dolsign.tocheck[data->dolsign.idx] = '\0';
@@ -70,7 +74,7 @@ void	adjust_line(t_data *data)
 		data->dolsign.i++;
 	}
 	data->dolsign.i = 0;
-	free (data->line);//----------
+	free (data->line);
 	data->line = ft_calloc((data->dolsign.linelen +
 		data->dolsign.towritelen + 2), sizeof(char));
 	if (!data->line)
