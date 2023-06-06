@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/06 09:55:28 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:11:54 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	make_tocheck(t_data *data)
 		mini_free(data);
 	while (data->dolsign.start < data->dolsign.end)
 	{
-		data->dolsign.tocheck[data->dolsign.idx] = data->read[data->dolsign.start];
+		data->dolsign.tocheck[data->dolsign.idx]
+			= data->read[data->dolsign.start];
 		data->dolsign.start++;
 		data->dolsign.idx++;
 	}
@@ -61,42 +62,36 @@ void	make_tocheck(t_data *data)
 
 void	adjust_line(t_data *data)
 {
-	int i;
-	int	line;
-	int towrite;
-
-	i = 0;
-	line = 0;
-	towrite = 0;
-	line = ft_strlen(data->line);
-	towrite = ft_strlen(data->dolsign.towrite);
-	data->linetemp = NULL;//------------
-	data->linetemp = ft_calloc(line + 1, sizeof(char));
-	while (i < line || data->line[i])
+	init_adjust(data);
+	while (data->dolsign.i < data->dolsign.linelen
+		|| data->line[data->dolsign.i])
 	{
-		// ft_printf("--%c--\n", data->line[i]);
-		data->linetemp[i] = data->line[i];
-		i++;
+		data->linetemp[data->dolsign.i] = data->line[data->dolsign.i];
+		data->dolsign.i++;
 	}
-	i = 0;
+	data->dolsign.i = 0;
 	free (data->line);//----------
-	data->line = ft_calloc((line + towrite + 2), sizeof(char));
-	ft_printf("%i\n", line);
-	ft_printf("%i\n", towrite);
-	ft_printf("%i\n", (line + towrite + 1));
+	data->line = ft_calloc((data->dolsign.linelen +
+		data->dolsign.towritelen + 2), sizeof(char));
 	if (!data->line)
 		mini_free(data);
-	if (data->linetemp[i] != '\0')
+	while (data->linetemp[data->dolsign.i])
 	{
-		while (data->linetemp[i])
-		{
-			data->line[i] = data->linetemp[i];
-			i++;
-		}
-		i = 0;
+		data->line[data->dolsign.i] = data->linetemp[data->dolsign.i];
+		data->dolsign.i++;
 	}
-	while (towrite-- != 0)
-		data->line[data->j++] = data->dolsign.towrite[i++];
+	data->dolsign.i = 0;
+	while (data->dolsign.towritelen-- != 0)
+		data->line[data->j++] = data->dolsign.towrite[data->dolsign.i++];
 	if (data->linetemp != NULL)
 		free (data->linetemp);
+}
+
+void	init_adjust(t_data *data)
+{
+	data->dolsign.i = 0;
+	data->dolsign.linelen = ft_strlen(data->line);
+	data->dolsign.towritelen = ft_strlen(data->dolsign.towrite);
+	data->linetemp = NULL;
+	data->linetemp = ft_calloc(data->dolsign.linelen + 1, sizeof(char));
 }
