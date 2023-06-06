@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/05 17:41:30 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/06 10:07:12 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	heredoc(t_data *data)
 		free(read);
 		data->heredoc.data = ft_strjoin(data->heredoc.data, "\n", 1);
 	}
+	//analiser les $ "" ''
 	ft_pipe(data);
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	ft_putstr_fd(data->heredoc.data, data->fd.cmd_out);
@@ -124,16 +125,16 @@ void mini_execute(t_data *data)
 {
 	
 	heredoc(data);
-	data->exe_flag.front_pipe = 1;
-	ft_pipe(data);
+	// data->exe_flag.front_pipe = 1;
+	// ft_pipe(data);
 	executer(data, path_cat, argv_cat);
 	// data->exe_flag.file_in = 0;
 	// if(data->exe_flag.front_pipe)
 	// data->exe_flag.file_in = 1;
 	// open_infile(data);
 	// ft_pipe(data);
-	data->exe_flag.front_pipe = 0;
-	executer(data, path_wc, argv_wc);
+	// data->exe_flag.front_pipe = 0;
+	// executer(data, path_wc, argv_wc);
 	// data->exe_flag.file_out_w = 1;
 	// open_outfile(data);
 	// executer(data, path_grep, argv_grep);
