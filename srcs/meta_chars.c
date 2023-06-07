@@ -17,13 +17,6 @@ void	meta_chars(t_data *data, char meta)
 	init_meta(data);
 	if (data->read[data->i] == meta)
 	{
-		// if (data->read[data->i + 1] == meta)
-		// {
-		// 	if (meta == '>')
-		// 		append(data);
-		// 	if (meta == '<')
-		// 		heredoc(data);
-		// }
 		make_temp(data);
 		remake_line(data, meta);
 		data->i++;

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/07 11:32:13 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/07 12:22:15 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	prep_line(t_data *data)
 		meta_chars(data, '|');
 		meta_chars(data, '<');
 		meta_chars(data, '>');
-		// meta_chars(data, '>>');
 		transform_spaces(data);
 		write_chars(data);
 	}
