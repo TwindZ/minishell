@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/07 11:13:38 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/07 11:32:13 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	prep_line(t_data *data)
 	{
 		in_quotes(data);
 		dollar_sign(data);
-		pipes(data);
+		meta_chars(data, '|');
+		meta_chars(data, '<');
+		meta_chars(data, '>');
+		// meta_chars(data, '>>');
 		transform_spaces(data);
 		write_chars(data);
 	}
@@ -81,7 +84,8 @@ void	transform_spaces(t_data *data)
 void	write_chars(t_data *data)
 {
 	while (data->read[data->i] >= 33 && data->read[data->i] <= 126
-		&& data->read[data->i] != '$' && data->read[data->i] != '|')
+		&& data->read[data->i] != '$' && data->read[data->i] != '|'
+		&& data->read[data->i] != '<' && data->read[data->i] != '>')
 	{
 		if (data->read[data->i] == '"' || data->read[data->i] == 39)
 			break;

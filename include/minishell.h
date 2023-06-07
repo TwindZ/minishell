@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/07 11:13:48 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/07 11:31:34 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ typedef struct	s_dolsign
 	char	*towrite;
 }				t_dolsign;
 
-typedef struct	s_pipes
+typedef struct	s_meta
 {
 	int		spaces;
 	int		len;
 	int		i;
 	char	*temp;
-}				t_pipes;
+}				t_meta;
 
 typedef struct s_heredoc
 {
@@ -116,7 +116,7 @@ typedef struct	s_data
 	int			j;
 	t_quotes	quotes;
 	t_dolsign	dolsign;
-	t_pipes		pipes;
+	t_meta		meta;
 	//---common-----
 	char		**path;
 	// char	*cmdpath;
@@ -146,10 +146,10 @@ void	make_tocheck(t_data *data);
 void	adjust_line(t_data *data);
 void	init_adjust(t_data *data);
 
-void	pipes(t_data *data);
-void	init_pipes(t_data *data);
+void	meta_chars(t_data *data, char meta);
+void	init_meta(t_data *data);
 void	make_temp(t_data *data);
-void	remake_line(t_data *data);
+void	remake_line(t_data *data, char meta);
 
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content);
