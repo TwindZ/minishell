@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/06 10:49:59 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:11:42 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,6 @@ t_data *ft_init_data(char **envp)
 		if(!data)
 			return (NULL);
 		data->envp = envp;
-		// data->lcmd = NULL;
-		// data->ltkn = NULL;
-		// data->path = NULL;
-		// data->read = NULL;
-		// data->line = NULL;
-		// data->rdflag = 0;
-		// data->i = 0;
-		// data->j = 0;
-		// data->lcmd = NULL;
-		// data->ltkn = NULL;
-		// data->path = NULL;
-		// data->fd.cmd_next_in = 0;
-		// data->fd.cmd_in = -1;
-		// data->fd.cmd_out = -1;
-		// data->exe_flag.file_out_a = 0;
-		// data->exe_flag.file_out_w = 0;
-		// data->exe_flag.file_in = 0;
-		// data->exe_flag.front_pipe = 0;
-		// data->exe_flag.back_pipe = 0;
-		// data->read = NULL;
-		// data->line = NULL;
-		// data->rdflag = 0;
-		// data->i = 0;
-		// data->j = 0;
 	}
 	return (data);
 }

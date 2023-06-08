@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/01 11:15:38 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/08 13:10:37 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	make_list(t_data *data)
+void	make_list_ltkn(t_data *data)
 {
 	char 	**arg;
 	t_ltkn	*temp;
@@ -24,18 +24,21 @@ void	make_list(t_data *data)
 		mini_free(data);
 	while (arg[data->i])
 	{
-		if(!data->ltkn)
-			data->ltkn = ft_lstnew_tkn(arg[data->i]);
-		// ft_printf("%s\n", arg[data->i]);
-		else
+		if(data->i = 0 || strncmp(arg[data->i - 1], "|", 1) == 0)
 		{
-			temp = data->ltkn;
-			temp = ft_lstlast_tkn(data->ltkn);
-			temp->next = ft_lstnew_tkn(arg[data->i]);
+			if(!data->ltkn)
+				data->ltkn = ft_lstnew_tkn(arg[data->i]);
+			else
+			{
+				temp = data->ltkn;
+				temp = ft_lstlast_tkn(data->ltkn);
+				temp->next = ft_lstnew_tkn(arg[data->i]);
+			}
 		}
 		data->i++;
 	}
 }
+
 
 t_ltkn	*ft_lstnew_tkn(char *content)
 {
@@ -44,7 +47,7 @@ t_ltkn	*ft_lstnew_tkn(char *content)
 	ltkn = (t_ltkn *)malloc(sizeof(t_ltkn));
 	if (!ltkn)
 		return (NULL);
-	ltkn->token = content;
+	ltkn->arg[0] = content;
 	ltkn->next = NULL;
 	return (ltkn);
 }
