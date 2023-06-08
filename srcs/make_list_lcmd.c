@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_lcmd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 09:50:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/01 15:20:15 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:41:05 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	make_list_lcmd(t_data *data, char *path)
 {
-		t_lcmd	*temp;
-		
-		temp = NULL;
-		if(!data->lcmd)
-			data->lcmd = ft_lstnew_lcmd(path);
-		else
-		{
-			temp = data->lcmd;
-			temp = ft_lstlast_lcmd(data->lcmd);
-			temp->next = ft_lstnew_lcmd(path);
-		}
+	t_lcmd	*temp;
+
+	temp = NULL;
+	if (!data->lcmd)
+		data->lcmd = ft_lstnew_lcmd(path);
+	else
+	{
+		temp = data->lcmd;
+		temp = ft_lstlast_lcmd(data->lcmd);
+		temp->next = ft_lstnew_lcmd(path);
+	}
 }
 
 t_lcmd	*ft_lstnew_lcmd(char *content)

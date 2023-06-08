@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/07 12:22:15 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:39:00 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	prep_line(t_data *data)
 
 int	whitespace(t_data *data)
 {
-	char *str;
+	char	*str;
 
 	str = data->read;
 	data->i = 0;
 	while ((str[data->i] == ' '
-		|| (str[data->i] >= 9 && str[data->i] <= 13)) && str[data->i])
+			|| (str[data->i] >= 9 && str[data->i] <= 13)) && str[data->i])
 		data->i++;
 	if (str[data->i] == '\0')
 		return (0);
@@ -87,7 +87,7 @@ void	write_chars(t_data *data)
 		&& data->read[data->i] != '<' && data->read[data->i] != '>')
 	{
 		if (data->read[data->i] == '"' || data->read[data->i] == 39)
-			break;
+			break ;
 		data->line[data->j++] = data->read[data->i++];
 	}
 }

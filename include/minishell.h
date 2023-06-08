@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/07 11:31:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:57:02 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 # define READ_END 0
 # define WRITE_END 1
 
-#include <term.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <libc.h>
-#include "../srcs/libft/libft.h"
+# include <term.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <libc.h>
+# include "../srcs/libft/libft.h"
 
-typedef struct	s_ltkn
+typedef struct s_ltkn
 {
 	char			*token;
 	struct s_ltkn	*next;
 }				t_ltkn;
 
-typedef struct	s_lcmd
+typedef struct s_lcmd
 {
 	char			*cmdpath;
 	char			**argv;
@@ -36,7 +36,7 @@ typedef struct	s_lcmd
 	struct s_lcmd	*next;
 }				t_lcmd;
 
-typedef struct	s_quotes
+typedef struct s_quotes
 {
 	int	idx;
 	int	spotdbl;
@@ -47,7 +47,7 @@ typedef struct	s_quotes
 	int	sglflag;
 }				t_quotes;
 
-typedef struct	s_dolsign
+typedef struct s_dolsign
 {
 	int		start;
 	int		end;
@@ -60,7 +60,7 @@ typedef struct	s_dolsign
 	char	*towrite;
 }				t_dolsign;
 
-typedef struct	s_meta
+typedef struct s_meta
 {
 	int		spaces;
 	int		len;
@@ -72,7 +72,6 @@ typedef struct s_heredoc
 {
 	char	*end;
 	char	*data;
-	
 }				t_heredoc;
 
 typedef struct s_exe_cmd
@@ -84,22 +83,21 @@ typedef struct s_exe_cmd
 
 typedef struct s_fd
 {
-	int	cmd_in;
-	int cmd_out;
-	int cmd_next_in;
+	int		cmd_in;
+	int		cmd_out;
+	int		cmd_next_in;
 }				t_fd;
 
 typedef struct s_exe_flag
 {
-
-	int 	file_in;
+	int		file_in;
 	int		file_out_w;
 	int		file_out_a;
 	int		back_pipe;
 	int		front_pipe;
 }				t_exe_flag;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	//---emman-----
 	t_fd		fd;
@@ -108,21 +106,22 @@ typedef struct	s_data
 	t_heredoc	heredoc;
 
 	//---frank-----
-	char 		*read;
-	char 		*line;
-	char 		*linetemp;
+	char		*read;
+	char		*line;
+	char		*linetemp;
 	int			rdflag;
 	int			i;
 	int			j;
 	t_quotes	quotes;
 	t_dolsign	dolsign;
 	t_meta		meta;
-	//---common-----
+	//---common----- 
+	//TODO enlever les commentaires
 	char		**path;
 	// char	*cmdpath;
 	char		**envp;
 	t_lcmd		*lcmd;
-	t_ltkn 		*ltkn;
+	t_ltkn		*ltkn;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -150,6 +149,7 @@ void	meta_chars(t_data *data, char meta);
 void	init_meta(t_data *data);
 void	make_temp(t_data *data);
 void	remake_line(t_data *data, char meta);
+void	place_tab(t_data *data, char meta);
 
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content);

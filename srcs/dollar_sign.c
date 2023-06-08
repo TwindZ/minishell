@@ -6,12 +6,11 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/06 14:55:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/08 09:40:20 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
 
 void	dollar_sign(t_data *data)
 {
@@ -57,7 +56,7 @@ void	make_tocheck(t_data *data)
 		if (data->dolsign.tocheck[0] >= 48 && data->dolsign.tocheck[0] <= 57)
 		{
 			data->i = data->dolsign.start;
-			break;
+			break ;
 		}
 		data->dolsign.idx++;
 	}
@@ -75,8 +74,8 @@ void	adjust_line(t_data *data)
 	}
 	data->dolsign.i = 0;
 	free (data->line);
-	data->line = ft_calloc((data->dolsign.linelen +
-		data->dolsign.towritelen + 2), sizeof(char));
+	data->line = ft_calloc((data->dolsign.linelen
+				+ data->dolsign.towritelen + 2), sizeof(char));
 	if (!data->line)
 		mini_free(data);
 	while (data->linetemp[data->dolsign.i])

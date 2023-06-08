@@ -39,7 +39,7 @@ void	make_temp(t_data *data)
 	if (data->line[data->i + 1] != '\t')
 		data->meta.spaces += 1;
 	data->meta.temp = ft_calloc(data->meta.len + data->meta.spaces + 1,
-		sizeof(char));
+			sizeof(char));
 	if (!data->meta.temp)
 		mini_free(data);
 	while (data->meta.i <= data->meta.len)
@@ -55,7 +55,7 @@ void	remake_line(t_data *data, char meta)
 {
 	data->meta.len = ft_strlen(data->read) + ft_strlen(data->meta.temp);
 	data->line = ft_calloc((data->meta.len + data->meta.spaces),
-		sizeof(char));
+			sizeof(char));
 	if (!data->line)
 		mini_free(data);
 	while (data->meta.temp[data->meta.i])
@@ -63,6 +63,12 @@ void	remake_line(t_data *data, char meta)
 		data->line[data->meta.i] = data->meta.temp[data->meta.i];
 		data->meta.i++;
 	}
+	place_tab(data, meta);
+	free (data->meta.temp);
+}
+
+void	place_tab(t_data *data, char meta)
+{
 	if (data->read[data->i] == meta)
 	{
 		if (data->line[data->meta.i - 1] != '\t' && data->j > 0)
@@ -78,5 +84,4 @@ void	remake_line(t_data *data, char meta)
 		if (data->line[data->meta.i + 1] != '\t')
 			data->line[data->j++] = '\t';
 	}
-	free (data->meta.temp);
 }
