@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/08 13:11:15 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:43:47 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ char path_echo[] = "/bin/echo";
 char *argv_ls[] = {"", "-la", NULL};
 char path_ls[] = "/bin/ls";
 
-t_ltkn	init_ltkn()
-{
+// t_ltkn	init_ltkn()
+// {
 	
-}
+// }
 
 void open_infile(t_data *data)
 {
@@ -141,7 +141,7 @@ void	heredoc(t_data *data)
 void mini_execute(t_data *data)
 {
 	
-	// heredoc(data);
+	heredoc(data);
 	// ft_pipe(data);
 	// data->file = "outfile3.txt";
 	// data->exe_flag.front_pipe = 1;

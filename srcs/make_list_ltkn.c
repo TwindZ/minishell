@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/08 13:10:37 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:45:21 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	make_list_ltkn(t_data *data)
 		mini_free(data);
 	while (arg[data->i])
 	{
-		if(data->i = 0 || strncmp(arg[data->i - 1], "|", 1) == 0)
+		if(data->i == 0 || strncmp(arg[data->i - 1], "|", 1) == 0)
 		{
 			if(!data->ltkn)
 				data->ltkn = ft_lstnew_tkn(arg[data->i]);
@@ -69,7 +69,7 @@ void	print_list(t_data *data)
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
-		ft_printf("%s\n", temp->token);
+		ft_printf("%s\n", temp->arg[0]);
 		temp = temp->next;
 	}	
 }

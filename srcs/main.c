@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/08 13:11:42 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:42:48 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int main(int argc, char **argv, char **envp)
 	
 	if(emman)
 	{
-		int i;
-		i = 0;
 		ft_printf("emman\n");
 		// while(ft_strncmp(envp[i], "_=", 2))
 		// {

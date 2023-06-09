@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_steps.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:29:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/06 16:07:08 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/09 09:46:31 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	mini_start(t_data *data)
 			prep_line(data);
 			if (ft_strlen(data->line) == 0)
 				break;
-			arg_list(data);
-			// ft_printf("%s\n", data->line);
+			// arg_list(data);
+			ft_printf("%s\n", data->line);
 			// make_list(data);
 			// check_path(data);
 			// print_list(data);
