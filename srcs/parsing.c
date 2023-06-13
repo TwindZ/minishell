@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/08 09:39:00 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:11:51 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	prep_line(t_data *data)
 	data->i = 0;
 	data->j = 0;
 	len = ft_strlen(data->read);
-	data->line = ft_calloc(len + 1, sizeof(char));
+	data->line = ft_calloc(len + 5, sizeof(char));
 	if (!data->line)
 		mini_free(data);
 	while (data->read[data->i])

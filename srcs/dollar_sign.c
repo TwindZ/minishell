@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/08 11:12:49 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/13 10:18:13 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void	adjust_line(t_data *data)
 	data->dolsign.i = 0;
 	free (data->line);
 	data->line = ft_calloc((data->dolsign.linelen
-				+ data->dolsign.towritelen + 2), sizeof(char));
+				+ data->dolsign.towritelen
+				+ ft_strlen(data->read) + 2), sizeof(char));
 	if (!data->line)
 		mini_free(data);
 	while (data->linetemp[data->dolsign.i])

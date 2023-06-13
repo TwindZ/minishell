@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 09:40:02 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:48:06 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	make_list_ltkn(t_data *data)
 	char	**arg;
 	t_ltkn	*temp;
 	int nbarg;
-	int arg_index;
+	// int arg_index;
 	
 	nbarg = 0;
 	temp = NULL;
@@ -54,8 +54,6 @@ void	make_list_ltkn(t_data *data)
 	// if (!arg)
 	while (arg[data->i])
 	{
-		if (!data->ltkn)
-			data->ltkn = ft_lstnew_tkn(arg[data->i]);
 		if(data->i == 0 || strncmp(arg[data->i - 1], "|", 1) == 0)
 		{
 			if(!data->ltkn)
