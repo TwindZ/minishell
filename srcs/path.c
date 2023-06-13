@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/08 09:41:37 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:41:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	check_path(t_data *data)
 	data->path = ft_split(getenv("PATH"), ':');
 	while (data->path[data->j])
 	{
-		path = ft_strjoin(data->path[data->j], 0, 0);
-		path = ft_strjoin(path, data->ltkn->token, 1);
+		path = ft_strjoin(data->path[data->j], "/", 0);
+		path = ft_strjoin(path, data->ltkn->arg[0], 1);//temporaire
 		data->i = access(path, X_OK);
 		if (data->i == 0)
 		{
@@ -33,6 +33,6 @@ void	check_path(t_data *data)
 		data->j++;
 		free (path);
 	}
-	if (data->i == -1)
-		ft_printf("Minishell: %s: command not found\n", data->ltkn->token);
+	if(data->i == -1)
+		ft_printf("Minishell: %s: command not found\n", data->ltkn->arg[0]);
 }

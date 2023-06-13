@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/08 09:57:02 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/13 09:42:20 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 
 typedef struct s_ltkn
 {
-	char			*token;
+	char			**arg;
+	int				in;
+	int				out;
 	struct s_ltkn	*next;
 }				t_ltkn;
 
@@ -104,7 +106,8 @@ typedef struct s_data
 	t_exe_flag	exe_flag;
 	t_exe_cmd	exe_cmd;
 	t_heredoc	heredoc;
-
+	t_ltkn 		*ltkn;
+	char		*file;
 	//---frank-----
 	char		*read;
 	char		*line;
@@ -121,10 +124,11 @@ typedef struct s_data
 	// char	*cmdpath;
 	char		**envp;
 	t_lcmd		*lcmd;
-	t_ltkn		*ltkn;
 }				t_data;
 
 void	mini_execute(t_data *data);
+void	arg_list(t_data *data);
+
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
 int		whitespace(t_data *data);
@@ -152,8 +156,8 @@ void	remake_line(t_data *data, char meta);
 void	place_tab(t_data *data, char meta);
 
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
-t_ltkn	*ft_lstnew_tkn(char *content);
-void	make_list(t_data *data);
+t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index);
+void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);
 void	free_ltkn(t_ltkn *ltkn);
 

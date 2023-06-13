@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/07 11:21:05 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/13 09:40:13 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.c			\
 		execute.c		\
+		arg_list.c		\
 		mini_steps.c	\
 		parsing.c		\
 		quotes.c		\
