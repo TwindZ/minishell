@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/13 09:42:20 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:18:48 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct s_exe_flag
 	int		file_out_a;
 	int		back_pipe;
 	int		front_pipe;
+	int		heredoc_in;
+	char 	*meta_arg;
 }				t_exe_flag;
 
 typedef struct s_data
@@ -128,6 +130,10 @@ typedef struct s_data
 
 void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
+void 	open_infile(t_data *data);
+void 	open_outfile(t_data *data);
+void	heredoc(t_data *data);
+void	free_list_ltkn(t_ltkn *ltkn);
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);

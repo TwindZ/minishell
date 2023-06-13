@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:29:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 09:40:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:24:13 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	mini_start(t_data *data)
 			prep_line(data);
 			if (ft_strlen(data->line) == 0)
 				break ;
-			// arg_list(data);
 			ft_printf("%s\n", data->line);
 			make_list_ltkn(data);
 			// check_path(data);
-			ft_printf("ministep\n");
+			// ft_printf("ministep\n");
 			print_list(data);
 			// mini_free(data);
-			free (data->line);
+			// free (data->line);
+			free_list_ltkn(data->ltkn);
 		}
 	}
 }

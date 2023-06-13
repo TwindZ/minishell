@@ -6,26 +6,68 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 09:40:02 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 17:22:04 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_meta(char *arg)
+int	is_meta(char *arg, t_data *data)
 {
-	if(ft_strncmp(arg, ">", 1) 
-		|| ft_strncmp(arg, ">>", 2) 
-		|| ft_strncmp(arg, "<", 1) 
-		|| ft_strncmp(arg, "<<", 2))
+	if(ft_strncmp(arg, ">", 1))
+	{
+		data->exe_flag.file_out_w = 1;
+		data->exe_flag.meta_arg = &arg[++data->i];
 		return(1);
-	return(0);
-	// peut etre return multiple
+	}
+	else if (ft_strncmp(arg, ">>", 2))
+	{
+		data->exe_flag.file_out_a = 1;
+		data->exe_flag.meta_arg = &arg[++data->i];
+		return(1);
+	}
+	else if (ft_strncmp(arg, "<", 1))
+	{
+		data->exe_flag.file_in = 1;
+		data->exe_flag.meta_arg = &arg[++data->i];
+		return(1);
+	}
+	else if (ft_strncmp(arg, "<<", 2))
+	{
+		data->exe_flag.heredoc_in = 1;
+		return(0);
+	}
+	else
+		return(0);
 }
 
-void build_cmd_param()
+void	set_meta(t_data *data)
 {
-	
+	if(data->exe_flag.file_in)
+		open_infile(data);
+	else if(data->exe_flag.file_out_a || data->exe_flag.file_out_w)
+		open_outfile(data);
+	else if(data->exe_flag.heredoc_in)
+		heredoc(data);
+}
+
+void build_cmd_param(t_data *data, char **arg)
+{
+	t_ltkn *temp;
+
+	temp = NULL;
+	if(strncmp(arg[data->i], "|", 1) == 0)
+		return;
+	// if(is_meta(arg[data->i], data))
+	// {
+	// 	set_meta(data);
+	// }	
+	// else
+	// {
+		temp = data->ltkn;
+		temp = ft_lstlast_tkn(temp);
+		temp->arg[data->j++] = arg[data->i];
+	// }
 }
 
 int ft_count_arg(char **arg, int i)
@@ -43,46 +85,50 @@ void	make_list_ltkn(t_data *data)
 {
 	char	**arg;
 	t_ltkn	*temp;
+	t_ltkn	*new;
 	int nbarg;
-	int arg_index;
-	
+
 	nbarg = 0;
 	temp = NULL;
+	new = NULL;
+	data->ltkn = new;
 	data->i = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
+	// arg = ft_split("Salut comment | ca va", ' ');
 	// if (!arg)
 	while (arg[data->i])
 	{
-		if (!data->ltkn)
-			data->ltkn = ft_lstnew_tkn(arg[data->i]);
-		if(data->i == 0 || strncmp(arg[data->i - 1], "|", 1) == 0)
+		if(data->i == 0 || (data->i > 0 && strncmp(arg[data->i - 1], "|", 1) == 0))
 		{
 			if(!data->ltkn)
 			{	
+				data->j = 0;
+				ft_printf(" if arg : %s\n", arg[data->i]);
 				nbarg = ft_count_arg(arg, data->i);
 				ft_printf("nbarg : %d\n", nbarg);
-				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, 0);
+				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+				data->j++;
 			}			
 			else
 			{
-			ft_printf(" arg : %s\n", arg[data->i]);
+				data->j = 0;
+				ft_printf("else arg : %s\n", arg[data->i]);
 				nbarg = ft_count_arg(arg, data->i);
 				temp = data->ltkn;
-				temp = ft_lstlast_tkn(data->ltkn);
-				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, 0);
+				temp = ft_lstlast_tkn(temp);
+				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+				data->j++;
 			}
 		}
-		if(is_meta(arg[data->i]))
-		{
-			// do something to resolve io
-		}	
 		else
-		{
-			// do somthing to add next argv
-		}
+			build_cmd_param(data, arg);
 		data->i++;
+	// need free_all for split
+	// need free list
 	}
+	free(arg);
+	
 }
 
 
@@ -112,11 +158,15 @@ t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn)
 void	print_list(t_data *data)
 {
 	t_ltkn	*temp;
+	int i;
 
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
-		ft_printf("%s\n", temp->arg[0]);
+		i = 0;
+		while(temp->arg[i])
+			ft_printf("%s, ", temp->arg[i++]);
+		ft_printf("\n");
 		temp = temp->next;
 	}	
 }
