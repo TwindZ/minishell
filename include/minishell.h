@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/13 09:42:20 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:45:40 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	prep_line(t_data *data);
 void	in_quotes(t_data *data);
 void	transform_spaces(t_data *data);
 void	write_chars(t_data *data);
+void	replace_meta(t_data *data);
 
 int		fuckin_quotes(t_data *data);
 void	init_quotes(t_data *data);
