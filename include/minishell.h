@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/08 13:10:57 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/11 16:10:11 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	make_tocheck(t_data *data);
 void	adjust_line(t_data *data);
 
 t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
-t_ltkn	*ft_lstnew_tkn(char *content);
+t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index);
 void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);
 void	free_ltkn(t_ltkn *ltkn);

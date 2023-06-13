@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:29:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/09 09:46:31 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/11 16:02:59 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ void	mini_start(t_data *data)
 				break;
 			// arg_list(data);
 			ft_printf("%s\n", data->line);
-			// make_list(data);
+			make_list_ltkn(data);
 			// check_path(data);
-			// print_list(data);
+			ft_printf("ministep\n");
+			print_list(data);
 			// mini_free(data);
 			free (data->line);
 		}
