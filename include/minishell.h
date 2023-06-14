@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/13 14:45:40 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:25:57 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,21 @@ typedef struct s_dolsign
 	char	*towrite;
 }				t_dolsign;
 
+typedef struct s_dshd
+{
+	int		start;
+	int		start2;
+	int		end;
+	int		len;
+	int		idx;
+	int		towritelen;
+	int		linelen;
+	int		i;
+	int		j;
+	char	*tocheck;
+	char	*towrite;
+}				t_dshd;
+
 typedef struct s_meta
 {
 	int		spaces;
@@ -74,6 +89,7 @@ typedef struct s_heredoc
 {
 	char	*end;
 	char	*data;
+	int		i;
 }				t_heredoc;
 
 typedef struct s_exe_cmd
@@ -105,11 +121,12 @@ typedef struct s_data
 	t_fd		fd;
 	t_exe_flag	exe_flag;
 	t_exe_cmd	exe_cmd;
-	t_heredoc	heredoc;
+	t_heredoc	hd;
 	t_ltkn 		*ltkn;
 	char		*file;
 	//---frank-----
 	char		*read;
+	char		*readhd;
 	char		*line;
 	char		*linetemp;
 	int			rdflag;
@@ -117,6 +134,7 @@ typedef struct s_data
 	int			j;
 	t_quotes	quotes;
 	t_dolsign	dolsign;
+	t_dshd		dshd;
 	t_meta		meta;
 	//---common----- 
 	//TODO enlever les commentaires
@@ -137,6 +155,7 @@ void	in_quotes(t_data *data);
 void	transform_spaces(t_data *data);
 void	write_chars(t_data *data);
 void	replace_meta(t_data *data);
+void	meta_replace(t_data *data);
 
 int		fuckin_quotes(t_data *data);
 void	init_quotes(t_data *data);
@@ -149,6 +168,12 @@ void	init_dollar(t_data *data);
 void	make_tocheck(t_data *data);
 void	adjust_line(t_data *data);
 void	init_adjust(t_data *data);
+
+void	dollar_sign_hd(t_data *data);
+void	init_dollar_hd(t_data *data);
+void	make_tocheck_hd(t_data *data);
+void	adjust_line_hd(t_data *data);
+void	init_adjust_hd(t_data *data);
 
 void	meta_chars(t_data *data, char meta);
 void	init_meta(t_data *data);

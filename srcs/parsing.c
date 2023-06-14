@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 15:11:56 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:29:18 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	in_quotes(t_data *data)
 		while (data->read[data->i] != '"')
 		{
 			if (data->read[data->i] != '$' && data->read[data->i] != '|'
-					&& data->read[data->i] != '>' && data->read[data->i] != '<')
+				&& data->read[data->i] != '>' && data->read[data->i] != '<')
 				data->line[data->j++] = data->read[data->i++];
 			dollar_sign(data);
 			replace_meta(data);
@@ -69,7 +69,7 @@ void	in_quotes(t_data *data)
 		while (data->read[data->i] != 39)
 		{
 			if (data->read[data->i] != '|' && data->read[data->i] != '>'
-					&& data->read[data->i] != '<')
+				&& data->read[data->i] != '<')
 				data->line[data->j++] = data->read[data->i++];
 			replace_meta(data);
 		}

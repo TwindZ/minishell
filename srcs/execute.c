@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/09 09:43:47 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/14 12:27:06 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,32 +116,36 @@ void ft_pipe(t_data *data)
 
 void	heredoc(t_data *data)
 {
-	char *read;
-	
-	read = NULL;
-	data->heredoc.end = ft_strjoin(NULL, "!", 0);
+	data->hd.i = 0;
+	data->readhd = NULL;
+	data->hd.end = ft_strjoin(NULL, "!", 0);
 	while(1)
 	{
-		read = readline(">");
-		if(!(ft_strncmp(read, data->heredoc.end, ft_strlen(data->heredoc.end))))
+		data->readhd = readline(">");
+		if(!(ft_strncmp(data->readhd, data->hd.end, ft_strlen(data->hd.end))))
 			break;
-		data->heredoc.data = ft_strjoin(data->heredoc.data, read, 1);
-		free(read);
-		data->heredoc.data = ft_strjoin(data->heredoc.data, "\n", 1);
+		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
+		while (data->hd.data[data->hd.i])
+		{
+			dollar_sign_hd(data);
+			data->hd.i++;
+		}
+		free(data->readhd);
+		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}
-	//TODO analiser les $ apres entré heredoc
 	ft_pipe(data);
 	data->fd.cmd_in = data->fd.cmd_next_in;
-	ft_putstr_fd(data->heredoc.data, data->fd.cmd_out);
+	ft_putstr_fd(data->hd.data, data->fd.cmd_out);
 	close(data->fd.cmd_out);
 	data->exe_flag.back_pipe = 1;
-	free(read);
+	free(data->readhd);
 }
 
 void mini_execute(t_data *data)
 {
 	
 	heredoc(data);
+	ft_printf("%s\n", data->hd.data);
 	// ft_pipe(data);
 	// data->file = "outfile3.txt";
 	// data->exe_flag.front_pipe = 1;

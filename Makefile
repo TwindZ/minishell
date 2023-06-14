@@ -6,7 +6,7 @@
 #    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/13 13:48:02 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/14 10:54:07 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS =	main.c			\
 		parsing.c		\
 		quotes.c		\
 		dollar_sign.c	\
+		dollar_sign_hd.c\
 		meta_chars.c	\
 		meta_replace.c	\
 		exit.c			\
