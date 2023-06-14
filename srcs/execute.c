@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 12:27:06 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:26:50 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ char *argv_echo[] = {"echo", "allo$USER toiallo", NULL};
 char path_echo[] = "/bin/echo";	
 char *argv_ls[] = {"", "-la", NULL};
 char path_ls[] = "/bin/ls";
-
-// t_ltkn	init_ltkn()
-// {
-	
-// }
 
 void open_infile(t_data *data)
 {

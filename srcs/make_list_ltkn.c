@@ -3,29 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 09:48:06 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:29:53 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_meta(char *arg)
+int	is_meta(char **arg, t_data *data)
 {
-	if(ft_strncmp(arg, ">", 1) 
-		|| ft_strncmp(arg, ">>", 2) 
-		|| ft_strncmp(arg, "<", 1) 
-		|| ft_strncmp(arg, "<<", 2))
+	t_ltkn *temp;
+
+	temp = data->ltkn;
+	temp = ft_lstlast_tkn(temp);
+	if(!ft_strncmp(arg[data->i], ">\0", 2))
+	{
+		free(arg[data->i]);
+		data->exe_flag.file_out_w = 1;
+		temp->outfile = arg[++data->i];
 		return(1);
-	return(0);
-	// peut etre return multiple
+	}
+	else if (!ft_strncmp(arg[data->i], ">>", 2))
+	{
+		free(arg[data->i]);
+		data->exe_flag.file_out_a = 1;
+		temp->outfile = arg[++data->i];
+		return(1);
+	}
+	else if (!ft_strncmp(arg[data->i], "<\0", 2))
+	{
+		free(arg[data->i]);
+		data->exe_flag.file_in = 1;
+		temp->infile = arg[++data->i];
+		return(1);
+	}
+	else if (!ft_strncmp(arg[data->i], "<<", 2))
+	{
+		free(arg[data->i]);
+		data->hd.end = arg[++data->i];
+		data->exe_flag.heredoc_in = 1;
+		return(1);
+	}
+	else
+		return(0);
 }
 
-void build_cmd_param()
+void	set_meta(t_data *data)
 {
-	
+	if(data->exe_flag.file_in)
+		open_infile(data);
+	else if(data->exe_flag.file_out_a || data->exe_flag.file_out_w)
+		open_outfile(data);
+	else if(data->exe_flag.heredoc_in)
+		heredoc(data);
+}
+
+void build_cmd_param(t_data *data, char **arg)
+{
+	t_ltkn *temp;
+
+	temp = NULL;
+	if(strncmp(arg[data->i], "|", 1) == 0)
+	{
+		return ;// ft_pipe(data);
+	}	
+	else if(is_meta(arg, data))
+	{
+		set_meta(data);
+	}	
+	else
+	{
+		temp = data->ltkn;
+		temp = ft_lstlast_tkn(temp);
+		temp->arg[data->j++] = arg[data->i];
+	}
 }
 
 int ft_count_arg(char **arg, int i)
@@ -43,44 +96,50 @@ void	make_list_ltkn(t_data *data)
 {
 	char	**arg;
 	t_ltkn	*temp;
+	t_ltkn	*new;
 	int nbarg;
-	// int arg_index;
-	
 	nbarg = 0;
 	temp = NULL;
+	new = NULL;
+	data->ltkn = new;
 	data->i = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
+	// arg = ft_split("Salut comment | ca va", ' ');
 	// if (!arg)
 	while (arg[data->i])
 	{
-		if(data->i == 0 || strncmp(arg[data->i - 1], "|", 1) == 0)
+		if(data->i == 0 || (data->i > 0 && strncmp(arg[data->i - 1], "|", 1) == 0))
 		{
 			if(!data->ltkn)
 			{	
+				data->j = 0;
 				nbarg = ft_count_arg(arg, data->i);
-				ft_printf("nbarg : %d\n", nbarg);
-				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, 0);
+				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+				data->j++;
+				check_path(data, arg, data->ltkn);
 			}			
 			else
 			{
-			ft_printf(" arg : %s\n", arg[data->i]);
+				free(arg[data->i - 1]);
+				data->j = 0;
 				nbarg = ft_count_arg(arg, data->i);
 				temp = data->ltkn;
-				temp = ft_lstlast_tkn(data->ltkn);
-				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, 0);
+				temp = ft_lstlast_tkn(temp);
+				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+				data->j++;
+				check_path(data, arg, temp->next);
 			}
 		}
-		if(is_meta(arg[data->i]))
-		{
-			// do something to resolve io
-		}	
 		else
-		{
-			// do somthing to add next argv
-		}
+			build_cmd_param(data, arg);
 		data->i++;
+	// need free_all for split
+	// need free list
 	}
+	// free(arg[1]);
+	free(arg);
+	
 }
 
 
@@ -110,11 +169,20 @@ t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn)
 void	print_list(t_data *data)
 {
 	t_ltkn	*temp;
+	int i;
 
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
-		ft_printf("%s\n", temp->arg[0]);
+		i = 0;
+		ft_printf("\npath : %s\n", temp->path);
+		ft_printf("argv : ");
+		while(temp->arg[i])
+			ft_printf("%s, ", temp->arg[i++]);
+		ft_printf("\n");
+		ft_printf("infile : %s\n", temp->infile);
+		ft_printf("outfile : %s\n\n", temp->outfile);
+		
 		temp = temp->next;
 	}	
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 12:25:57 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:25:53 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
 
 typedef struct s_ltkn
 {
+	
+	char			*path;
 	char			**arg;
-	int				in;
-	int				out;
+	char			*infile;
+	char			*outfile;
 	struct s_ltkn	*next;
 }				t_ltkn;
 
@@ -113,6 +115,8 @@ typedef struct s_exe_flag
 	int		file_out_a;
 	int		back_pipe;
 	int		front_pipe;
+	int		heredoc_in;
+	char 	*meta_arg;
 }				t_exe_flag;
 
 typedef struct s_data
@@ -123,7 +127,9 @@ typedef struct s_data
 	t_exe_cmd	exe_cmd;
 	t_heredoc	hd;
 	t_ltkn 		*ltkn;
+	t_ltkn		*cur_ltkn;
 	char		*file;
+	char		**split_arg;
 	//---frank-----
 	char		*read;
 	char		*readhd;
@@ -146,6 +152,11 @@ typedef struct s_data
 
 void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
+void 	open_infile(t_data *data);
+void 	open_outfile(t_data *data);
+void	heredoc(t_data *data);
+void	free_list_ltkn(t_ltkn *ltkn);
+void 	ft_pipe(t_data *data);
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
@@ -193,5 +204,5 @@ t_lcmd	*ft_lstlast_lcmd(t_lcmd *lcmd);
 void	print_list_lcmd(t_data *data);
 void	free_lcmd(t_lcmd *lcmd);
 
-void	check_path(t_data *data);
+void	check_path(t_data *data, char **arg, t_ltkn *temp);
 #endif
