@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 14:29:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:14:14 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,11 @@ void build_cmd_param(t_data *data, char **arg)
 {
 	t_ltkn *temp;
 
-	temp = NULL;
-	if(strncmp(arg[data->i], "|", 1) == 0)
+	temp = data->ltkn;
+	temp = ft_lstlast_tkn(temp);
+	if(strncmp(arg[data->i], "|\0", 1) == 0)
 	{
+		temp->front_pipe = 1;
 		return ;// ft_pipe(data);
 	}	
 	else if(is_meta(arg, data))
@@ -75,8 +77,6 @@ void build_cmd_param(t_data *data, char **arg)
 	}	
 	else
 	{
-		temp = data->ltkn;
-		temp = ft_lstlast_tkn(temp);
 		temp->arg[data->j++] = arg[data->i];
 	}
 }
@@ -105,8 +105,7 @@ void	make_list_ltkn(t_data *data)
 	data->i = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
-	// arg = ft_split("Salut comment | ca va", ' ');
-	// if (!arg)
+	//TODO if (!arg)
 	while (arg[data->i])
 	{
 		if(data->i == 0 || (data->i > 0 && strncmp(arg[data->i - 1], "|", 1) == 0))
@@ -134,10 +133,7 @@ void	make_list_ltkn(t_data *data)
 		else
 			build_cmd_param(data, arg);
 		data->i++;
-	// need free_all for split
-	// need free list
 	}
-	// free(arg[1]);
 	free(arg);
 	
 }
@@ -181,7 +177,9 @@ void	print_list(t_data *data)
 			ft_printf("%s, ", temp->arg[i++]);
 		ft_printf("\n");
 		ft_printf("infile : %s\n", temp->infile);
-		ft_printf("outfile : %s\n\n", temp->outfile);
+		ft_printf("outfile : %s\n", temp->outfile);
+		ft_printf("frontpipe : %i\n\n", temp->front_pipe);
+		
 		
 		temp = temp->next;
 	}	

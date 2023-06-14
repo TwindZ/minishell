@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 14:25:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:54:59 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_ltkn
 	char			**arg;
 	char			*infile;
 	char			*outfile;
+	int 			front_pipe;
 	struct s_ltkn	*next;
 }				t_ltkn;
 

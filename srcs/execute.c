@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 14:26:50 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:53:05 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,32 @@ void set_io(t_data *data)
 
 void executer(t_data *data, char *path, char **argv)
 {
+	(void)	path;
+	(void)	argv;
 	int id;
 	
 	id = fork();
 	if (id == 0)
 	{		
 		
-		// ft_printf("fd read child 2:%d\n", data->fd.cmd_in);
+		ft_printf("fd read child 2:%d\n", data->fd.cmd_in);
+		ft_printf("fd read child 2:%d\n", data->fd.cmd_out);
 		// ft_printf("fd read child 2:%d\n", data->exe_flag.file_in);
 		set_io(data);
-		// ft_printf("fd read child 3:%d\n", data->fd.cmd_in);
+		ft_printf("fd read child 3:%d\n", data->fd.cmd_in);
+		ft_printf("fd read child 3:%d\n", data->fd.cmd_out);
 		// ft_printf("fd read child 4:%d\n", execve(path, argv, data->envp));
 		execve(path, argv, data->envp);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{	
-		close(data->fd.cmd_in);
-		close(data->fd.cmd_out);
+		if(data->fd.cmd_in > 2 )
+			close(data->fd.cmd_in);
+		if(data->fd.cmd_in > 2 )
+			close(data->fd.cmd_out);
+		dup2(STDIN_FILENO, 0);
+		dup2(STDOUT_FILENO, 1);
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
 	wait (NULL);
@@ -105,7 +113,8 @@ void ft_pipe(t_data *data)
 		pipe(fd);
 		data->fd.cmd_next_in = fd[0];
 		data->fd.cmd_out = fd[1];
-		data->exe_flag.back_pipe = 1; 
+		data->exe_flag.back_pipe = 1;
+		
 	} //TODO peut etre besoin de set ailleur a cause de outfile ?
 }
 
@@ -128,33 +137,48 @@ void	heredoc(t_data *data)
 		free(data->readhd);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}
-	ft_pipe(data);
-	data->fd.cmd_in = data->fd.cmd_next_in;
-	ft_putstr_fd(data->hd.data, data->fd.cmd_out);
-	close(data->fd.cmd_out);
-	data->exe_flag.back_pipe = 1;
-	free(data->readhd);
+	if(data->hd.data)
+	{
+		ft_pipe(data);
+		data->fd.cmd_in = data->fd.cmd_next_in;
+		ft_putstr_fd(data->hd.data, data->fd.cmd_out);
+		close(data->fd.cmd_out);
+		data->exe_flag.back_pipe = 1;
+	}
+	free(data->readhd);	
 }
 
 void mini_execute(t_data *data)
 {
-	
-	heredoc(data);
-	ft_printf("%s\n", data->hd.data);
+	// t_ltkn *temp;
+
+	// temp = data->ltkn;
+	// while(temp != NULL)
+	// {
+	// 	data->exe_flag.front_pipe = temp->front_pipe;
+	// 	if(temp->front_pipe)
+	// 		ft_pipe(data);
+	// 	executer(data, temp->path, temp->arg);
+	// 	temp = temp->next;
+	// }
+	// data->exe_flag.back_pipe = 0;
+	// dup2(0, STDIN_FILENO);
+	// dup2(1, STDOUT_FILENO);
+	// heredoc(data);
 	// ft_pipe(data);
 	// data->file = "outfile3.txt";
-	// data->exe_flag.front_pipe = 1;
-	// ft_pipe(data);
-	// executer(data, path_env, argv_env);
+	data->exe_flag.front_pipe = 1;
+	ft_pipe(data);
+	executer(data, path_env, argv_env);
 	// data->exe_flag.file_in = 0;
 	// data->exe_flag.file_in = 1;
-	// open_infile(data);
-		// data->exe_flag.front_pipe = 0;
-	// if(data->exe_flag.front_pipe)
 	// ft_pipe(data);
-	// executer(data, path_grep, argv_grep);
-	
+	executer(data, path_grep, argv_grep);
+	// open_infile(data);
+	// data->exe_flag.front_pipe = 0;
+	// if(data->exe_flag.front_pipe)
 	// executer(data, path_cat, argv_cat);
+	
 	// data->exe_flag.file_out_w = 1;
 	// open_outfile(data);
 	// executer(data, path_wc, argv_wc);
