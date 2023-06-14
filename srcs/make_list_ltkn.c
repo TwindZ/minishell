@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 20:31:51 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/14 11:19:07 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_meta(char *arg, t_data *data)
+int	is_meta(char **arg, t_data *data)
 {
 	t_ltkn *temp;
 
 	temp = data->ltkn;
 	temp = ft_lstlast_tkn(temp);
-	if(ft_strncmp(arg, ">", 1))
+	if(!ft_strncmp(arg[data->i], ">", 1))
 	{
 		data->exe_flag.file_out_w = 1;
-		temp->outfile = &arg[data->i];
+		temp->outfile = arg[++data->i];
 		return(1);
 	}
-	else if (ft_strncmp(arg, ">>", 2))
+	else if (!ft_strncmp(arg[data->i], ">>", 2))
 	{
 		data->exe_flag.file_out_a = 1;
-		temp->outfile = &arg[++data->i];
+		temp->outfile = arg[++data->i];
 		return(1);
 	}
-	else if (ft_strncmp(arg, "<", 1))
+	else if (!ft_strncmp(arg[data->i], "<", 1))
 	{
 		data->exe_flag.file_in = 1;
-		temp->infile = &arg[++data->i];
+		temp->infile = arg[++data->i];
 		return(1);
 	}
-	else if (ft_strncmp(arg, "<<", 2))
+	else if (!ft_strncmp(arg[data->i], "<<", 2))
 	{
 		data->exe_flag.heredoc_in = 1;
 		return(0);
@@ -61,10 +61,10 @@ void build_cmd_param(t_data *data, char **arg)
 
 	temp = NULL;
 	if(strncmp(arg[data->i], "|", 1) == 0)
-		return;
-	if(is_meta(arg[data->i], data))
+		// ft_pipe(data);
+	else if(is_meta(arg, data))
 	{
-		set_meta(data);
+		// set_meta(data);
 	}	
 	else
 	{
