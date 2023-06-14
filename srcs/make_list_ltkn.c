@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 11:19:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:18:11 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,33 @@ int	is_meta(char **arg, t_data *data)
 
 	temp = data->ltkn;
 	temp = ft_lstlast_tkn(temp);
-	if(!ft_strncmp(arg[data->i], ">", 1))
+	if(!ft_strncmp(arg[data->i], ">\0", 2))
 	{
+		free(arg[data->i]);
 		data->exe_flag.file_out_w = 1;
 		temp->outfile = arg[++data->i];
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], ">>", 2))
 	{
+		free(arg[data->i]);
 		data->exe_flag.file_out_a = 1;
 		temp->outfile = arg[++data->i];
 		return(1);
 	}
-	else if (!ft_strncmp(arg[data->i], "<", 1))
+	else if (!ft_strncmp(arg[data->i], "<\0", 2))
 	{
+		free(arg[data->i]);
 		data->exe_flag.file_in = 1;
 		temp->infile = arg[++data->i];
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], "<<", 2))
 	{
+		free(arg[data->i]);
+		data->heredoc.end = arg[++data->i];
 		data->exe_flag.heredoc_in = 1;
-		return(0);
+		return(1);
 	}
 	else
 		return(0);
@@ -61,10 +66,12 @@ void build_cmd_param(t_data *data, char **arg)
 
 	temp = NULL;
 	if(strncmp(arg[data->i], "|", 1) == 0)
-		// ft_pipe(data);
+	{
+		return ;// ft_pipe(data);
+	}	
 	else if(is_meta(arg, data))
 	{
-		// set_meta(data);
+		set_meta(data);
 	}	
 	else
 	{
@@ -108,21 +115,21 @@ void	make_list_ltkn(t_data *data)
 			if(!data->ltkn)
 			{	
 				data->j = 0;
-				ft_printf(" if arg : %s\n", arg[data->i]);
 				nbarg = ft_count_arg(arg, data->i);
-				ft_printf("nbarg : %d\n", nbarg);
 				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
 				data->j++;
+				check_path(data, arg, data->ltkn);
 			}			
 			else
 			{
+				free(arg[data->i - 1]);
 				data->j = 0;
-				ft_printf("else arg : %s\n", arg[data->i]);
 				nbarg = ft_count_arg(arg, data->i);
 				temp = data->ltkn;
 				temp = ft_lstlast_tkn(temp);
 				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
 				data->j++;
+				check_path(data, arg, temp->next);
 			}
 		}
 		else
@@ -131,6 +138,7 @@ void	make_list_ltkn(t_data *data)
 	// need free_all for split
 	// need free list
 	}
+	// free(arg[1]);
 	free(arg);
 	
 }
@@ -168,11 +176,13 @@ void	print_list(t_data *data)
 	while (temp != NULL)
 	{
 		i = 0;
+		ft_printf("\npath : %s\n", temp->path);
+		ft_printf("argv : ");
 		while(temp->arg[i])
 			ft_printf("%s, ", temp->arg[i++]);
 		ft_printf("\n");
 		ft_printf("infile : %s\n", temp->infile);
-		ft_printf("outfile : %s\n", temp->outfile);
+		ft_printf("outfile : %s\n\n", temp->outfile);
 		
 		temp = temp->next;
 	}	

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/13 19:44:52 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/14 14:17:50 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	heredoc(t_data *data)
 	char *read;
 	
 	read = NULL;
-	data->heredoc.end = ft_strjoin(NULL, "!", 0);
+	// data->heredoc.end = ft_strjoin(NULL, "!", 0);
 	while(1)
 	{
 		read = readline(">");

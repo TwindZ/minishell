@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 11:17:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/14 12:24:29 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,9 @@ typedef struct s_data
 	t_exe_cmd	exe_cmd;
 	t_heredoc	heredoc;
 	t_ltkn 		*ltkn;
-	t_ltkn		*cur_ltkn
+	t_ltkn		*cur_ltkn;
 	char		*file;
+	char		**split_arg;
 	//---frank-----
 	char		*read;
 	char		*line;
@@ -177,5 +178,5 @@ t_lcmd	*ft_lstlast_lcmd(t_lcmd *lcmd);
 void	print_list_lcmd(t_data *data);
 void	free_lcmd(t_lcmd *lcmd);
 
-void	check_path(t_data *data, char **arg);
+void	check_path(t_data *data, char **arg, t_ltkn *temp);
 #endif
