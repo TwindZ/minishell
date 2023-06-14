@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/13 17:22:04 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 20:31:51 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 int	is_meta(char *arg, t_data *data)
 {
+	t_ltkn *temp;
+
+	temp = data->ltkn;
+	temp = ft_lstlast_tkn(temp);
 	if(ft_strncmp(arg, ">", 1))
 	{
 		data->exe_flag.file_out_w = 1;
-		data->exe_flag.meta_arg = &arg[++data->i];
+		temp->outfile = &arg[data->i];
 		return(1);
 	}
 	else if (ft_strncmp(arg, ">>", 2))
 	{
 		data->exe_flag.file_out_a = 1;
-		data->exe_flag.meta_arg = &arg[++data->i];
+		temp->outfile = &arg[++data->i];
 		return(1);
 	}
 	else if (ft_strncmp(arg, "<", 1))
 	{
 		data->exe_flag.file_in = 1;
-		data->exe_flag.meta_arg = &arg[++data->i];
+		temp->infile = &arg[++data->i];
 		return(1);
 	}
 	else if (ft_strncmp(arg, "<<", 2))
@@ -58,16 +62,16 @@ void build_cmd_param(t_data *data, char **arg)
 	temp = NULL;
 	if(strncmp(arg[data->i], "|", 1) == 0)
 		return;
-	// if(is_meta(arg[data->i], data))
-	// {
-	// 	set_meta(data);
-	// }	
-	// else
-	// {
+	if(is_meta(arg[data->i], data))
+	{
+		set_meta(data);
+	}	
+	else
+	{
 		temp = data->ltkn;
 		temp = ft_lstlast_tkn(temp);
 		temp->arg[data->j++] = arg[data->i];
-	// }
+	}
 }
 
 int ft_count_arg(char **arg, int i)
@@ -167,6 +171,9 @@ void	print_list(t_data *data)
 		while(temp->arg[i])
 			ft_printf("%s, ", temp->arg[i++]);
 		ft_printf("\n");
+		ft_printf("infile : %s\n", temp->infile);
+		ft_printf("outfile : %s\n", temp->outfile);
+		
 		temp = temp->next;
 	}	
 }

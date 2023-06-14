@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/13 14:18:48 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:47:24 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 typedef struct s_ltkn
 {
 	char			**arg;
-	int				in;
-	int				out;
+	char			*infile;
+	char			*outfile;
 	struct s_ltkn	*next;
 }				t_ltkn;
 

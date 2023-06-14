@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/09 09:43:47 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/13 19:44:52 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ char *argv_echo[] = {"echo", "allo$USER toiallo", NULL};
 char path_echo[] = "/bin/echo";	
 char *argv_ls[] = {"", "-la", NULL};
 char path_ls[] = "/bin/ls";
-
-// t_ltkn	init_ltkn()
-// {
-	
-// }
 
 void open_infile(t_data *data)
 {
