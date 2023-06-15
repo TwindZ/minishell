@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 21:15:44 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/15 13:03:24 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,20 @@ void executer(t_data *data, char *path, char **argv)
 		
 		ft_printf("fd read child 2:%d\n", data->fd.cmd_in);
 		ft_printf("fd read child 2:%d\n", data->fd.cmd_out);
-		// ft_printf("fd read child 2:%d\n", data->exe_flag.file_in);
 		set_io(data);
 		ft_printf("fd read child 3:%d\n", data->fd.cmd_in);
 		ft_printf("fd read child 3:%d\n", data->fd.cmd_out);
-		// ft_printf("fd read child 4:%d\n", execve(path, argv, data->envp));
 		execve(path, argv, data->envp);
 		exit(EXIT_FAILURE);
 	}
 	else
 	{	
-		if(!data->exe_flag.front_pipe)
+		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe)
+		{
+			if(data->exe_flag.back_pipe && data->fd.cmd_in > 2)
 			close(data->fd.cmd_in);
-		// if(!data->exe_flag.front_pipe)
 			close(data->fd.cmd_out);
-		dup2(STDIN_FILENO, 0);
-		dup2(STDOUT_FILENO, 1);
+		}
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
 	wait (NULL);
@@ -167,17 +165,17 @@ void mini_execute(t_data *data)
 	// heredoc(data);
 	// ft_pipe(data);
 	// data->file = "outfile3.txt";
+	// data->exe_flag.file_in = 0;
+	// data->exe_flag.file_in = 1;
+	// open_infile(data);
 	// data->exe_flag.front_pipe = 1;
 	// ft_pipe(data);
 	// executer(data, path_env, argv_env);
-	// data->exe_flag.file_in = 0;
-	// data->exe_flag.file_in = 1;
 	// ft_pipe(data);
 	// executer(data, path_grep, argv_grep);
-	// open_infile(data);
 	// data->exe_flag.front_pipe = 0;
-	// if(data->exe_flag.front_pipe)
 	// executer(data, path_cat, argv_cat);
+	// if(data->exe_flag.front_pipe)
 	
 	// data->exe_flag.file_out_w = 1;
 	// open_outfile(data);
