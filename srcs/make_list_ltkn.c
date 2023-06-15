@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/15 16:40:11 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:58:17 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	is_meta(char **arg, t_data *data)
 	if(!ft_strncmp(arg[data->i], ">\0", 2))
 	{
 		free(arg[data->i]);
+		open_outfile(data, arg[data->i + 1], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		temp->out_mod = 1;
 		temp->outfile = arg[++data->i];
 		return(1);

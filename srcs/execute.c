@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/15 17:12:28 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:49:54 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,24 @@ void open_infile(t_data *data, char *file)
 
 void open_outfile(t_data *data, char *file, int mod)
 {
-	if(mod == 1)
-		data->fd.cmd_out = open(file, O_WRONLY | O_TRUNC | O_CREAT, 00644);
-	else if(mod == 2)
-		data->fd.cmd_out = open(file, O_WRONLY | O_APPEND | O_CREAT, 00644);
-	if (data->fd.cmd_out == -1)
+	int fd;
+	
+	fd = 0;
+	if(mod == 0)
+	{
+		fd = open(file, O_WRONLY | O_CREAT, 00644);
+		close(fd);
+	} 
+	else 
+	{
+		if(mod == 1)
+			data->fd.cmd_out = open(file, O_WRONLY | O_TRUNC | O_CREAT, 00644);
+		else if(mod == 2)
+			data->fd.cmd_out = open(file, O_WRONLY | O_APPEND | O_CREAT, 00644);
+		data->exe_flag.file_out = 1;
+	}
+	if (data->fd.cmd_out == -1 || fd == -1)
 		ft_putstr_fd("minishell : file can't be create", 2);
-	data->exe_flag.file_out = 1;
 }
 
 void set_io(t_data *data)
