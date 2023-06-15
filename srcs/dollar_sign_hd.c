@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 12:27:19 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:59:19 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	adjust_line_hd(t_data *data)
 	free (data->hd.data);
 	data->hd.data = ft_calloc((data->dshd.linelen
 				+ data->dshd.towritelen
-				+ ft_strlen(data->hd.data) + 2), sizeof(char));
+				+ ft_strlen(data->readhd) + 2), sizeof(char));
 	if (!data->hd.data)
 		mini_free(data);
 	while (data->linetemp[data->dshd.i])

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 12:25:57 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:19:47 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <readline/history.h>
 # include <libc.h>
 # include "../srcs/libft/libft.h"
+# include <stdarg.h>
 
 typedef struct s_ltkn
 {
@@ -194,4 +195,7 @@ void	print_list_lcmd(t_data *data);
 void	free_lcmd(t_lcmd *lcmd);
 
 void	check_path(t_data *data);
+
+void	mini_echo(int fd, t_data *data);
+void	mini_pwd(int fd);
 #endif

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 12:27:06 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:46:08 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	heredoc(t_data *data)
 	data->hd.i = 0;
 	data->readhd = NULL;
 	data->hd.end = ft_strjoin(NULL, "!", 0);
+	ft_printf("TEST");
 	while(1)
 	{
 		data->readhd = readline(">");

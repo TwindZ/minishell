@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:39:37 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/08 09:39:57 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:38:41 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	fuckin_quotes(t_data *data)
 	}
 	if (data->quotes.dbl % 2 != 0)
 	{	
-		ft_printf("double quote missing\n");
+		ft_putstr_fd("double quote missing\n", 2);
 		return (-1);
 	}
 	if (data->quotes.sgl % 2 != 0)

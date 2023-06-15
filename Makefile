@@ -6,7 +6,7 @@
 #    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/14 10:54:07 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/15 14:11:22 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS =	main.c			\
 		make_list_ltkn.c\
 		make_list_lcmd.c\
 		path.c			\
+		builtins.c		\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/
