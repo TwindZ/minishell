@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 16:14:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:40:11 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,28 @@ int	is_meta(char **arg, t_data *data)
 	if(!ft_strncmp(arg[data->i], ">\0", 2))
 	{
 		free(arg[data->i]);
-		data->exe_flag.file_out_w = 1;
+		temp->out_mod = 1;
 		temp->outfile = arg[++data->i];
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], ">>", 2))
 	{
 		free(arg[data->i]);
-		data->exe_flag.file_out_a = 1;
+		temp->out_mod = 2;
 		temp->outfile = arg[++data->i];
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], "<\0", 2))
 	{
 		free(arg[data->i]);
-		data->exe_flag.file_in = 1;
+		temp->in_mod = 1;
 		temp->infile = arg[++data->i];
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], "<<", 2))
 	{
 		free(arg[data->i]);
+		temp->in_mod = 2;
 		data->hd.end = arg[++data->i];
 		data->exe_flag.heredoc_in = 1;
 		return(1);
@@ -50,15 +51,15 @@ int	is_meta(char **arg, t_data *data)
 		return(0);
 }
 
-void	set_meta(t_data *data)
-{
-	if(data->exe_flag.file_in)
-		open_infile(data);
-	else if(data->exe_flag.file_out_a || data->exe_flag.file_out_w)
-		open_outfile(data);
-	else if(data->exe_flag.heredoc_in)
-		heredoc(data);
-}
+// void	set_meta(t_data *data)
+// {
+// 	if(data->exe_flag.file_in)
+// 		open_infile(data);
+// 	else if(data->exe_flag.file_out_a || data->exe_flag.file_out_w)
+// 		open_outfile(data);
+// 	else if(data->exe_flag.heredoc_in)
+// 		heredoc(data);
+// }
 
 void build_cmd_param(t_data *data, char **arg)
 {
@@ -72,9 +73,7 @@ void build_cmd_param(t_data *data, char **arg)
 		return ;// ft_pipe(data);
 	}	
 	else if(is_meta(arg, data))
-	{
-		set_meta(data);
-	}	
+		return ;	
 	else
 	{
 		temp->arg[data->j++] = arg[data->i];
@@ -135,7 +134,7 @@ void	make_list_ltkn(t_data *data)
 		data->i++;
 	}
 	free(arg);
-	
+	//TODO a optimiser if/else + cur_ltkn;
 }
 
 

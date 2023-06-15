@@ -6,13 +6,13 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/15 13:03:24 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:12:28 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char infile[] = "infile.txt";
+char infile[] = "outfile.txt";
 char outfile[] = "outfile.txt";
 char *argv_env[] = {"env", NULL};
 char path_env[] = "/usr/bin/env";
@@ -27,47 +27,43 @@ char path_echo[] = "/bin/echo";
 char *argv_ls[] = {"", "-la", NULL};
 char path_ls[] = "/bin/ls";
 
-void open_infile(t_data *data)
+void open_infile(t_data *data, char *file)
 {
 	if(data->exe_flag.back_pipe)
 	{
 		data->exe_flag.back_pipe = 0;
-		close(data->fd.cmd_in);
+		if(data->fd.cmd_in > 2)
+			close(data->fd.cmd_in);
 	}
-	if(data->exe_flag.file_in)
-		data->fd.cmd_in = open(data->file , O_RDONLY);
+	data->fd.cmd_in = open(file , O_RDONLY);
+	data->exe_flag.file_in = 1;
 	if(data->fd.cmd_in == -1)
 		ft_putstr_fd("minshell: {COMMAND}: No such file of directory", 2);
 } // si fichier existe pas
 
-void open_outfile(t_data *data)
+void open_outfile(t_data *data, char *file, int mod)
 {
-	if(data->exe_flag.file_out_w)
-	{
-		data->fd.cmd_out = open(outfile, O_WRONLY | O_TRUNC | O_CREAT, 00644);
-	}
-	else if(data->exe_flag.file_out_a)
-		data->fd.cmd_out = open(outfile, O_WRONLY | O_APPEND | O_CREAT, 00644);
+	if(mod == 1)
+		data->fd.cmd_out = open(file, O_WRONLY | O_TRUNC | O_CREAT, 00644);
+	else if(mod == 2)
+		data->fd.cmd_out = open(file, O_WRONLY | O_APPEND | O_CREAT, 00644);
 	if (data->fd.cmd_out == -1)
 		ft_putstr_fd("minishell : file can't be create", 2);
+	data->exe_flag.file_out = 1;
 }
 
 void set_io(t_data *data)
 {
 	if (data->exe_flag.back_pipe || data->exe_flag.file_in)
-	{
 		dup2(data->fd.cmd_in, STDIN_FILENO);
-		// ft_printf("fd read child 1:%d\n", data->fd.cmd_in);
-	}
 	else if (data->fd.cmd_in != 0)
 		close(data->fd.cmd_in);
-	if (data->exe_flag.front_pipe || data->exe_flag.file_out_w || data->exe_flag.file_out_a)
+	if (data->exe_flag.front_pipe || data->exe_flag.file_out)
 		dup2(data->fd.cmd_out, STDOUT_FILENO);
 	else if (data->exe_flag.back_pipe)
 		close(data->fd.cmd_out);
 	data->exe_flag.front_pipe = 0;
-	data->exe_flag.file_out_a = 0;
-	data->exe_flag.file_out_w = 0;
+	data->exe_flag.file_out = 0;
 }
 
 void executer(t_data *data, char *path, char **argv)
@@ -79,12 +75,7 @@ void executer(t_data *data, char *path, char **argv)
 	id = fork();
 	if (id == 0)
 	{		
-		
-		ft_printf("fd read child 2:%d\n", data->fd.cmd_in);
-		ft_printf("fd read child 2:%d\n", data->fd.cmd_out);
 		set_io(data);
-		ft_printf("fd read child 3:%d\n", data->fd.cmd_in);
-		ft_printf("fd read child 3:%d\n", data->fd.cmd_out);
 		execve(path, argv, data->envp);
 		exit(EXIT_FAILURE);
 	}
@@ -106,7 +97,7 @@ void ft_pipe(t_data *data)
 	//TODO besoin de fonction pour front_pipe et de faire fonctionner avec t_data 
 	int fd[2];
 
-	if(data->exe_flag.file_out_a == 0 && data->exe_flag.file_out_w == 0)
+	if(data->exe_flag.file_out == 0)
 	{
 		pipe(fd);
 		data->fd.cmd_next_in = fd[0];
@@ -120,7 +111,6 @@ void	heredoc(t_data *data)
 {
 	data->hd.i = 0;
 	data->readhd = NULL;
-	data->hd.end = ft_strjoin(NULL, "!", 0);
 	while(1)
 	{
 		data->readhd = readline(">");
@@ -148,6 +138,9 @@ void	heredoc(t_data *data)
 
 void mini_execute(t_data *data)
 {
+	// TODO doit créé tout les fichier de redirection meme s'il en a plusieur
+	// TODO ligne de commande peut commencer par une redirection
+	
 	t_ltkn *temp;
 
 	temp = data->ltkn;
@@ -156,6 +149,12 @@ void mini_execute(t_data *data)
 		data->exe_flag.front_pipe = temp->front_pipe;
 		if(temp->front_pipe)
 			ft_pipe(data);
+		if(temp->in_mod == 1)
+			open_infile(data, temp->infile);
+		if(temp->in_mod == 2)
+			heredoc(data);
+		if(temp->out_mod != 0)
+			open_outfile(data, temp->outfile, temp->out_mod);
 		executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}

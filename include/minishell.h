@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/14 15:54:59 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:45:39 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef struct s_ltkn
 	char			*path;
 	char			**arg;
 	char			*infile;
+	int				in_mod;
 	char			*outfile;
+	int				out_mod;
 	int 			front_pipe;
 	struct s_ltkn	*next;
 }				t_ltkn;
@@ -112,8 +114,7 @@ typedef struct s_fd
 typedef struct s_exe_flag
 {
 	int		file_in;
-	int		file_out_w;
-	int		file_out_a;
+	int		file_out;
 	int		back_pipe;
 	int		front_pipe;
 	int		heredoc_in;
@@ -153,8 +154,8 @@ typedef struct s_data
 
 void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
-void 	open_infile(t_data *data);
-void 	open_outfile(t_data *data);
+void 	open_infile(t_data *data, char *file);
+void 	open_outfile(t_data *data, char *file, int mod);
 void	heredoc(t_data *data);
 void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
