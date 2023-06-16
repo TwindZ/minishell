@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/15 18:49:54 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/16 13:35:09 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void open_outfile(t_data *data, char *file, int mod)
 	else 
 	{
 		if(mod == 1)
-			data->fd.cmd_out = open(file, O_WRONLY | O_TRUNC | O_CREAT, 00644);
+			data->fd.cmd_out = open(file, O_RDWR | O_TRUNC);
 		else if(mod == 2)
-			data->fd.cmd_out = open(file, O_WRONLY | O_APPEND | O_CREAT, 00644);
+			data->fd.cmd_out = open(file, O_RDWR | O_APPEND);
 		data->exe_flag.file_out = 1;
 	}
+		ft_printf("data->fd.cmd_out : %d\n", data->fd.cmd_out);
 	if (data->fd.cmd_out == -1 || fd == -1)
 		ft_putstr_fd("minishell : file can't be create", 2);
 }
@@ -164,8 +165,8 @@ void mini_execute(t_data *data)
 			open_infile(data, temp->infile);
 		if(temp->in_mod == 2)
 			heredoc(data);
-		if(temp->out_mod != 0)
-			open_outfile(data, temp->outfile, temp->out_mod);
+		// if(temp->out_mod != 0)
+			// open_outfile(data, temp->outfile, temp->out_mod);
 		executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}

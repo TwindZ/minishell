@@ -6,13 +6,23 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/15 18:58:17 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/16 13:56:31 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	is_meta(char **arg, t_data *data)
+int	is_meta(t_data *data, char **arg)
+{
+	if(!ft_strncmp(arg[data->i], "<<\0", 3)
+		|| !ft_strncmp(arg[data->i], "<\0", 2)
+		|| !ft_strncmp(arg[data->i], ">>\0", 3)
+		|| !ft_strncmp(arg[data->i], ">\0", 2))
+		return(1);
+	return (0);
+}
+
+int	set_meta(t_data *data, char **arg)
 {
 	t_ltkn *temp;
 
@@ -21,14 +31,19 @@ int	is_meta(char **arg, t_data *data)
 	if(!ft_strncmp(arg[data->i], ">\0", 2))
 	{
 		free(arg[data->i]);
-		open_outfile(data, arg[data->i + 1], 0); //TODO si fichier qui suis est un token besoin d'erreur
+		// data->i++;
+		// if (is_meta(data, arg) == 0)
+		open_outfile(data, arg[++data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
+		// else
+		// 	ft_putstr_fd("erreur de syntaxe deux meta", 2);
 		temp->out_mod = 1;
 		temp->outfile = arg[++data->i];
 		return(1);
 	}
-	else if (!ft_strncmp(arg[data->i], ">>", 2))
+	else if (!ft_strncmp(arg[data->i], ">>\0", 3))
 	{
 		free(arg[data->i]);
+		open_outfile(data, arg[++data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		temp->out_mod = 2;
 		temp->outfile = arg[++data->i];
 		return(1);
@@ -40,7 +55,7 @@ int	is_meta(char **arg, t_data *data)
 		temp->infile = arg[++data->i];
 		return(1);
 	}
-	else if (!ft_strncmp(arg[data->i], "<<", 2))
+	else if (!ft_strncmp(arg[data->i], "<<\0", 3))
 	{
 		free(arg[data->i]);
 		temp->in_mod = 2;
@@ -51,16 +66,6 @@ int	is_meta(char **arg, t_data *data)
 	else
 		return(0);
 }
-
-// void	set_meta(t_data *data)
-// {
-// 	if(data->exe_flag.file_in)
-// 		open_infile(data);
-// 	else if(data->exe_flag.file_out_a || data->exe_flag.file_out_w)
-// 		open_outfile(data);
-// 	else if(data->exe_flag.heredoc_in)
-// 		heredoc(data);
-// }
 
 void build_cmd_param(t_data *data, char **arg)
 {
@@ -73,8 +78,10 @@ void build_cmd_param(t_data *data, char **arg)
 		temp->front_pipe = 1;
 		return ;// ft_pipe(data);
 	}	
-	else if(is_meta(arg, data))
-		return ;	
+	else if(is_meta(data, arg))
+	{
+		set_meta(data, arg);
+	}
 	else
 	{
 		temp->arg[data->j++] = arg[data->i];
