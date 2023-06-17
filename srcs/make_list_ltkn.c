@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/16 22:40:45 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/17 11:40:23 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_meta(t_data *data, char **arg)
 	return (0);
 }
 
-int	set_meta(t_data *data, char **arg)
+int	set_meta(t_data *data, char **arg) // TODO mettre en void
 {
 	t_ltkn *temp;
 
@@ -37,8 +37,10 @@ int	set_meta(t_data *data, char **arg)
 		// else
 		// 	ft_putstr_fd("erreur de syntaxe deux meta", 2);
 		data->temp_out_mod = 1;
+		if(data->temp_outfile)
+			free(data->temp_outfile);
 		data->temp_outfile = arg[data->i];
-		ft_printf("%s\n", data->temp_outfile);
+		ft_printf("data->temp_outfile : %s\n", data->temp_outfile);
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], ">>\0", 3))
@@ -74,9 +76,11 @@ void build_cmd_param(t_data *data, char **arg)
 
 	temp = data->ltkn;
 	temp = ft_lstlast_tkn(temp);
-	if(strncmp(arg[data->i], "|\0", 1) == 0)
+	if(strncmp(arg[data->i], "|", 1) == 0)
 	{
 		temp->front_pipe = 1;
+		data->j = 0;
+		free(arg[data->i]);
 		return ;// ft_pipe(data);
 	}	
 	else if(is_meta(data, arg))
@@ -104,12 +108,10 @@ void	make_list_ltkn(t_data *data)
 {
 	char	**arg;
 	t_ltkn	*temp;
-	t_ltkn	*new;
 	int nbarg;
+	
 	nbarg = 0;
 	temp = NULL;
-	new = NULL;
-	data->ltkn = new;
 	data->i = 0;
 	data->j = 0;
 	arg = NULL;
@@ -117,36 +119,21 @@ void	make_list_ltkn(t_data *data)
 	//TODO if (!arg)
 	while (arg[data->i])
 	{
-		if(data->i > 0 && strncmp(arg[data->i - 1], "|", 1) == 0)
-		{
-			temp->in_mod = data->temp_in_mod;	
-			temp->out_mod = data->temp_out_mod;	
-			temp->infile = data->temp_infile;	
-			temp->outfile = data->temp_outfile;	
-			data->j = 0;
-		}
 		if(data->j == 0 && is_meta(data, arg) == 0)
 		{
-			ft_printf("testmakelist");
+			nbarg = ft_count_arg(arg, data->i);
 			if(!data->ltkn)
 			{	
-				nbarg = ft_count_arg(arg, data->i);
-				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
-				data->j++;
-				temp = data->ltkn;
-				check_path(data, arg, data->ltkn);
+				temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+				data->ltkn = temp;
 			}			
 			else
 			{
-				free(arg[data->i - 1]);
-				nbarg = ft_count_arg(arg, data->i);
-				temp = data->ltkn;
-				temp = ft_lstlast_tkn(temp);
 				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
-				data->j++;
 				temp = temp->next;
-				check_path(data, arg, temp->next);
 			}
+			check_path(data, arg, temp);
+			data->j++;
 		}
 		else
 			build_cmd_param(data, arg);
