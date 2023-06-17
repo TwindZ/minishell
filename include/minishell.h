@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/16 12:35:35 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:34:25 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,9 @@ typedef struct s_data
 	t_heredoc	hd;
 	t_ltkn 		*ltkn;
 	t_ltkn		*cur_ltkn;
-	char		temp_infile;
+	char		*temp_infile;
 	int			temp_in_mod;
-	char		temp_outfile;
+	char		*temp_outfile;
 	int			temp_out_mod;
 	char		*file;
 	char		**envp;

@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/16 13:56:31 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/16 22:40:45 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ int	set_meta(t_data *data, char **arg)
 		open_outfile(data, arg[++data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		// else
 		// 	ft_putstr_fd("erreur de syntaxe deux meta", 2);
-		temp->out_mod = 1;
-		temp->outfile = arg[++data->i];
+		data->temp_out_mod = 1;
+		data->temp_outfile = arg[data->i];
+		ft_printf("%s\n", data->temp_outfile);
 		return(1);
 	}
 	else if (!ft_strncmp(arg[data->i], ">>\0", 3))
@@ -110,30 +111,40 @@ void	make_list_ltkn(t_data *data)
 	new = NULL;
 	data->ltkn = new;
 	data->i = 0;
+	data->j = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
 	//TODO if (!arg)
 	while (arg[data->i])
 	{
-		if(data->i == 0 || (data->i > 0 && strncmp(arg[data->i - 1], "|", 1) == 0))
+		if(data->i > 0 && strncmp(arg[data->i - 1], "|", 1) == 0)
 		{
+			temp->in_mod = data->temp_in_mod;	
+			temp->out_mod = data->temp_out_mod;	
+			temp->infile = data->temp_infile;	
+			temp->outfile = data->temp_outfile;	
+			data->j = 0;
+		}
+		if(data->j == 0 && is_meta(data, arg) == 0)
+		{
+			ft_printf("testmakelist");
 			if(!data->ltkn)
 			{	
-				data->j = 0;
 				nbarg = ft_count_arg(arg, data->i);
 				data->ltkn = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
 				data->j++;
+				temp = data->ltkn;
 				check_path(data, arg, data->ltkn);
 			}			
 			else
 			{
 				free(arg[data->i - 1]);
-				data->j = 0;
 				nbarg = ft_count_arg(arg, data->i);
 				temp = data->ltkn;
 				temp = ft_lstlast_tkn(temp);
 				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
 				data->j++;
+				temp = temp->next;
 				check_path(data, arg, temp->next);
 			}
 		}
@@ -184,7 +195,9 @@ void	print_list(t_data *data)
 			ft_printf("%s, ", temp->arg[i++]);
 		ft_printf("\n");
 		ft_printf("infile : %s\n", temp->infile);
+		// ft_printf("infile : %d\n", temp->in_mod);
 		ft_printf("outfile : %s\n", temp->outfile);
+		// ft_printf("infile : %d\n", temp->out_mod);
 		ft_printf("frontpipe : %i\n\n", temp->front_pipe);
 		
 		

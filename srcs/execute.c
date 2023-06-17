@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/16 13:35:09 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/16 14:38:28 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,10 @@ void mini_execute(t_data *data)
 			ft_pipe(data);
 		if(temp->in_mod == 1)
 			open_infile(data, temp->infile);
-		if(temp->in_mod == 2)
+	if(temp->in_mod == 2)
 			heredoc(data);
-		// if(temp->out_mod != 0)
-			// open_outfile(data, temp->outfile, temp->out_mod);
+		if(temp->out_mod != 0)
+			open_outfile(data, temp->outfile, temp->out_mod);
 		executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
