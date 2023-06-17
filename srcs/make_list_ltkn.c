@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/17 11:40:23 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:33:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_meta(t_data *data, char **arg)
 	return (0);
 }
 
-int	set_meta(t_data *data, char **arg) // TODO mettre en void
+void	set_meta(t_data *data, char **arg)
 {
 	t_ltkn *temp;
 
@@ -31,43 +31,70 @@ int	set_meta(t_data *data, char **arg) // TODO mettre en void
 	if(!ft_strncmp(arg[data->i], ">\0", 2))
 	{
 		free(arg[data->i]);
-		// data->i++;
-		// if (is_meta(data, arg) == 0)
-		open_outfile(data, arg[++data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
-		// else
-		// 	ft_putstr_fd("erreur de syntaxe deux meta", 2);
-		data->temp_out_mod = 1;
-		if(data->temp_outfile)
-			free(data->temp_outfile);
-		data->temp_outfile = arg[data->i];
-		ft_printf("data->temp_outfile : %s\n", data->temp_outfile);
-		return(1);
+		data->i++;
+		if (is_meta(data, arg) == 0)
+		{
+			open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
+			data->temp_out_mod = 1;
+			if(data->temp_outfile)
+				free(data->temp_outfile);
+			data->temp_outfile = arg[data->i];
+		}
+		else
+		{
+			ft_putstr_fd("erreur de syntaxe deux meta", 2);
+			exit(EXIT_FAILURE);
+		}
 	}
 	else if (!ft_strncmp(arg[data->i], ">>\0", 3))
 	{
 		free(arg[data->i]);
-		open_outfile(data, arg[++data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
-		temp->out_mod = 2;
-		temp->outfile = arg[++data->i];
-		return(1);
+		data->i++;
+		if (is_meta(data, arg) == 0)
+		{
+			open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
+			data->temp_out_mod = 2;
+			if(data->temp_outfile)
+				free(data->temp_outfile);
+			data->temp_outfile = arg[data->i];
+		}
+		else
+		{
+			ft_putstr_fd("erreur de syntaxe deux meta", 2);
+			exit(EXIT_FAILURE);
+		}
 	}
-	else if (!ft_strncmp(arg[data->i], "<\0", 2))
+	else if (!ft_strncmp(arg[data->i], "<\0", 2))//TODO si fichier qui suis est un token besoin d'erreur
 	{
 		free(arg[data->i]);
-		temp->in_mod = 1;
-		temp->infile = arg[++data->i];
-		return(1);
+		data->i++;
+		if (is_meta(data, arg) == 0)
+		{
+			data->temp_in_mod = 1;
+			data->temp_infile = arg[data->i];
+		}
+		else
+		{
+			ft_putstr_fd("erreur de syntaxe deux meta", 2);
+			exit(EXIT_FAILURE);
+		}
 	}
-	else if (!ft_strncmp(arg[data->i], "<<\0", 3))
+	
+	else if (!ft_strncmp(arg[data->i], "<<\0", 3))//TODO si fichier qui suis est un token besoin d'erreur
 	{
 		free(arg[data->i]);
-		temp->in_mod = 2;
-		data->hd.end = arg[++data->i];
-		data->exe_flag.heredoc_in = 1;
-		return(1);
+		if (is_meta(data, arg))
+		{
+			data->temp_in_mod = 2;
+			data->temp_infile = arg[++data->i];
+		}
+		else
+		{
+			ft_putstr_fd("erreur de syntaxe deux meta", 2);
+			exit(EXIT_FAILURE);
+		}
+
 	}
-	else
-		return(0);
 }
 
 void build_cmd_param(t_data *data, char **arg)
@@ -76,11 +103,10 @@ void build_cmd_param(t_data *data, char **arg)
 
 	temp = data->ltkn;
 	temp = ft_lstlast_tkn(temp);
-	if(strncmp(arg[data->i], "|", 1) == 0)
+	if(strncmp(arg[data->i], "|\0", 2) == 0)
 	{
 		temp->front_pipe = 1;
 		data->j = 0;
-		free(arg[data->i]);
 		return ;// ft_pipe(data);
 	}	
 	else if(is_meta(data, arg))
@@ -98,7 +124,7 @@ int ft_count_arg(char **arg, int i)
 	int j;
 	
 	j = 0;
-	while((ft_strncmp(arg[i], "|", 1)) && arg[i++])
+	while((ft_strncmp(arg[i], "|\0", 2)) && arg[i++])
 		j++;
 	return (j);
 	ft_printf("%d\n", j);
@@ -137,6 +163,21 @@ void	make_list_ltkn(t_data *data)
 		}
 		else
 			build_cmd_param(data, arg);
+		if(temp && data->j > 0)
+		{
+			temp->in_mod = data->temp_in_mod;	
+			temp->out_mod = data->temp_out_mod;	
+			temp->infile = data->temp_infile;	
+			temp->outfile = data->temp_outfile;
+		}
+		if (strncmp(arg[data->i], "|\0", 2) == 0)
+		{
+			data->temp_in_mod = 0;
+			data->temp_out_mod = 0;
+			data->temp_infile = NULL;
+			data->temp_outfile = NULL;
+			free(arg[data->i]);
+		}
 		data->i++;
 	}
 	free(arg);

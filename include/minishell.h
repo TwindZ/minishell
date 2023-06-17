@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/16 14:34:25 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/17 13:59:56 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
 void 	open_infile(t_data *data, char *file);
 void 	open_outfile(t_data *data, char *file, int mod);
-void	heredoc(t_data *data);
+void	heredoc(t_data *data, char *delimiter);
 void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
 

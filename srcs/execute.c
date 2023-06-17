@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/17 10:05:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/17 15:37:05 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,16 @@ void ft_pipe(t_data *data)
 	} //TODO peut etre besoin de set ailleur a cause de outfile ?
 }
 
-void	heredoc(t_data *data)
+void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre dans data readhd hd.data
 {
 	data->hd.i = 0;
 	data->readhd = NULL;
+	if(data->fd.cmd_in > 2)
+		close(data->fd.cmd_in);
 	while(1)
 	{
-		data->readhd = readline(">");
-		if(!(ft_strncmp(data->readhd, data->hd.end, ft_strlen(data->hd.end))))
+		data->readhd = readline("heredoc>");
+		if(!(ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter))))
 			break;
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
 		while (data->hd.data[data->hd.i])
@@ -152,6 +154,7 @@ void mini_execute(t_data *data)
 {
 	// TODO doit créé tout les fichier de redirection meme s'il en a plusieur
 	// TODO ligne de commande peut commencer par une redirection
+	//TODO si fini par un meta doit detecter un \n
 	
 	t_ltkn *temp;
 
@@ -159,14 +162,14 @@ void mini_execute(t_data *data)
 	while(temp != NULL)
 	{
 		data->exe_flag.front_pipe = temp->front_pipe;
-		if(temp->front_pipe)
-			ft_pipe(data);
 		if(temp->in_mod == 1)
 			open_infile(data, temp->infile);
-	if(temp->in_mod == 2)
-			heredoc(data);
+		if(temp->in_mod == 2)
+			heredoc(data, temp->infile);
 		if(temp->out_mod != 0)
 			open_outfile(data, temp->outfile, temp->out_mod);
+		if(temp->front_pipe)
+			ft_pipe(data);
 		executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
