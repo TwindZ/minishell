@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/19 10:52:00 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:01:04 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,12 @@ void executer(t_data *data, char *path, char **argv)
 	}
 	else
 	{	
-		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe || data->exe_flag.file_out || data->exe_flag.file_in)
+		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe 
+			|| data->exe_flag.file_out)
 		{
-			if(data->exe_flag.back_pipe && data->fd.cmd_in > 2)
-			close(data->fd.cmd_in);
+			if((data->exe_flag.file_in || data->exe_flag.back_pipe) && data->fd.cmd_in > 2)
+				close(data->fd.cmd_in);
+			if(data->fd.cmd_out > 2)
 			close(data->fd.cmd_out);
 		}
 		data->fd.cmd_in = data->fd.cmd_next_in;
@@ -145,6 +147,7 @@ void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre da
 		data->fd.cmd_in = data->fd.cmd_next_in;
 		ft_putstr_fd(data->hd.data, data->fd.cmd_out);
 		close(data->fd.cmd_out);
+		free(data->hd.data);
 		data->exe_flag.back_pipe = 1;
 	}
 	free(data->readhd);	

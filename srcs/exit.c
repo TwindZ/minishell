@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 16:23:19 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:24:45 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,34 @@ void	free_list_ltkn(t_ltkn *ltkn)
 	{
 		temp = ltkn->next;
 		ltkn->arg = ft_freeall(ltkn->arg);
+		if(ltkn->infile)
+			free(ltkn->infile);
+		if(ltkn->outfile)
+			free(ltkn->outfile);
+		free(ltkn->arg);
 		free(ltkn->path);
+		free(ltkn);
+		ltkn = NULL;
 		ltkn = temp;
 	}
-	ltkn = NULL;
 }
 
 void	mini_free(t_data *data)
 {
 	if (data->rdflag == 1)
 	{
-		// free(data->read);
+		free(data->read);
 		// free (data->line);
 	}
 	// data->rdflag = 0;
-	// free_ltkn(data->ltkn);
 	// data->ltkn = NULL;
-	// free(data);
+	// free_list_ltkn(data->ltkn);
+	free(data);
+	//------------------------------------
+
+	// if(data->envp)
+	// 	free(data->envp);
+	// if(data->envp)
+	// 	free(data->envp);
+	
 }

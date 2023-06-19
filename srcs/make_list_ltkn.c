@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/19 09:38:21 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:03:09 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ void	set_meta(t_data *data, char **arg)
 	else if (ft_strncmp(arg[data->i], "<<\0", 3) == 0)//TODO si fichier qui suis est un token besoin d'erreur
 	{
 		free(arg[data->i++]);
-		if (is_meta(data, arg))
+		if (is_meta(data, arg) == 0)
 		{
 			data->temp_in_mod = 2;
-			data->temp_infile = arg[++data->i];
+			data->temp_infile = arg[data->i];
 		}
 		else
 		{
@@ -104,7 +104,7 @@ void build_cmd_param(t_data *data, char **arg)
 	{
 		temp->front_pipe = 1;
 		data->j = 0;
-		return ;// ft_pipe(data);
+		return ;
 	}	
 	else if(is_meta(data, arg))
 	{
@@ -139,7 +139,7 @@ void	make_list_ltkn(t_data *data)
 	data->j = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
-	//TODO if (!arg)
+	// TODO if (!arg)
 	while (arg[data->i])
 	{
 		if(data->j == 0 && is_meta(data, arg) == 0)
@@ -220,25 +220,12 @@ void	print_list(t_data *data)
 			ft_printf("%s, ", temp->arg[i++]);
 		ft_printf("\n");
 		ft_printf("infile : %s\n", temp->infile);
-		// ft_printf("infile : %d\n", temp->in_mod);
+		ft_printf("infile : %d\n", temp->in_mod);
 		ft_printf("outfile : %s\n", temp->outfile);
-		// ft_printf("infile : %d\n", temp->out_mod);
+		ft_printf("infile : %d\n", temp->out_mod);
 		ft_printf("frontpipe : %i\n\n", temp->front_pipe);
 		
 		
 		temp = temp->next;
 	}	
-}
-
-void	free_ltkn(t_ltkn *ltkn)
-{
-	t_ltkn	*temp;
-
-	while (ltkn)
-	{
-		temp = ltkn->next;
-		free(ltkn);
-		ltkn = temp;
-	}
-	ltkn = NULL;
 }
