@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#define emman 1
-#define frank 0
+#define emman 0
+#define frank 1
 
 t_data *ft_init_data(char **envp)
 {

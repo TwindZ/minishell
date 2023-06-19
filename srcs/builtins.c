@@ -16,10 +16,16 @@ void	mini_echo(int fd, t_data *data)
 {
 	int i;
 
+	i = 0;
 	if (ft_strncmp(data->ltkn->arg[i], "-n", 2))
 		i = 2;
 	else
 		i = 1;
+	if (data->ltkn->arg[1] == NULL)
+	{
+		ft_putstr_fd("\n", fd);
+		return;
+	}
 	while (data->ltkn->arg[i])
 	{
 		ft_putstr_fd(data->ltkn->arg[i], fd);
@@ -40,5 +46,5 @@ void	mini_pwd(int fd)
 
 void	mini_cd(int fd)
 {
-	
+	(void)fd;
 }
