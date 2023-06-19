@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/15 17:12:28 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:52:00 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,25 @@ void open_infile(t_data *data, char *file)
 
 void open_outfile(t_data *data, char *file, int mod)
 {
-	if(mod == 1)
-		data->fd.cmd_out = open(file, O_WRONLY | O_TRUNC | O_CREAT, 00644);
-	else if(mod == 2)
-		data->fd.cmd_out = open(file, O_WRONLY | O_APPEND | O_CREAT, 00644);
-	if (data->fd.cmd_out == -1)
+	int fd;
+	
+	fd = 0;
+	if(mod == 0)
+	{
+		fd = open(file, O_WRONLY | O_CREAT, 00644);
+		close(fd);
+	} 
+	else 
+	{
+		if(mod == 1)
+			data->fd.cmd_out = open(file, O_RDWR | O_TRUNC);
+		else if(mod == 2)
+			data->fd.cmd_out = open(file, O_RDWR | O_APPEND);
+		data->exe_flag.file_out = 1;
+	}
+		ft_printf("data->fd.cmd_out : %d\n", data->fd.cmd_out);
+	if (data->fd.cmd_out == -1 || fd == -1)
 		ft_putstr_fd("minishell : file can't be create", 2);
-	data->exe_flag.file_out = 1;
 }
 
 void set_io(t_data *data)
@@ -81,7 +93,7 @@ void executer(t_data *data, char *path, char **argv)
 	}
 	else
 	{	
-		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe)
+		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe || data->exe_flag.file_out || data->exe_flag.file_in)
 		{
 			if(data->exe_flag.back_pipe && data->fd.cmd_in > 2)
 			close(data->fd.cmd_in);
@@ -107,16 +119,16 @@ void ft_pipe(t_data *data)
 	} //TODO peut etre besoin de set ailleur a cause de outfile ?
 }
 
-void	heredoc(t_data *data)
+void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre dans data readhd hd.data
 {
 	data->hd.i = 0;
 	data->readhd = NULL;
-	data->hd.end = ft_strjoin(NULL, "!", 0);
-	ft_printf("TEST");
+	if(data->fd.cmd_in > 2)
+		close(data->fd.cmd_in);
 	while(1)
 	{
-		data->readhd = readline(">");
-		if(!(ft_strncmp(data->readhd, data->hd.end, ft_strlen(data->hd.end))))
+		data->readhd = readline("heredoc>");
+		if(!(ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter))))
 			break;
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
 		while (data->hd.data[data->hd.i])
@@ -142,6 +154,7 @@ void mini_execute(t_data *data)
 {
 	// TODO doit créé tout les fichier de redirection meme s'il en a plusieur
 	// TODO ligne de commande peut commencer par une redirection
+	//TODO si fini par un meta doit detecter un \n
 	
 	t_ltkn *temp;
 
@@ -149,14 +162,14 @@ void mini_execute(t_data *data)
 	while(temp != NULL)
 	{
 		data->exe_flag.front_pipe = temp->front_pipe;
-		if(temp->front_pipe)
-			ft_pipe(data);
 		if(temp->in_mod == 1)
 			open_infile(data, temp->infile);
 		if(temp->in_mod == 2)
-			heredoc(data);
+			heredoc(data, temp->infile);
 		if(temp->out_mod != 0)
 			open_outfile(data, temp->outfile, temp->out_mod);
+		if(temp->front_pipe)
+			ft_pipe(data);
 		executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}

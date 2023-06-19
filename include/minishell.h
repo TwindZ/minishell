@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/19 10:50:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:53:39 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,6 @@ typedef struct s_ltkn
 	int 			front_pipe;
 	struct s_ltkn	*next;
 }				t_ltkn;
-
-typedef struct s_lcmd
-{
-	char			*cmdpath;
-	char			**argv;
-	int				builtin;
-	struct s_lcmd	*next;
-}				t_lcmd;
 
 typedef struct s_quotes
 {
@@ -98,13 +90,6 @@ typedef struct s_heredoc
 	int		i;
 }				t_heredoc;
 
-typedef struct s_exe_cmd
-{
-	char			**meta;
-	char			**cmdpath;
-	char			***argv;
-}				t_exe_cmd;
-
 typedef struct s_fd
 {
 	int		cmd_in;
@@ -119,21 +104,21 @@ typedef struct s_exe_flag
 	int		back_pipe;
 	int		front_pipe;
 	int		heredoc_in;
-	char 	*meta_arg;
 }				t_exe_flag;
 
 typedef struct s_data
 {
-	//---emman-----
 	t_fd		fd;
 	t_exe_flag	exe_flag;
-	t_exe_cmd	exe_cmd;
 	t_heredoc	hd;
 	t_ltkn 		*ltkn;
 	t_ltkn		*cur_ltkn;
+	char		*temp_infile;
+	int			temp_in_mod;
+	char		*temp_outfile;
+	int			temp_out_mod;
 	char		*file;
-	char		**split_arg;
-	//---frank-----
+	char		**envp;
 	char		*read;
 	char		*readhd;
 	char		*line;
@@ -145,19 +130,13 @@ typedef struct s_data
 	t_dolsign	dolsign;
 	t_dshd		dshd;
 	t_meta		meta;
-	//---common----- 
-	//TODO enlever les commentaires
-	char		**path;
-	// char	*cmdpath;
-	char		**envp;
-	t_lcmd		*lcmd;
 }				t_data;
 
 void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
 void 	open_infile(t_data *data, char *file);
 void 	open_outfile(t_data *data, char *file, int mod);
-void	heredoc(t_data *data);
+void	heredoc(t_data *data, char *delimiter);
 void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
 
@@ -201,18 +180,8 @@ void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);
 void	free_ltkn(t_ltkn *ltkn);
 
-void	make_list_lcmd(t_data *data, char *path);
-t_lcmd	*ft_lstnew_lcmd(char *content);
-t_lcmd	*ft_lstlast_lcmd(t_lcmd *lcmd);
-void	print_list_lcmd(t_data *data);
-void	free_lcmd(t_lcmd *lcmd);
-
-<<<<<<< HEAD
 void	check_path(t_data *data, char **arg, t_ltkn *temp);
-=======
-void	check_path(t_data *data);
 
 void	mini_echo(int fd, t_data *data);
 void	mini_pwd(int fd);
->>>>>>> frank
 #endif
