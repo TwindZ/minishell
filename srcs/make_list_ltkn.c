@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/17 15:33:30 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:25:29 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ void	set_meta(t_data *data, char **arg)
 	temp = ft_lstlast_tkn(temp);
 	if(!ft_strncmp(arg[data->i], ">\0", 2))
 	{
-		free(arg[data->i]);
-		data->i++;
+		free(arg[data->i++]);
 		if (is_meta(data, arg) == 0)
 		{
 			open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
@@ -48,8 +47,7 @@ void	set_meta(t_data *data, char **arg)
 	}
 	else if (!ft_strncmp(arg[data->i], ">>\0", 3))
 	{
-		free(arg[data->i]);
-		data->i++;
+		free(arg[data->i++]);
 		if (is_meta(data, arg) == 0)
 		{
 			open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
@@ -66,8 +64,7 @@ void	set_meta(t_data *data, char **arg)
 	}
 	else if (!ft_strncmp(arg[data->i], "<\0", 2))//TODO si fichier qui suis est un token besoin d'erreur
 	{
-		free(arg[data->i]);
-		data->i++;
+		free(arg[data->i++]);
 		if (is_meta(data, arg) == 0)
 		{
 			data->temp_in_mod = 1;
@@ -82,7 +79,7 @@ void	set_meta(t_data *data, char **arg)
 	
 	else if (!ft_strncmp(arg[data->i], "<<\0", 3))//TODO si fichier qui suis est un token besoin d'erreur
 	{
-		free(arg[data->i]);
+		free(arg[data->i++]);
 		if (is_meta(data, arg))
 		{
 			data->temp_in_mod = 2;
