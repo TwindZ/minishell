@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/15 13:29:31 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 03:37:03 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	
 	acc = 0;
 	i = 0;
+	if(access(arg[data->i], X_OK) == 0)//TODO dois fonctionner avec un chemin absolut
+	{
+		temp->path = arg[data->i];
+		return ;
+	}
 	paths = ft_split(getenv("PATH"), ':');
 	while (paths[i])
 	{
