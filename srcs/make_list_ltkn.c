@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/18 12:25:29 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/19 09:38:21 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	set_meta(t_data *data, char **arg)
 
 	temp = data->ltkn;
 	temp = ft_lstlast_tkn(temp);
-	if(!ft_strncmp(arg[data->i], ">\0", 2))
+	if(ft_strncmp(arg[data->i], ">\0", 2) == 0)
 	{
 		free(arg[data->i++]);
 		if (is_meta(data, arg) == 0)
@@ -45,7 +45,7 @@ void	set_meta(t_data *data, char **arg)
 			exit(EXIT_FAILURE);
 		}
 	}
-	else if (!ft_strncmp(arg[data->i], ">>\0", 3))
+	else if (ft_strncmp(arg[data->i], ">>\0", 3) == 0)
 	{
 		free(arg[data->i++]);
 		if (is_meta(data, arg) == 0)
@@ -62,7 +62,7 @@ void	set_meta(t_data *data, char **arg)
 			exit(EXIT_FAILURE);
 		}
 	}
-	else if (!ft_strncmp(arg[data->i], "<\0", 2))//TODO si fichier qui suis est un token besoin d'erreur
+	else if (ft_strncmp(arg[data->i], "<\0", 2) == 0)//TODO si fichier qui suis est un token besoin d'erreur
 	{
 		free(arg[data->i++]);
 		if (is_meta(data, arg) == 0)
@@ -77,7 +77,7 @@ void	set_meta(t_data *data, char **arg)
 		}
 	}
 	
-	else if (!ft_strncmp(arg[data->i], "<<\0", 3))//TODO si fichier qui suis est un token besoin d'erreur
+	else if (ft_strncmp(arg[data->i], "<<\0", 3) == 0)//TODO si fichier qui suis est un token besoin d'erreur
 	{
 		free(arg[data->i++]);
 		if (is_meta(data, arg))

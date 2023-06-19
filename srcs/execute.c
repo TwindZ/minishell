@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/17 15:37:05 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/19 10:18:42 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void executer(t_data *data, char *path, char **argv)
 	}
 	else
 	{	
-		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe)
+		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe || data->exe_flag.file_out || data->exe_flag.file_in)
 		{
 			if(data->exe_flag.back_pipe && data->fd.cmd_in > 2)
 			close(data->fd.cmd_in);
