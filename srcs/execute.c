@@ -111,6 +111,8 @@ void	heredoc(t_data *data)
 {
 	data->hd.i = 0;
 	data->readhd = NULL;
+	data->hd.end = ft_strjoin(NULL, "!", 0);
+	ft_printf("TEST");
 	while(1)
 	{
 		data->readhd = readline(">");
