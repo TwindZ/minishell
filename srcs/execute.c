@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 12:14:08 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:47:52 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void set_io(t_data *data)
 		dup2(data->fd.cmd_out, STDOUT_FILENO);
 	else if (data->exe_flag.back_pipe)
 		close(data->fd.cmd_out);
-	data->exe_flag.front_pipe = 0;
+	data->exe_flag.front_pipe = 0; //TODO a check si besoin de fermer pipe ici ? BIZZ
 	data->exe_flag.file_out = 0;
 }
 
@@ -155,8 +155,20 @@ void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre da
 
 void	builtin(t_data *data, t_ltkn *temp)
 {
+	// set_io(data);
 	if (ft_strncmp(temp->arg[0], "echo\0", 5) == 0)
-		mini_echo()
+		mini_echo(data->fd.cmd_out,  data, temp);
+	else if (ft_strncmp(temp->arg[0], "pwd\0", 4) == 0)
+		mini_pwd(data->fd.cmd_out);
+	else if (ft_strncmp(temp->arg[0], "env\0", 4) == 0)
+		mini_env(data);
+	else if (ft_strncmp(temp->arg[0], "cd\0", 3) == 0)
+		mini_cd(data, temp);	
+	data->fd.cmd_in = data->fd.cmd_next_in;
+	if(data->fd.cmd_out > 2)
+		close(data->fd.cmd_out);
+	// else if (ft_strncmp(temp->arg[0], "exit\0", 5) == 0)
+	// 	mini_exit(data); //TODO si on a le gout ! heurk et &&
 }
 void mini_execute(t_data *data)
 {
@@ -178,8 +190,10 @@ void mini_execute(t_data *data)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if(temp->front_pipe)
 			ft_pipe(data);
-		builtin(data, temp);
-		executer(data, temp->path, temp->arg);
+		if(strncmp(temp->path, "*builtin", 9) == 0)
+			builtin(data, temp);
+		else
+			executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
 	// data->exe_flag.back_pipe = 0;

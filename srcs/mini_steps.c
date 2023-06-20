@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 12:29:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/19 15:23:26 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:46:26 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	mini_start(t_data *data)
 {
+	char **temp_env;
+
+	temp_env = NULL;
 	while (1)
 	{
 		while (1)
@@ -21,12 +24,7 @@ void	mini_start(t_data *data)
 			data->read = readline("Minishell>");
 			data->rdflag = 1;
 			if (ft_strncmp(data->read, "exit", 4) == 0)
-			{
-				free_list_ltkn(data->ltkn);
-				free(data->read);
-				free(data);
-				exit(EXIT_SUCCESS);
-			}
+				mini_exit(data);
 			if (ft_strlen(data->read) == 0)
 				break ;
 			add_history(data->read);
@@ -39,12 +37,15 @@ void	mini_start(t_data *data)
 				break ;
 			ft_printf("%s\n", data->line);
 			make_list_ltkn(data);
-			mini_execute(data);
 			print_list(data);
+			mini_execute(data);
 			free_list_ltkn(data->ltkn);
 			free(data->line);
 			free (data->read);
+			temp_env = data->envp;
 			ft_bzero(data, sizeof(t_data));
+			data->envp = temp_env;
+			
 		}
 	}
 }

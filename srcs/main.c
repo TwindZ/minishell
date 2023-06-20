@@ -6,13 +6,13 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 11:15:28 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:18:21 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#define emman 1
-#define frank 0
+#define emman 0
+#define frank 1
 
 t_data *ft_init_data(char **envp)
 {
@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 		// }
 		// mini_execute(data);
 		ft_printf("%s\n", getenv("PATH"));
-		setenv()
+
 	}
 
 	if(frank)
