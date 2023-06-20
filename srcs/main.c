@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 15:11:21 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:58:55 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,84 @@ t_data *ft_init_data(char **envp)
 	return (data);
 }
 
+int	parse(t_data *data)
+{
+	if (ft_strncmp(data->read, "exit", 4) == 0)
+		mini_exit(data);
+	if (ft_strlen(data->read) == 0)
+		return (1);
+	add_history(data->read);
+	if (whitespace(data) == 0)
+		return (1);
+	if (fuckin_quotes(data) == -1)
+		return (1);
+	prep_line(data);
+	if (ft_strlen(data->line) == 0)
+		return (1);
+	ft_printf("%s\n", data->line); //TODO a enlever
+	make_list_ltkn(data);
+	return(0);
+}
+
+void	reset(t_data *data)
+{
+	char **temp_env;
+
+	temp_env = NULL;
+	free_list_ltkn(data->ltkn);
+	free(data->line);
+	free (data->read);
+	temp_env = data->envp;
+	ft_bzero(data, sizeof(t_data));
+	data->envp = temp_env;
+	
+}
+
 int main(int argc, char **argv, char **envp)
 {
-	(void) argc;
-	(void) argv;
 
-	t_data *data;
-
-	data = ft_init_data(envp);
 	
-	if(emman)
-	{
-		ft_printf("emman\n");
-		// while(ft_strncmp(envp[i], "_=", 2))
-		// {
-		// 	ft_printf("%s\n", envp[i++]);
-		// }
-		// mini_execute(data);
-		ft_printf("%s\n", getenv("PATH"));
+	// if(emman)
+	// {
+	// 	ft_printf("emman\n");
+	// 	// while(ft_strncmp(envp[i], "_=", 2))
+	// 	// {
+	// 	// 	ft_printf("%s\n", envp[i++]);
+	// 	// }
+	// 	// mini_execute(data);
+	// 	ft_printf("%s\n", getenv("PATH"));
 
-	}
+	// }
 
-	if(frank)
+	// if(frank)
+	// {
+	// 	ft_printf("frank\n");
+	// 	if (argc != 1)
+	// 		exit(EXIT_FAILURE);  //TODO fonction de sorti à faire
+	// 	mini_start(data);
+	// }
+
+	(void)	argv;
+	t_data	*data;
+		
+	if(argc > 1)
+		return (0);
+	data = ft_init_data(envp);
+	while (1)
 	{
-		ft_printf("frank\n");
-		if (argc != 1)
-			exit(EXIT_FAILURE);  //TODO fonction de sorti à faire
-		mini_start(data);
+		while (1)
+		{
+			data->read = readline("Minishell>");
+			data->rdflag = 1;
+			ft_printf("\n\n---------------------------------------\n");
+			ft_printf("*****************DEBUG*****************\n");
+			if(parse(data))
+				break;
+			print_list(data);
+			ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
+			ft_printf("---------------------------------------\n");
+			mini_execute(data);
+			reset(data);
+		}
 	}
 }

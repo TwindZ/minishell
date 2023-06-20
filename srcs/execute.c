@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 14:47:52 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:38:48 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ void open_outfile(t_data *data, char *file, int mod)
 void set_io(t_data *data)
 {
 	if (data->exe_flag.back_pipe || data->exe_flag.file_in)
-		dup2(data->fd.cmd_in, STDIN_FILENO);
+			dup2(data->fd.cmd_in, STDIN_FILENO);
 	else if (data->fd.cmd_in != 0)
 		close(data->fd.cmd_in);
 	if (data->exe_flag.front_pipe || data->exe_flag.file_out)
 		dup2(data->fd.cmd_out, STDOUT_FILENO);
 	else if (data->exe_flag.back_pipe)
 		close(data->fd.cmd_out);
-	data->exe_flag.front_pipe = 0; //TODO a check si besoin de fermer pipe ici ? BIZZ
+	data->exe_flag.front_pipe = 0; 
 	data->exe_flag.file_out = 0;
 }
 
@@ -155,7 +155,6 @@ void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre da
 
 void	builtin(t_data *data, t_ltkn *temp)
 {
-	// set_io(data);
 	if (ft_strncmp(temp->arg[0], "echo\0", 5) == 0)
 		mini_echo(data->fd.cmd_out,  data, temp);
 	else if (ft_strncmp(temp->arg[0], "pwd\0", 4) == 0)
