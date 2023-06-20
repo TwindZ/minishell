@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/19 16:01:04 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:14:08 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,11 @@ void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre da
 	free(data->readhd);	
 }
 
+void	builtin(t_data *data, t_ltkn *temp)
+{
+	if (ft_strncmp(temp->arg[0], "echo\0", 5) == 0)
+		mini_echo()
+}
 void mini_execute(t_data *data)
 {
 	// TODO doit créé tout les fichier de redirection meme s'il en a plusieur
@@ -173,6 +178,7 @@ void mini_execute(t_data *data)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if(temp->front_pipe)
 			ft_pipe(data);
+		builtin(data, temp);
 		executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
