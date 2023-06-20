@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/19 10:53:39 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 08:58:43 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <readline/history.h>
 # include <libc.h>
 # include "../srcs/libft/libft.h"
-# include <stdarg.h>
+# include <stdio.h>
 
 typedef struct s_ltkn
 {
@@ -184,4 +184,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
 void	mini_echo(int fd, t_data *data);
 void	mini_pwd(int fd);
+void	mini_env(t_data *data);
+void	mini_exit(void);
+void	mini_cd(t_data *data);
 #endif
