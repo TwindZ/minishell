@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 10:37:11 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:36:13 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ void	heredoc(t_data *data, char *delimiter);
 void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
 
+
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
 int		whitespace(t_data *data);
@@ -202,6 +203,7 @@ void	mini_pwd(int fd);
 void	mini_env(t_data *data);
 void	mini_exit(void);
 void	mini_cd(t_data *data, t_ltkn *temp);
-void	mini_export(t_data *data);
+void	mini_export(t_data *data, t_ltkn *temp);
 void	mini_unset(t_data *data);
+char	**env_cpy(char **envp, int exp);
 #endif
