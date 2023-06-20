@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/20 14:51:31 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:11:40 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,23 +99,39 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 	}
 }
 
-void	mini_export(t_data *data)
+void	mini_export(t_data *data, t_ltkn *temp)
 {
-	int	result;
-	int	i;
+	int		i;
+	int		j;
+	char 	**new_env;
 
 	i = 0;
-	result = setenv(data->ltkn->arg[1], "", 1);
-	if (result != 0)
-		ft_printf("Error");
-	// TODO changer les messages d'erreurs avec stderr ou perror
-	while (data->envp[i])
+	j = 0;
+	new_env = NULL;
+	while (data->envp[j])
+		j++;
+	while (ft_strncmp(temp->arg[1], data->envp[i], ft_strlen(temp->arg[1])))
+		i++;
+	if (temp->arg[1] == NULL)
 	{
-		if (ft_strncmp(data->ltkn->arg[1], data->envp[i], ft_strlen(data->ltkn->arg[1])) == 1)
-		{
-			// rajoute la ligne data->ltkn->arg[1] dans data->enp[i] avec le malloc pis toute.
-		}
+		while (data->envp[i])
+			ft_printf("declare -x %s\n", data->envp[i]);
 	}
+	if (i == j)
+	{
+		new_env = env_cpy(data->envp, 1);
+		j++;
+		new_env[j] = ft_calloc(ft_strlen(temp->arg[1]), sizeof(char));
+		new_env[j] = temp->arg[1];
+		free (data->envp);
+		data->envp = new_env;
+	}
+	else
+	{
+		
+	}
+
+	// TODO changer les messages d'erreurs avec stderr ou perror
 }
 
 void	mini_unset(t_data *data)

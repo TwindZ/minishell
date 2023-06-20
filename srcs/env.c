@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   env.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../include/minishell.h"
 
-char	**ft_flood_cpy(char **envp)
+char	**env_cpy(char **envp, int exp)
 {
 	int	i;
 	char	**enviro;
@@ -25,7 +25,7 @@ char	**ft_flood_cpy(char **envp)
 		exit(1);
 	while (envp[i])
 	{
-		enviro[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
+		enviro[i] = ft_calloc(ft_strlen(envp[i]) + 1 + exp, sizeof(char));
 		if (!enviro)
 			exit(1);
 		ft_memcpy(enviro[i], envp[i], ft_strlen(envp[i] + 1));
