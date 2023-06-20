@@ -6,33 +6,30 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/20 08:58:35 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:26:54 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_echo(int fd, t_data *data)
+void	mini_echo(int fd, t_data *data, t_ltkn *temp)
 {
 	int i;
 
 	i = 0;
-	if (ft_strncmp(data->ltkn->arg[i], "-n", 2))
-		i = 2;
-	else
-		i = 1;
-	if (data->ltkn->arg[1] == NULL)
+	if (temp->arg[1] == NULL)
 	{
 		ft_putstr_fd("\n", fd);
 		return;
 	}
-	while (data->ltkn->arg[i])
+	while (temp->arg[i] || (ft_strncmp(temp->arg[i], "-n", 2) == 0))
 	{
-		ft_putstr_fd(data->ltkn->arg[i], fd);
-		if (data->ltkn->arg[i + 1] != NULL)
+		ft_putstr_fd(temp->arg[i], fd);
+		if (temp->arg[i + 1] != NULL)
 			ft_putstr_fd(" ", fd);
+		i++;
 	}
-	if (ft_strncmp(data->ltkn->arg[1], "-n", 2))
+	if (ft_strncmp(temp->arg[i], "-n", 2) == 0)
 		ft_putstr_fd("\n", fd);
 }
 
@@ -62,7 +59,7 @@ void	mini_env(t_data *data)
 	}
 }
 
-void	mini_cd(t_data *data)
+void	mini_cd(t_data *data, t_ltkn *temp)
 {
 	int 	i;
 	int		result;
@@ -74,14 +71,14 @@ void	mini_cd(t_data *data)
 	home = getenv("HOME");
 	if (!home)
 		ft_printf("HOME not found");
-	while (data->ltkn->arg[i])
+	while (temp->arg[i])
 		i++;
 	if (i == 2)
 	{
 		i = 1;
-		result = chdir(data->ltkn->arg[i]);
+		result = chdir(temp->arg[i]);
 		if (result != 0)
-			ft_printf("Minishell: cd: %s: No such file or directory", data->ltkn->arg[i]);
+			ft_printf("Minishell: cd: %s: No such file or directory", temp->arg[i]);
 		// TODO changer les messages d'erreurs avec stderr ou perror
 		return ;
 	}
@@ -91,5 +88,43 @@ void	mini_cd(t_data *data)
 		if (result != 0)
 			ft_printf("Minishell: cd: Cant't find HOME directory");
 		return ;
+	}
+}
+
+void	mini_export(t_data *data)
+{
+	int	result;
+	int	i;
+
+	i = 0;
+	result = setenv(data->ltkn->arg[1], "", 1);
+	if (result != 0)
+		ft_printf("Error");
+	// TODO changer les messages d'erreurs avec stderr ou perror
+	while (data->envp[i])
+	{
+		if (ft_strncmp(data->ltkn->arg[1], data->envp[i], ft_strlen(data->ltkn->arg[1])) == 1)
+		{
+			// rajoute la ligne data->ltkn->arg[1] dans data->enp[i] avec le malloc pis toute.
+		}
+	}
+}
+
+void	mini_unset(t_data *data)
+{
+	int	result;
+	int	i;
+
+	i = 0;
+	result = unsetenv(data->ltkn->arg[1]);
+	if (result != 0)
+		ft_printf("Error");
+	// TODO changer les messages d'erreurs avec stderr ou perror
+	while (data->envp[i])
+	{
+		if (ft_strncmp(data->ltkn->arg[1], data->envp[i], ft_strlen(data->ltkn->arg[1])) == 0)
+		{
+			// enlève la ligne data->ltkn->arg[1] dans data->enp[i] avec le malloc pis toute.
+		}
 	}
 }

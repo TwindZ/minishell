@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 08:58:43 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:37:11 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,14 @@ typedef struct s_fd
 	int		cmd_next_in;
 }				t_fd;
 
+typedef struct s_lcmd
+{
+	char			*cmdpath;
+	char			**argv;
+	int				builtin;
+	struct s_lcmd	*next;
+}				t_lcmd;
+
 typedef struct s_exe_flag
 {
 	int		file_in;
@@ -130,6 +138,7 @@ typedef struct s_data
 	t_dolsign	dolsign;
 	t_dshd		dshd;
 	t_meta		meta;
+	t_lcmd		*lcmd;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -180,11 +189,19 @@ void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);
 void	free_ltkn(t_ltkn *ltkn);
 
+void	make_list_lcmd(t_data *data, char *path);
+t_lcmd	*ft_lstnew_lcmd(char *content);
+t_lcmd	*ft_lstlast_lcmd(t_lcmd *lcmd);
+void	print_list_lcmd(t_data *data);
+void	free_lcmd(t_lcmd *lcmd);
+
 void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
-void	mini_echo(int fd, t_data *data);
+void	mini_echo(int fd, t_data *data, t_ltkn *temp);
 void	mini_pwd(int fd);
 void	mini_env(t_data *data);
 void	mini_exit(void);
-void	mini_cd(t_data *data);
+void	mini_cd(t_data *data, t_ltkn *temp);
+void	mini_export(t_data *data);
+void	mini_unset(t_data *data);
 #endif
