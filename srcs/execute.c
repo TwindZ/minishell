@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 22:20:51 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/21 10:02:37 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ void mini_execute(t_data *data)
 			ft_pipe(data);
 		if(strncmp(temp->path, "*builtin", 9) == 0)
 			builtin(data, temp);
-		else
+		else if (temp->path)
 			executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}

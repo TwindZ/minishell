@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/20 13:25:59 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:18:38 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	ft_freeall(paths);
 	if(acc == -1)
 	{
-		free(temp->path);
-		temp->path = NULL;
+		// temp->path = NULL;
+		// free(temp->path);
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(temp->arg[0], 2);
 		ft_putstr_fd(": command not found\n", 2) ;
