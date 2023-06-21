@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 10:49:15 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:19:34 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	dollar_sign(t_data *data)
 	if (data->read[data->i] == '$')
 	{
 		make_tocheck(data);
-		data->dolsign.towrite = getenv(data->dolsign.tocheck);
+		ft_printf("%s\n", data->dshd.tocheck);
+		data->dolsign.towrite = getenvp(data, data->dshd.tocheck, 1);
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
 		free(data->dolsign.tocheck);

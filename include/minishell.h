@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 15:11:35 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:11:31 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,6 @@ typedef struct s_fd
 	int		cmd_next_in;
 }				t_fd;
 
-typedef struct s_lcmd
-{
-	char			*cmdpath;
-	char			**argv;
-	int				builtin;
-	struct s_lcmd	*next;
-}				t_lcmd;
-
 typedef struct s_exe_flag
 {
 	int		file_in;
@@ -138,7 +130,6 @@ typedef struct s_data
 	t_dolsign	dolsign;
 	t_dshd		dshd;
 	t_meta		meta;
-	t_lcmd		*lcmd;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -148,7 +139,6 @@ void 	open_outfile(t_data *data, char *file, int mod);
 void	heredoc(t_data *data, char *delimiter);
 void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
-
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
@@ -190,12 +180,6 @@ void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);
 void	free_ltkn(t_ltkn *ltkn);
 
-void	make_list_lcmd(t_data *data, char *path);
-t_lcmd	*ft_lstnew_lcmd(char *content);
-t_lcmd	*ft_lstlast_lcmd(t_lcmd *lcmd);
-void	print_list_lcmd(t_data *data);
-void	free_lcmd(t_lcmd *lcmd);
-
 void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
 void	mini_echo(int fd, t_data *data, t_ltkn *temp);
@@ -206,4 +190,5 @@ void	mini_cd(t_data *data, t_ltkn *temp);
 void	mini_export(t_data *data, t_ltkn *temp);
 void	mini_unset(t_data *data);
 char	**env_cpy(char **envp, int exp);
+char	*getenvp(t_data *data, char *var, int extract);
 #endif
