@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 17:38:48 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 22:20:51 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ void open_outfile(t_data *data, char *file, int mod)
 void set_io(t_data *data)
 {
 	if (data->exe_flag.back_pipe || data->exe_flag.file_in)
-			dup2(data->fd.cmd_in, STDIN_FILENO);
-	else if (data->fd.cmd_in != 0)
-		close(data->fd.cmd_in);
+		dup2(data->fd.cmd_in, STDIN_FILENO);
 	if (data->exe_flag.front_pipe || data->exe_flag.file_out)
 		dup2(data->fd.cmd_out, STDOUT_FILENO);
-	else if (data->exe_flag.back_pipe)
+	if(data->fd.cmd_in > 2)
+		close(data->fd.cmd_in);
+	if(data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
 	data->exe_flag.front_pipe = 0; 
 	data->exe_flag.file_out = 0;
@@ -93,14 +93,10 @@ void executer(t_data *data, char *path, char **argv)
 	}
 	else
 	{	
-		if(data->exe_flag.front_pipe || data->exe_flag.back_pipe 
-			|| data->exe_flag.file_out)
-		{
-			if((data->exe_flag.file_in || data->exe_flag.back_pipe) && data->fd.cmd_in > 2)
-				close(data->fd.cmd_in);
-			if(data->fd.cmd_out > 2)
+		if(data->fd.cmd_in > 2)
+			close(data->fd.cmd_in);
+		if(data->fd.cmd_out > 2)
 			close(data->fd.cmd_out);
-		}
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
 	wait (NULL);
