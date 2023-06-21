@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 13:14:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:53:01 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,28 @@ int main(int argc, char **argv, char **envp)
 			reset(data);
 		}
 	}
+}
+
+void	print_list(t_data *data)
+{
+	t_ltkn	*temp;
+	int i;
+
+	temp = data->ltkn;
+	while (temp != NULL)
+	{
+		i = 0;
+		ft_printf("\npath : %s\n", temp->path);
+		ft_printf("argv : ");
+		while(temp->arg[i])
+			ft_printf("%s, ", temp->arg[i++]);
+		ft_printf("\n");
+		ft_printf("infile : %s\n", temp->infile);
+		ft_printf("infile : %d\n", temp->in_mod);
+		ft_printf("outfile : %s\n", temp->outfile);
+		ft_printf("infile : %d\n", temp->out_mod);
+		ft_printf("frontpipe : %i\n\n", temp->front_pipe);
+		
+		temp = temp->next;
+	}	
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emman <emman@student.42.fr>                +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/20 21:45:03 by emman            ###   ########.fr        #
+#    Updated: 2023/06/21 16:43:00 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =	main.c			\
 		path.c			\
 		builtins.c		\
 		env.c			\
+		set_meta.c		\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/
@@ -37,7 +38,7 @@ OBJS = $(SRCS:$(SCRS_DIR)%.c=$(OBJS_DIR)%.o)
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -O0
+CFLAGS = -Wall -Wextra -Werror -g -O0
 
 CC = gcc
 

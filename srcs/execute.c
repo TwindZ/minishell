@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 12:49:02 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:14:31 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,9 @@ void mini_execute(t_data *data)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if(temp->front_pipe)
 			ft_pipe(data);
-		if(strncmp(temp->path, "*builtin", 9) == 0)
+		if (!temp->path)
+			break ;
+		else if(strncmp(temp->path, "*builtin", 9) == 0)
 			builtin(data, temp);
 		else if (temp->path)
 			executer(data, temp->path, temp->arg);
