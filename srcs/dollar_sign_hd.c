@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_sign_hd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 14:58:04 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 09:11:00 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+// TODO gérer le $? et les sorties d'erreurs
 void	dollar_sign_hd(t_data *data)
 {
 	init_dollar_hd(data);
 	if (data->hd.data[data->hd.i] == '$')
 	{
 		make_tocheck_hd(data);
-		data->dshd.towrite = getenv(data->dshd.tocheck);
+		data->dshd.towrite = getenvp(data, data->dshd.tocheck, 1);
 		if (data->dshd.towrite != NULL)
 			adjust_line_hd(data);
 		free(data->dshd.tocheck);
