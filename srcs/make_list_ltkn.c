@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 17:01:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:26:48 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,32 @@ int ft_count_arg(char **arg, int i)
 	ft_printf("%d\n", j);
 }
 
+t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
+{
+	int nbarg;
+	
+	nbarg = 0;
+	nbarg = ft_count_arg(arg, data->i);
+	if(!data->ltkn)
+	{	
+		temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+		data->ltkn = temp;
+	}			
+	else
+	{
+		temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+		temp = temp->next;
+	}
+	check_path(data, arg, temp);
+	data->j++;
+	return(temp);
+}
+
 void	make_list_ltkn(t_data *data)
 {
 	char	**arg;
 	t_ltkn	*temp;
-	int nbarg;
-	
-	nbarg = 0;
+
 	temp = NULL;
 	data->i = 0;
 	data->j = 0;
@@ -71,21 +90,7 @@ void	make_list_ltkn(t_data *data)
 	while (arg[data->i])
 	{
 		if(data->j == 0 && is_meta(data, arg) == 0)
-		{
-			nbarg = ft_count_arg(arg, data->i);
-			if(!data->ltkn)
-			{	
-				temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
-				data->ltkn = temp;
-			}			
-			else
-			{
-				temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
-				temp = temp->next;
-			}
-			check_path(data, arg, temp);
-			data->j++;
-		}
+			temp = new_node(data, arg, temp);
 		else
 			build_cmd_param(data, arg);
 		if(temp && data->j > 0)
