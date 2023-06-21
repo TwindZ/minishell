@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/20 15:11:40 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:29:33 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,7 @@ void	mini_pwd(int fd)
 	ft_putstr_fd("\n", fd);
 }
 
-void	mini_exit(t_data *data)
-{
-	ft_printf("exit\n");
-	free_list_ltkn(data->ltkn);
-	free(data->read);
-	free(data);
-	exit(EXIT_SUCCESS);
-}
+//mini exit rendu dans main.c
 
 void	mini_env(t_data *data)
 {

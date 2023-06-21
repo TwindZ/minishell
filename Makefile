@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emman <emman@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/20 12:44:18 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/20 21:45:03 by emman            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJS = $(SRCS:$(SCRS_DIR)%.c=$(OBJS_DIR)%.o)
 
 NAME = minishell
 
-CFLAGS = -Wall -Wextra -Werror -g -O0
+CFLAGS = -Wall -Wextra -Werror -O0
 
 CC = gcc
 

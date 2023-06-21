@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/20 16:58:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:31:38 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ t_data *ft_init_data(char **envp)
 		data->envp = env_cpy(envp, 0);
 	}
 	return (data);
+}
+
+void	mini_exit(t_data *data)
+{
+	ft_printf("exit\n");
+	free_list_ltkn(data->ltkn);
+	free(data->read);
+	free(data->envp);
+	free(data);
+	exit(EXIT_SUCCESS);
 }
 
 int	parse(t_data *data)
