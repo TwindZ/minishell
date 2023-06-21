@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 13:14:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:25:17 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ void	reset(t_data *data)
 {
 	char **temp_env;
 
-	temp_env = NULL;
+	temp_env = env_cpy(data->envp, 0);
 	free_list_ltkn(data->ltkn);
 	free(data->line);
 	free (data->read);
-	temp_env = data->envp;
 	ft_bzero(data, sizeof(t_data));
 	data->envp = temp_env;
 	
