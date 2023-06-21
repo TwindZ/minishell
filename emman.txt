@@ -20,3 +20,6 @@ si un command existe deja ne pas la faire ?
 bash: syntax error near unexpected token `newline
 
 comment savoir qu'une commande ne prend pas d'entre
+
+env | > allo > bonjour >> test cat -e
+leaks
