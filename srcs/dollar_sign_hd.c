@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 09:11:00 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:33:15 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	dollar_sign_hd(t_data *data)
 		if (data->dshd.towrite != NULL)
 			adjust_line_hd(data);
 		free(data->dshd.tocheck);
+		free(data->dshd.towrite);
 	}
 }
 

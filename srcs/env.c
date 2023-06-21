@@ -37,42 +37,48 @@ char	**env_cpy(char **envp, int exp)
 
 char	*getenvp(t_data *data, char *var, int extract)
 {
-	int		i;
-	int		j;
-	int		k;
-	int		len;
-	char	*result;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	result = NULL;
-	len = ft_strlen(var);
-	while (data->envp[i])
+	init_env(data);
+	data->env.len = ft_strlen(var);
+	while (data->envp[data->env.i])
 	{
-		if ((ft_strncmp(data->envp[i], var, len) == 0) && extract == 1)
+		if ((ft_strncmp(data->envp[data->env.i], var, data->env.len) == 0) && extract == 1)
 		{
-			j = len + 2;
-			while (data->envp[i][j])
-			{
-				k++;
-				j++;
-			}
-			result = ft_calloc(k + 1, sizeof(char));
-			if (!result)
-				mini_free(data);
-			j = len + 2;
-			k = 0;
-			while (data->envp[i][j])
-				result[k++] = data->envp[i][j++];
-			return (result);
+			find_var(data);
+			return (data->env.result);
 		}
-		else if ((ft_strncmp(data->envp[i], var, len) == 0) && extract == 0)
+		else if ((ft_strncmp(data->envp[data->env.i], var, data->env.len) == 0) && extract == 0)
 		{
-			j = len + 2;
-			return ("ok");
+			data->env.j = data->env.len + 1;
+			data->env.result = ft_strjoin(NULL, "ok", 0);
+			return (data->env.result);
 		}
-		i++;
+		data->env.i++;
 	}
 	return (0);
+}
+
+void	init_env(t_data *data)
+{
+	data->env.i = 0;
+	data->env.j = 0;
+	data->env.k = 0;
+	data->env.len = 0;
+	data->env.result = NULL;
+}
+
+void	find_var(t_data *data)
+{
+	data->env.j = data->env.len + 1;
+	while (data->envp[data->env.i][data->env.j])
+	{
+		data->env.k++;
+		data->env.j++;
+	}
+	data->env.result = ft_calloc(data->env.k + 1, sizeof(char));
+	if (!data->env.result)
+		mini_free(data);
+	data->env.j = data->env.len + 1;
+	data->env.k = 0;
+	while (data->envp[data->env.i][data->env.j])
+		data->env.result[data->env.k++] = data->envp[data->env.i][data->env.j++];
 }

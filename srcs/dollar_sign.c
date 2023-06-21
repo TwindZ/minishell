@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 10:19:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:33:28 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ void	dollar_sign(t_data *data)
 	if (data->read[data->i] == '$')
 	{
 		make_tocheck(data);
-		ft_printf("%s\n", data->dshd.tocheck);
-		data->dolsign.towrite = getenvp(data, data->dshd.tocheck, 1);
+		// ft_printf("%s\n", data->dshd.tocheck);
+		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
 		free(data->dolsign.tocheck);
+		free(data->dolsign.towrite);
 	}
 }
 
@@ -47,7 +48,7 @@ void	make_tocheck(t_data *data)
 		data->i++;
 	data->dolsign.end = data->i;
 	data->dolsign.len = data->dolsign.end - data->dolsign.start;
-	data->dolsign.tocheck = malloc(sizeof(char) * data->dolsign.len + 1);
+	data->dolsign.tocheck = ft_calloc(data->dolsign.len + 1, sizeof(char));
 	if (!data->dolsign.tocheck)
 		mini_free(data);
 	while (data->dolsign.start < data->dolsign.end)
@@ -60,8 +61,8 @@ void	make_tocheck(t_data *data)
 			break ;
 		}
 		data->dolsign.idx++;
+		// ft_printf("%s\n", data->dolsign.tocheck);
 	}
-	data->dolsign.tocheck[data->dolsign.idx] = '\0';
 }
 
 void	adjust_line(t_data *data)

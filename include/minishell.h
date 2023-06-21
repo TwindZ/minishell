@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 09:11:31 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:02:59 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,15 @@ typedef struct s_meta
 	char	*temp;
 }				t_meta;
 
+typedef struct s_env
+{
+	int		i;
+	int		j;
+	int		k;
+	int		len;
+	char	*result;
+}				t_env;
+
 typedef struct s_heredoc
 {
 	char	*end;
@@ -130,6 +139,7 @@ typedef struct s_data
 	t_dolsign	dolsign;
 	t_dshd		dshd;
 	t_meta		meta;
+	t_env		env;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -191,4 +201,6 @@ void	mini_export(t_data *data, t_ltkn *temp);
 void	mini_unset(t_data *data);
 char	**env_cpy(char **envp, int exp);
 char	*getenvp(t_data *data, char *var, int extract);
+void	init_env(t_data *data);
+void	find_var(t_data *data);
 #endif

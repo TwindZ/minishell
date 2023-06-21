@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 10:21:39 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:34:17 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 	i = 0;
 	result = 0;
 	home = NULL;
-	home = getenv("HOME");
+	home = getenvp(data, "HOME", 1);
 	if (!home)
 		ft_printf("HOME not found");
 	while (temp->arg[i])
