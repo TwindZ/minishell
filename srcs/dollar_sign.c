@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_sign.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 10:19:34 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/21 10:43:13 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	dollar_sign(t_data *data)
 	if (data->read[data->i] == '$')
 	{
 		make_tocheck(data);
-		ft_printf("%s\n", data->dshd.tocheck);
-		data->dolsign.towrite = getenvp(data, data->dshd.tocheck, 1);
+		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);//
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
 		free(data->dolsign.tocheck);
@@ -91,7 +90,6 @@ void	adjust_line(t_data *data)
 	if (data->linetemp != NULL)
 		free (data->linetemp);
 }
-
 void	init_adjust(t_data *data)
 {
 	data->dolsign.i = 0;

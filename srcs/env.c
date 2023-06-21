@@ -52,7 +52,7 @@ char	*getenvp(t_data *data, char *var, int extract)
 	{
 		if ((ft_strncmp(data->envp[i], var, len) == 0) && extract == 1)
 		{
-			j = len + 2;
+			j = len + 1;
 			while (data->envp[i][j])
 			{
 				k++;
@@ -61,7 +61,7 @@ char	*getenvp(t_data *data, char *var, int extract)
 			result = ft_calloc(k + 1, sizeof(char));
 			if (!result)
 				mini_free(data);
-			j = len + 2;
+			j = len + 1;
 			k = 0;
 			while (data->envp[i][j])
 				result[k++] = data->envp[i][j++];
@@ -69,8 +69,10 @@ char	*getenvp(t_data *data, char *var, int extract)
 		}
 		else if ((ft_strncmp(data->envp[i], var, len) == 0) && extract == 0)
 		{
-			j = len + 2;
-			return ("ok");
+			j = len + 1;
+			result = ft_strjoin(NULL, "ok", 0);
+			return (result);
+
 		}
 		i++;
 	}

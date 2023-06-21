@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 10:18:38 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:08:52 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	is_builtin(char *arg)
 void	check_path(t_data *data, char **arg, t_ltkn *temp)
 {
 	char	**paths;
+	char	*path_env;
 	int i;
 	int acc;
 	
@@ -43,7 +44,9 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 		temp->path = arg[data->i];
 		return ;
 	}
-	paths = ft_split(getenv("PATH"), ':');
+	path_env = getenvp(data, "PATH", 1);
+	paths = ft_split(path_env, ':');
+	free(path_env)
 	while (paths[i])
 	{
 		if(temp->path)
@@ -58,8 +61,8 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	ft_freeall(paths);
 	if(acc == -1)
 	{
-		// temp->path = NULL;
-		// free(temp->path);
+		free(temp->path);
+		temp->path = ft_calloc(1, sizeof(char *));
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(temp->arg[0], 2);
 		ft_putstr_fd(": command not found\n", 2) ;

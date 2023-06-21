@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 10:02:37 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:49:02 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ void executer(t_data *data, char *path, char **argv)
 
 void ft_pipe(t_data *data)
 {
-	//TODO besoin de fonction pour front_pipe et de faire fonctionner avec t_data 
 	int fd[2];
 
 	if(data->exe_flag.file_out == 0)
@@ -112,12 +111,11 @@ void ft_pipe(t_data *data)
 		pipe(fd);
 		data->fd.cmd_next_in = fd[0];
 		data->fd.cmd_out = fd[1];
-		data->exe_flag.back_pipe = 1;
-		
-	} //TODO peut etre besoin de set ailleur a cause de outfile ?
+		data->exe_flag.back_pipe = 1;	
+	}
 }
 
-void	heredoc(t_data *data, char *delimiter)//TODO peut etre pas besoin d'etre dans data readhd hd.data
+void	heredoc(t_data *data, char *delimiter)
 {
 	data->hd.i = 0;
 	data->readhd = NULL;
