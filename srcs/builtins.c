@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 12:14:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:17:47 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 		data->envp[i] = data->envp[i + 1];
 		i++;
 	}
-	i++;
 	data->envp = env_cpy(data->envp, -1);
 	// TODO changer les messages d'erreurs avec stderr ou perror
 }
