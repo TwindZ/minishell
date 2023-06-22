@@ -30,9 +30,8 @@ char	**env_cpy(char **envp, int exp)
 	while (i < j + exp)
 	{
 		enviro[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-		if (!enviro)
-			exit(1);
-		ft_memcpy(enviro[i], envp[i], ft_strlen(envp[i]) + 1);
+		ft_strlcpy(enviro[i], envp[i], ft_strlen(envp[i]) + 1);
+		// enviro[i] = ft_strdup(envp[i]);
 		i++;
 	}
 	return (enviro);

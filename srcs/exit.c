@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 13:58:20 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:14:42 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	free_list_ltkn(t_ltkn *ltkn)
 
 void	mini_free(t_data *data)
 {
+	(void) data;
 	// if (data->rdflag == 1)
 	// {
 		// free(data->read);
