@@ -6,14 +6,12 @@
 #    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/22 12:22:01 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/22 12:30:45 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.c					\
 		execute.c				\
-		arg_list.c				\
-		mini_steps.c			\
 		parsing.c				\
 		quotes.c				\
 		dollar_sign.c			\
