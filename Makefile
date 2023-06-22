@@ -3,30 +3,32 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emman <emman@student.42.fr>                +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/21 22:36:50 by emman            ###   ########.fr        #
+#    Updated: 2023/06/22 09:42:02 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	main.c			\
-		execute.c		\
-		arg_list.c		\
-		mini_steps.c	\
-		parsing.c		\
-		quotes.c		\
-		dollar_sign.c	\
-		dollar_sign_hd.c\
-		meta_chars.c	\
-		meta_replace.c	\
-		exit.c			\
-		make_list_ltkn.c\
-		make_list_ltkn_util.c\
-		path.c			\
-		builtins.c		\
-		env.c			\
-		set_meta.c		\	
+SRCS =	main.c					\
+		execute.c				\
+		arg_list.c				\
+		mini_steps.c			\
+		parsing.c				\
+		quotes.c				\
+		dollar_sign.c			\
+		dollar_sign_hd.c		\
+		meta_chars.c			\
+		meta_replace.c			\
+		exit.c					\
+		make_list_ltkn.c		\
+		make_list_ltkn_util.c	\
+		path.c					\
+		builtins.c				\
+		env.c					\
+		set_meta.c				\
+		redirection.c			\
+		heredoc.c				\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/

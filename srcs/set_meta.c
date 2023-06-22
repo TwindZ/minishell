@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_meta.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 22:20:04 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/22 11:19:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_out_trunk(t_data *data, char **arg)
 	{
 		open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		data->temp_out_mod = 1;
-		if(data->temp_outfile)
+		if (data->temp_outfile)
 			free(data->temp_outfile);
 		data->temp_outfile = arg[data->i];
 	}
@@ -37,7 +37,7 @@ void	set_out_apend(t_data *data, char **arg)
 	{
 		open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		data->temp_out_mod = 2;
-		if(data->temp_outfile)
+		if (data->temp_outfile)
 			free(data->temp_outfile);
 		data->temp_outfile = arg[data->i];
 	}
@@ -80,12 +80,12 @@ void	set_heredoc(t_data *data, char **arg)
 
 void	set_meta(t_data *data, char **arg)
 {
-	if(ft_strncmp(arg[data->i], ">\0", 2) == 0)
+	if (ft_strncmp(arg[data->i], ">\0", 2) == 0)
 		set_out_trunk(data, arg);
 	else if (ft_strncmp(arg[data->i], ">>\0", 3) == 0)
 		set_out_apend(data, arg);
-	else if (ft_strncmp(arg[data->i], "<\0", 2) == 0)//TODO si fichier qui suis est un token besoin d'erreur
+	else if (ft_strncmp(arg[data->i], "<\0", 2) == 0) //TODO si fichier qui suis est un token besoin d'erreur
 		set_infile(data, arg);
-	else if (ft_strncmp(arg[data->i], "<<\0", 3) == 0)//TODO si fichier qui suis est un token besoin d'erreur
+	else if (ft_strncmp(arg[data->i], "<<\0", 3) == 0) //TODO si fichier qui suis est un token besoin d'erreur
 		set_heredoc(data, arg);
 }

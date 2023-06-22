@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 22:34:45 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/22 11:08:12 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int ft_count_arg(char **arg, int i)
+int	ft_count_arg(char **arg, int i)
 {
-	int j;
-	
+	int	j;
+
 	j = 0;
-	while((ft_strncmp(arg[i], "|\0", 2)) && arg[i++])
+	while ((ft_strncmp(arg[i], "|\0", 2)) && arg[i++])
 		j++;
 	return (j);
 	ft_printf("%d\n", j);
@@ -25,15 +25,15 @@ int ft_count_arg(char **arg, int i)
 
 t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
 {
-	int nbarg;
-	
+	int	nbarg;
+
 	nbarg = 0;
 	nbarg = ft_count_arg(arg, data->i);
-	if(!data->ltkn)
+	if (!data->ltkn)
 	{	
 		temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
 		data->ltkn = temp;
-	}			
+	}
 	else
 	{
 		temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
@@ -41,16 +41,16 @@ t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
 	}
 	check_path(data, arg, temp);
 	data->j++;
-	return(temp);
+	return (temp);
 }
 
 void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 {
-	if(temp && data->j > 0)
+	if (temp && data->j > 0)
 	{
-		temp->in_mod = data->temp_in_mod;	
-		temp->out_mod = data->temp_out_mod;	
-		temp->infile = data->temp_infile;	
+		temp->in_mod = data->temp_in_mod;
+		temp->out_mod = data->temp_out_mod;
+		temp->infile = data->temp_infile;
 		temp->outfile = data->temp_outfile;
 	}
 	if (strncmp(arg[data->i], "|\0", 2) == 0)
@@ -63,6 +63,7 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 	}
 }
 
+// TODO if (!arg)
 void	make_list_ltkn(t_data *data)
 {
 	char	**arg;
@@ -73,10 +74,9 @@ void	make_list_ltkn(t_data *data)
 	data->j = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
-	// TODO if (!arg)
 	while (arg[data->i])
 	{
-		if(data->j == 0 && is_meta(data, arg) == 0)
+		if (data->j == 0 && is_meta(data, arg) == 0)
 			temp = new_node(data, arg, temp);
 		else
 			build_cmd_param(data, arg, temp);
@@ -85,7 +85,6 @@ void	make_list_ltkn(t_data *data)
 	}
 	free(arg);
 }
-
 
 t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
 {
@@ -99,5 +98,3 @@ t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
 	ltkn->next = NULL;
 	return (ltkn);
 }
-
-

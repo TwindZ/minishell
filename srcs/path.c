@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 16:10:25 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:10:29 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	path_pre_check(char *arg, t_ltkn *temp)
 		temp->path = ft_strjoin(temp->path, "*builtin", 0);
 		return (1);
 	}
-	if (access(arg, X_OK) == 0)//TODO dois fonctionner avec un chemin absolut
+	if (access(arg, X_OK) == 0)
 	{
 		temp->path = arg;
 		return (1);
@@ -44,17 +44,16 @@ void	path_error(t_ltkn *temp)
 {
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(temp->arg[0], 2);
-	ft_putstr_fd(": command not found\n", 2) ;
+	ft_putstr_fd(": command not found\n", 2);
 }
 
 char	*find_path(char *prefix, char *sufix)
 {
-	char *path;
+	char	*path;
 
 	path = NULL;
 	path = ft_strjoin(prefix, "/", 0);
 	path = ft_strjoin(path, sufix, 1);
-	
 	if (access(path, X_OK) == 0)
 		return (path);
 	free(path);
@@ -66,8 +65,8 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 {
 	char	**paths;
 	char	*path_env;
-	int i;
-	
+	int		i;
+
 	i = 0;
 	if (path_pre_check(arg[data->i], temp))
 		return ;
@@ -76,7 +75,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	free(path_env);
 	while (paths[i])
 	{
-		if(temp->path)
+		if (temp->path)
 			free(temp->path);
 		temp->path = find_path(paths[i], arg[data->i]);
 		if (temp->path)

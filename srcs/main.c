@@ -3,25 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 22:16:45 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/22 12:15:39 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-#define emman 0
-#define frank 1
 
-t_data *ft_init_data(char **envp)
+t_data	*ft_init_data(char **envp)
 {
-	static t_data *data;
-	
-	if(!data)
+	static t_data	*data;
+
+	if (!data)
 	{
 		data = ft_calloc(1, sizeof(t_data));
-		if(!data)
+		if (!data)
 			return (NULL);
 		data->envp = env_cpy(envp, 0);
 	}
@@ -52,14 +50,15 @@ int	parse(t_data *data)
 	prep_line(data);
 	if (ft_strlen(data->line) == 0)
 		return (1);
-	ft_printf("%s\n", data->line); //TODO a enlever
+	ft_printf("%s\n", data->line);
 	make_list_ltkn(data);
-	return(0);
+	return (0);
 }
+//TODO a enlever
 
 void	reset(t_data *data)
 {
-	char **temp_env;
+	char	**temp_env;
 
 	temp_env = NULL;
 	free_list_ltkn(data->ltkn);
@@ -68,39 +67,22 @@ void	reset(t_data *data)
 	temp_env = data->envp;
 	ft_bzero(data, sizeof(t_data));
 	data->envp = temp_env;
-	
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
+	t_data				*data;
+	// struct sigaction	sa;
 
-	
-	// if(emman)
-	// {
-	// 	ft_printf("emman\n");
-	// 	// while(ft_strncmp(envp[i], "_=", 2))
-	// 	// {
-	// 	// 	ft_printf("%s\n", envp[i++]);
-	// 	// }
-	// 	// mini_execute(data);
-	// 	ft_printf("%s\n", getenv("PATH"));
-
-	// }
-
-	// if(frank)
-	// {
-	// 	ft_printf("frank\n");
-	// 	if (argc != 1)
-	// 		exit(EXIT_FAILURE);  //TODO fonction de sorti à faire
-	// 	mini_start(data);
-	// }
-
-	(void)	argv;
-	t_data	*data;
-		
-	if(argc > 1)
+	(void) argv;
+	if (argc > 1)
 		return (0);
+	// sa.sa_sigaction = &ft_sa_sigaction;
+	// sa.sa_flags = SA_SIGINFO;
+	// sigaction(SIGUSR1, &sa, NULL);
+	// sigaction(SIGUSR2, &sa, NULL);
 	data = ft_init_data(envp);
+	
 	while (1)
 	{
 		while (1)
@@ -109,8 +91,8 @@ int main(int argc, char **argv, char **envp)
 			data->rdflag = 1;
 			ft_printf("\n\n---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");
-			if(parse(data))
-				break;
+			if (parse(data))
+				break ;
 			print_list(data);
 			ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
 			ft_printf("---------------------------------------\n");
@@ -118,28 +100,4 @@ int main(int argc, char **argv, char **envp)
 			reset(data);
 		}
 	}
-}
-
-void	print_list(t_data *data)
-{
-	t_ltkn	*temp;
-	int i;
-
-	temp = data->ltkn;
-	while (temp != NULL)
-	{
-		i = 0;
-		ft_printf("\npath : %s\n", temp->path);
-		ft_printf("argv : ");
-		while(temp->arg[i])
-			ft_printf("%s, ", temp->arg[i++]);
-		ft_printf("\n");
-		ft_printf("infile : %s\n", temp->infile);
-		ft_printf("infile mod : %d\n", temp->in_mod);
-		ft_printf("outfile : %s\n", temp->outfile);
-		ft_printf("outfile mod : %d\n", temp->out_mod);
-		ft_printf("frontpipe : %i\n\n", temp->front_pipe);
-		
-		temp = temp->next;
-	}	
 }
