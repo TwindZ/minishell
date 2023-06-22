@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 15:37:51 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 10:01:23 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,66 +90,6 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 			ft_printf("Minishell: cd: Cant't find HOME directory\n");
 		return ;
 	}
-}
-
-void	mini_export(t_data *data, t_ltkn *temp)
-{
-	int		i;
-	int		j;
-	int		k;
-	char 	**new_env;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	new_env = NULL;
-	while (data->envp[j])
-		j++;
-	while (temp->arg[1][i] != '=')
-		i++;
-	k = i;
-	i = 0;
-	// trouver ce que je cherche pis le comparer pour voir s'il est dans env
-	while (ft_strncmp(temp->arg[1], data->envp[i], k))
-		i++;
-	if (temp->arg[1] == NULL)
-	{
-		while (data->envp[i])
-			// trier avec strcmp avant d'imprimer
-			ft_printf("declare -x %s\n", data->envp[i]);
-	}
-	ft_printf("%d", i);
-	ft_printf("%d", j);
-	if (i == j)
-	{
-		new_env = env_cpy(data->envp, 1);
-		// j++;
-		new_env[j] = ft_calloc(ft_strlen(temp->arg[1]), sizeof(char));
-		// getenvp(data, )
-		// i = 0;
-		// while (temp->arg[1][i] != '=')
-		// 	i++;
-		// i++;
-		// while (temp->arg[1][i])
-		// {
-			new_env[j] = temp->arg[1];
-			// ft_printf("%s\n", new_env[j]);
-		// 	i++;
-		// }
-		free (data->envp);
-		data->envp = new_env;
-		// mini_env(data);
-	}
-	else if (i != j)
-	{
-		new_env = env_cpy(data->envp, 0);
-		free (new_env[i]);
-		new_env[i] = ft_calloc(ft_strlen(temp->arg[1]), sizeof(char));
-		new_env[j] = temp->arg[1];
-		free (data->envp);
-		data->envp = new_env;
-	}
-	// TODO changer les messages d'erreurs avec stderr ou perror
 }
 
 void	mini_unset(t_data *data)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emman <emman@student.42.fr>                +#+  +:+       +#+         #
+#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/20 21:45:03 by emman            ###   ########.fr        #
+#    Updated: 2023/06/22 09:43:48 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS =	main.c			\
 		path.c			\
 		builtins.c		\
 		env.c			\
+		export.c		\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/
