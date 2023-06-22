@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 14:25:11 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:28:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,8 @@ void	builtin(t_data *data, t_ltkn *temp)
 		mini_cd(data, temp);
 	else if (ft_strncmp(temp->arg[0], "export\0", 7) == 0)
 		mini_export(data, temp);
+	else if (ft_strncmp(temp->arg[0], "unset\0", 6) == 0)
+		mini_unset(data, temp);
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	if(data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);

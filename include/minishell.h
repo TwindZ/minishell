@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 10:57:22 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:26:23 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void	mini_echo(int fd, t_data *data, t_ltkn *temp);
 void	mini_pwd(int fd);
 void	mini_exit(t_data *data);
 void	mini_cd(t_data *data, t_ltkn *temp);
-void	mini_unset(t_data *data);
+void	mini_unset(t_data *data, t_ltkn *temp);
 char	**env_cpy(char **envp, int exp);
 
 void	mini_env(t_data *data);
