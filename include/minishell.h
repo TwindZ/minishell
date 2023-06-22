@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 16:43:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:30:07 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
 void	set_meta(t_data *data, char **arg);
 int		is_meta(t_data *data, char **arg);
+void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp);
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
@@ -186,7 +187,6 @@ void	make_temp(t_data *data);
 void	remake_line(t_data *data, char meta);
 void	place_tab(t_data *data, char meta);
 
-t_ltkn	*ft_lstlast_tkn(t_ltkn *ltkn);
 t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index);
 void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);

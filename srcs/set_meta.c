@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_meta.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 16:45:06 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:20:04 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,6 @@ void	set_heredoc(t_data *data, char **arg)
 
 void	set_meta(t_data *data, char **arg)
 {
-	t_ltkn *temp;
-
-	temp = data->ltkn;
-	temp = ft_lstlast_tkn(temp);
 	if(ft_strncmp(arg[data->i], ">\0", 2) == 0)
 		set_out_trunk(data, arg);
 	else if (ft_strncmp(arg[data->i], ">>\0", 3) == 0)
