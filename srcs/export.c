@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 10:15:47 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:53:49 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	mini_export(t_data *data, t_ltkn *temp)
 		add_to_env(data, temp);
 	if (temp->arg[1] == NULL)
 		print_env(data);
-	// TODO changer les messages d'erreurs avec stderr ou perror
 }
+	// TODO changer les messages d'erreurs avec stderr ou perror
 
 void	add_to_env(t_data *data, t_ltkn *temp)
 {
@@ -62,8 +62,8 @@ void	print_env(t_data *data)
 		while (data->exp.k < data->exp.j - 1)
 		{
 			if (ft_strncmp(data->exp.temp_env[data->exp.k],
-				data->exp.temp_env[data->exp.k + 1],
-				ft_strlen(data->exp.temp_env[data->exp.k])) > 0)
+					data->exp.temp_env[data->exp.k + 1],
+					ft_strlen(data->exp.temp_env[data->exp.k])) > 0)
 			{
 				data->exp.swap = data->exp.temp_env[data->exp.k];
 				data->exp.temp_env[data->exp.k]

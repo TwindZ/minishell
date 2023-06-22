@@ -6,22 +6,21 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 12:27:47 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:56:06 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_echo(int fd, t_data *data, t_ltkn *temp)
+void	mini_echo(int fd, t_ltkn *temp)
 {
-	int i;
-	(void) data;
+	int	i;
 
 	i = 1;
 	if (temp->arg[1] == NULL)
 	{
 		ft_putstr_fd("\n", fd);
-		return;
+		return ;
 	}
 	while (temp->arg[i])
 	{
@@ -39,7 +38,7 @@ void	mini_echo(int fd, t_data *data, t_ltkn *temp)
 void	mini_pwd(int fd)
 {
 	char	buffer[PATH_MAX];
-	
+
 	ft_putstr_fd(getcwd(buffer, sizeof(buffer)), fd);
 	ft_putstr_fd("\n", fd);
 }
@@ -61,10 +60,9 @@ void	mini_env(t_data *data)
 
 void	mini_cd(t_data *data, t_ltkn *temp)
 {
-	int 	i;
+	int		i;
 	int		result;
 	char	*home;
-	(void) data;
 
 	i = 0;
 	result = 0;
@@ -79,8 +77,8 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 		i = 1;
 		result = chdir(temp->arg[i]);
 		if (result != 0)
-			ft_printf("Minishell: cd: %s: No such file or directory\n", temp->arg[i]);
-		// TODO changer les messages d'erreurs avec stderr ou perror
+			ft_printf("Minishell: cd: %s: No such file or directory\n",
+				temp->arg[i]);
 		return ;
 	}
 	else if (i == 1)
@@ -91,6 +89,7 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 		return ;
 	}
 }
+// TODO changer les messages d'erreurs avec stderr ou perror
 
 void	mini_unset(t_data *data, t_ltkn *temp)
 {
@@ -108,5 +107,5 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 		i++;
 	}
 	data->envp = env_cpy(data->envp, -1);
-	// TODO changer les messages d'erreurs avec stderr ou perror
 }
+// TODO changer les messages d'erreurs avec stderr ou perror

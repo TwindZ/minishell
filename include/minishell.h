@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 12:20:09 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:52:53 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void	free_ltkn(t_ltkn *ltkn);
 
 void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
-void	mini_echo(int fd, t_data *data, t_ltkn *temp);
+void	mini_echo(int fd, t_ltkn *temp);
 void	mini_pwd(int fd);
 void	mini_exit(t_data *data);
 void	mini_cd(t_data *data, t_ltkn *temp);

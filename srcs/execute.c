@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 12:32:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:52:55 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 void	builtin(t_data *data, t_ltkn *temp)
 {
 	if (ft_strncmp(temp->arg[0], "echo\0", 5) == 0)
-		mini_echo(data->fd.cmd_out, data, temp);
+		mini_echo(data->fd.cmd_out, temp);
 	else if (ft_strncmp(temp->arg[0], "pwd\0", 4) == 0)
 		mini_pwd(data->fd.cmd_out);
 	else if (ft_strncmp(temp->arg[0], "env\0", 4) == 0)

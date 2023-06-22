@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 12:20:51 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:59:24 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data				*data;
 	// struct sigaction	sa;
-
 	(void) argv;
 	if (argc > 1)
 		return (0);
@@ -81,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 	// sigaction(SIGUSR1, &sa, NULL);
 	// sigaction(SIGUSR2, &sa, NULL);
 	data = ft_init_data(envp);
-	
 	while (1)
 	{
 		while (1)

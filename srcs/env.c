@@ -14,8 +14,8 @@
 
 char	**env_cpy(char **envp, int exp)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**enviro;
 
 	i = 0;
@@ -35,7 +35,7 @@ char	**env_cpy(char **envp, int exp)
 		ft_memcpy(enviro[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}
-	return(enviro);
+	return (enviro);
 }
 
 char	*getenvp(t_data *data, char *var, int extract)
@@ -44,12 +44,14 @@ char	*getenvp(t_data *data, char *var, int extract)
 	data->env.len = ft_strlen(var);
 	while (data->envp[data->env.i])
 	{
-		if ((ft_strncmp(data->envp[data->env.i], var, data->env.len) == 0) && extract == 1)
+		if ((ft_strncmp(data->envp[data->env.i], var, data->env.len) == 0)
+			&& extract == 1)
 		{
 			find_var(data);
 			return (data->env.result);
 		}
-		else if ((ft_strncmp(data->envp[data->env.i], var, data->env.len) == 0) && extract == 0)
+		else if ((ft_strncmp(data->envp[data->env.i], var, data->env.len) == 0)
+			&& extract == 0)
 		{
 			data->env.j = data->env.len + 1;
 			data->env.result = ft_strjoin(NULL, "ok", 0);
@@ -83,5 +85,6 @@ void	find_var(t_data *data)
 	data->env.j = data->env.len + 1;
 	data->env.k = 0;
 	while (data->envp[data->env.i][data->env.j])
-		data->env.result[data->env.k++] = data->envp[data->env.i][data->env.j++];
+		data->env.result[data->env.k++] = data->envp[data->env.i]
+		[data->env.j++];
 }
