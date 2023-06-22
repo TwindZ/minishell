@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 12:20:51 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:04:50 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	mini_exit(t_data *data)
 	ft_printf("exit\n");
 	free_list_ltkn(data->ltkn);
 	free(data->read);
-	data->envp = ft_freeall(data->envp);
+	ft_freeall(data->envp);
 	free(data);
 	exit(EXIT_SUCCESS);
 }
@@ -64,6 +64,7 @@ void	reset(t_data *data)
 	free_list_ltkn(data->ltkn);
 	free(data->line);
 	free (data->read);
+	ft_freeall(data->envp);
 	ft_bzero(data, sizeof(t_data));
 	data->envp = temp_env;
 }

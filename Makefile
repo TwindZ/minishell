@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/22 12:30:45 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/22 15:25:21 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,11 @@ $(NAME): $(OBJS)
 	@$(MAKE) -C $(LIBFT_DIR)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RLINE) -lncurses -o $(NAME)
 	@echo "${GREEN}MINISHELL COMPILED${NC}"
+
+leak: CFLAGS += -g
+leak: all
+	@reset
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supp.txt ./$(NAME)
 
 readline :
 	@if [ ! -f ./libs/readline/libreadline.a ]; then \
