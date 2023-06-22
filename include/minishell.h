@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/21 22:30:07 by emman            ###   ########.fr       */
+/*   Updated: 2023/06/22 12:20:09 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,16 @@ typedef struct s_env
 	char	*result;
 }				t_env;
 
+typedef struct s_exp
+{
+	int		i;
+	int		j;
+	int		k;
+	char	**new_env;
+	char	**temp_env;
+	char	*swap;
+}				t_exp;
+
 typedef struct s_heredoc
 {
 	char	*end;
@@ -140,6 +150,7 @@ typedef struct s_data
 	t_dshd		dshd;
 	t_meta		meta;
 	t_env		env;
+	t_exp		exp;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -196,13 +207,18 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
 void	mini_echo(int fd, t_data *data, t_ltkn *temp);
 void	mini_pwd(int fd);
-void	mini_env(t_data *data);
 void	mini_exit(t_data *data);
 void	mini_cd(t_data *data, t_ltkn *temp);
-void	mini_export(t_data *data, t_ltkn *temp);
-void	mini_unset(t_data *data);
+void	mini_unset(t_data *data, t_ltkn *temp);
 char	**env_cpy(char **envp, int exp);
+
+void	mini_env(t_data *data);
 char	*getenvp(t_data *data, char *var, int extract);
 void	init_env(t_data *data);
 void	find_var(t_data *data);
+
+void	mini_export(t_data *data, t_ltkn *temp);
+void	init_export(t_data *data);
+void	add_to_env(t_data *data, t_ltkn *temp);
+void	print_env(t_data *data);
 #endif

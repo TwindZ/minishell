@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 12:34:17 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:17:47 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	mini_env(t_data *data)
 	i = 0;
 	while (data->envp[i])
 	{
+		// ft_printf("%p\n", data->envp[i]);
 		ft_putstr_fd(data->envp[i], data->fd.cmd_out);
 		ft_putstr_fd("\n", data->fd.cmd_out);
 		i++;
@@ -92,56 +93,21 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 	}
 }
 
-void	mini_export(t_data *data, t_ltkn *temp)
+void	mini_unset(t_data *data, t_ltkn *temp)
 {
-	int		i;
-	int		j;
-	char 	**new_env;
-
-	i = 0;
-	j = 0;
-	new_env = NULL;
-	while (data->envp[j])
-		j++;
-	while (ft_strncmp(temp->arg[1], data->envp[i], ft_strlen(temp->arg[1])))
-		i++;
-	if (temp->arg[1] == NULL)
-	{
-		while (data->envp[i])
-			ft_printf("declare -x %s\n", data->envp[i]);
-	}
-	if (i == j)
-	{
-		new_env = env_cpy(data->envp, 1);
-		j++;
-		new_env[j] = ft_calloc(ft_strlen(temp->arg[1]), sizeof(char));
-		new_env[j] = temp->arg[1];
-		free (data->envp);
-		data->envp = new_env;
-	}
-	else
-	{
-		
-	}
-
-	// TODO changer les messages d'erreurs avec stderr ou perror
-}
-
-void	mini_unset(t_data *data)
-{
-	int	result;
 	int	i;
+	char	*to_find;
 
 	i = 0;
-	result = unsetenv(data->ltkn->arg[1]);
-	if (result != 0)
-		ft_printf("Error");
-	// TODO changer les messages d'erreurs avec stderr ou perror
-	while (data->envp[i])
+	to_find = NULL;
+	to_find = ft_strjoin(temp->arg[1], "=", 0);
+	while (ft_strncmp(to_find, data->envp[i], ft_strlen(to_find)))
+		i++;
+	while (data->envp[i + 1] != NULL)
 	{
-		if (ft_strncmp(data->ltkn->arg[1], data->envp[i], ft_strlen(data->ltkn->arg[1])) == 0)
-		{
-			// enlève la ligne data->ltkn->arg[1] dans data->enp[i] avec le malloc pis toute.
-		}
+		data->envp[i] = data->envp[i + 1];
+		i++;
 	}
+	data->envp = env_cpy(data->envp, -1);
+	// TODO changer les messages d'erreurs avec stderr ou perror
 }
