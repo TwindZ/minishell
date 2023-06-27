@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/27 14:51:50 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:16:49 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,37 +48,6 @@ void	add_to_env(t_data *data, t_ltkn *temp)
 	}
 }
 
-void	add_to_env_test(t_data *data, t_ltkn *temp)
-{
-	while (temp->arg[1][data->exp.i] != '=')
-		data->exp.i++;
-	data->exp.k = data->exp.i;
-	data->exp.i = 0;
-	
-	while (ft_strncmp(temp->arg[1], data->envp[data->exp.i], data->exp.k))
-		data->exp.i++;
-	if (data->exp.i == data->exp.j)
-	{
-		data->exp.new_env = env_cpy(data->envp, 1);
-		data->exp.new_env[data->exp.j]
-			= ft_calloc(ft_strlen(temp->arg[1]), sizeof(char));
-		data->exp.new_env[data->exp.j] = temp->arg[1];
-		ft_printf("%s\n", data->exp.new_env[data->exp.j - 2]);
-		ft_freeall(data->envp);
-		data->envp = data->exp.new_env;
-	}
-	else if (data->exp.i != data->exp.j)
-	{
-		data->exp.new_env = env_cpy(data->envp, 0);
-		free (data->exp.new_env[data->exp.i]);
-		// data->exp.new_env[data->exp.i]
-		// 	= ft_calloc(ft_strlen(temp->arg[1]), sizeof(char));
-		data->exp.new_env[data->exp.i] = temp->arg[1];
-		ft_freeall(data->envp);
-		data->envp = data->exp.new_env;
-	}
-}
-
 void	print_env(t_data *data)
 {
 	data->exp.temp_env = env_cpy(data->envp, 0);
@@ -103,7 +72,7 @@ void	print_env(t_data *data)
 	data->exp.i = 0;
 	while (data->exp.temp_env[data->exp.i])
 		ft_printf("declare -x %s\n", data->exp.temp_env[data->exp.i++]);
-	free (data->exp.temp_env);
+	ft_freeall(data->exp.temp_env);
 	data->exp.swap = NULL;
 }
 
