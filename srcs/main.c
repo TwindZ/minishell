@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 15:04:50 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:33:34 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,19 @@ int	parse(t_data *data)
 
 void	reset(t_data *data)
 {
-	char	**temp_env;
-
-	temp_env = env_cpy(data->envp, 0);
 	free_list_ltkn(data->ltkn);
+	data->ltkn = NULL;
 	free(data->line);
 	free (data->read);
-	ft_freeall(data->envp);
-	ft_bzero(data, sizeof(t_data));
-	data->envp = temp_env;
+	data->exe_flag.back_pipe = 0;
+	data->exe_flag.file_in = 0;
+	data->exe_flag.file_out = 0;
+	data->exe_flag.front_pipe = 0;
+	data->exe_flag.heredoc_in = 0;
+	data->fd.cmd_in = 0;
+	data->fd.cmd_next_in = 0;
+	data->fd.cmd_out = 0;
+
 }
 
 int	main(int argc, char **argv, char **envp)
