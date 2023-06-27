@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 13:52:53 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 14:51:52 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,8 @@ typedef struct s_data
 	t_meta		meta;
 	t_env		env;
 	t_exp		exp;
+	char 		*err_message;
+	int			err_flag;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -221,4 +223,6 @@ void	mini_export(t_data *data, t_ltkn *temp);
 void	init_export(t_data *data);
 void	add_to_env(t_data *data, t_ltkn *temp);
 void	print_env(t_data *data);
+void	build_env(t_data *data, char **envp);
+void 	add_var(t_data *data, char **envp, t_ltkn *temp);
 #endif

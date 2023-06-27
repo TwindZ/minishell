@@ -12,6 +12,55 @@
 
 #include "../include/minishell.h"
 
+void build_env(t_data *data, char **envp)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (envp[i])
+		i++;
+	j = i;
+	data->envp = ft_calloc(i + 1, sizeof(char *));
+	if (!data->envp)
+		exit(1);
+	i = 0;
+	while (i < j)
+	{
+		data->envp[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
+		ft_strlcpy(data->envp[i], envp[i], ft_strlen(envp[i] + 1));
+		i++;
+	}
+}
+
+void	add_var(t_data *data, char **envp, t_ltkn *temp)
+{
+	int		i;
+	int		j;
+	char		**new_env;
+	i = 0;
+	j = 0;
+	while (envp[i])
+		i++;
+	j = i;
+	new_env = ft_calloc(i + 2, sizeof(char *));
+	if (!new_env)
+		exit(1);
+	i = 0;
+	while (i < j)
+	{
+		new_env[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
+		ft_strlcpy(new_env[i], envp[i], ft_strlen(envp[i] + 1));
+		i++;
+	}
+	new_env[i] = ft_calloc(ft_strlen(temp->arg[1]) + 1, sizeof(char));
+	ft_strlcpy(new_env[i], temp->arg[1], ft_strlen(temp->arg[1]) + 1);
+	ft_freeall(data->envp);
+	data->envp = NULL;
+	data->envp = new_env;
+}
+
 char	**env_cpy(char **envp, int exp)
 {
 	int		i;

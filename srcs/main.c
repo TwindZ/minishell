@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 11:35:14 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:35:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	*ft_init_data(char **envp)
 		data = ft_calloc(1, sizeof(t_data));
 		if (!data)
 			return (NULL);
-		data->envp = env_cpy(envp, 0);
+		build_env(data, envp);
 	}
 	return (data);
 }
@@ -30,9 +30,9 @@ void	mini_exit(t_data *data)
 {
 	ft_printf("exit\n");
 	free_list_ltkn(data->ltkn);
-	free(data->read);
+	free (data->read);
 	ft_freeall(data->envp);
-	free(data);
+	free (data);
 	exit(EXIT_SUCCESS);
 }
 
@@ -62,11 +62,6 @@ void	reset(t_data *data)
 	data->ltkn = NULL;
 	free(data->line);
 	free (data->read);
-<<<<<<< HEAD
-	free (data->envp);
-	ft_bzero(data, sizeof(t_data));
-	data->envp = temp_env;
-=======
 	data->exe_flag.back_pipe = 0;
 	data->exe_flag.file_in = 0;
 	data->exe_flag.file_out = 0;
@@ -76,7 +71,6 @@ void	reset(t_data *data)
 	data->fd.cmd_next_in = 0;
 	data->fd.cmd_out = 0;
 
->>>>>>> master
 }
 
 int	main(int argc, char **argv, char **envp)
