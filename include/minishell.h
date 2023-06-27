@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 14:51:52 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:41:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <libc.h>
 # include "../srcs/libft/libft.h"
 # include <stdio.h>
+# include <signal.h>
 
 typedef struct s_ltkn
 {
@@ -151,8 +152,6 @@ typedef struct s_data
 	t_meta		meta;
 	t_env		env;
 	t_exp		exp;
-	char 		*err_message;
-	int			err_flag;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -165,6 +164,8 @@ void 	ft_pipe(t_data *data);
 void	set_meta(t_data *data, char **arg);
 int		is_meta(t_data *data, char **arg);
 void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp);
+
+void	sig_handler(int sig, siginfo_t *info, void *ucontext);
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
@@ -219,10 +220,14 @@ char	*getenvp(t_data *data, char *var, int extract);
 void	init_env(t_data *data);
 void	find_var(t_data *data);
 
-void	mini_export(t_data *data, t_ltkn *temp);
+void	mini_export(int fd, t_data *data, t_ltkn *temp);
 void	init_export(t_data *data);
 void	add_to_env(t_data *data, t_ltkn *temp);
-void	print_env(t_data *data);
+void	print_env(int fd, t_data *data);
 void	build_env(t_data *data, char **envp);
 void 	add_var(t_data *data, char **envp, t_ltkn *temp);
+
+void	mini_reset(t_data *data);
+t_data	*ft_init_data(char **envp);
+void	main_core(char **envp);
 #endif

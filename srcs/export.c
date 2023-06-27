@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/27 15:16:49 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:46:40 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	mini_export(t_data *data, t_ltkn *temp)
+void	mini_export(int fd, t_data *data, t_ltkn *temp)
 {
 	init_export(data);
 	while (data->envp[data->exp.j])
@@ -20,7 +20,7 @@ void	mini_export(t_data *data, t_ltkn *temp)
 	if (temp->arg[1] != NULL)
 		add_to_env(data, temp);
 	if (temp->arg[1] == NULL)
-		print_env(data);
+		print_env(fd, data);
 }
 	// TODO changer les messages d'erreurs avec stderr ou perror
 
@@ -48,7 +48,7 @@ void	add_to_env(t_data *data, t_ltkn *temp)
 	}
 }
 
-void	print_env(t_data *data)
+void	print_env(int fd, t_data *data)
 {
 	data->exp.temp_env = env_cpy(data->envp, 0);
 	while (data->exp.i < data->exp.j - 1)
@@ -71,7 +71,11 @@ void	print_env(t_data *data)
 	}
 	data->exp.i = 0;
 	while (data->exp.temp_env[data->exp.i])
-		ft_printf("declare -x %s\n", data->exp.temp_env[data->exp.i++]);
+	{
+		ft_putstr_fd("declare -x", fd);
+		ft_putstr_fd(data->exp.temp_env[data->exp.i++], fd);
+		ft_putstr_fd("\n", fd);
+	}
 	ft_freeall(data->exp.temp_env);
 	data->exp.swap = NULL;
 }

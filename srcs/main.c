@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 13:35:39 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:49:22 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	parse(t_data *data)
 }
 //TODO a enlever
 
-void	reset(t_data *data)
+void	mini_reset(t_data *data)
 {
 	free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
@@ -70,20 +70,21 @@ void	reset(t_data *data)
 	data->fd.cmd_in = 0;
 	data->fd.cmd_next_in = 0;
 	data->fd.cmd_out = 0;
+	data->temp_infile = NULL;
+	data->temp_outfile =  NULL;
 
 }
 
-int	main(int argc, char **argv, char **envp)
+void	main_core(char **envp)
 {
 	t_data				*data;
-	// struct sigaction	sa;
-	(void) argv;
-	if (argc > 1)
-		return (0);
-	// sa.sa_sigaction = &ft_sa_sigaction;
-	// sa.sa_flags = SA_SIGINFO;
-	// sigaction(SIGUSR1, &sa, NULL);
-	// sigaction(SIGUSR2, &sa, NULL);
+	struct sigaction	sa;
+	
+	sa.sa_sigaction = &sig_handler;
+	sa.sa_flags = 
+	sa.sa_mask = SIGQUIT;
+	sigaction(SIGQUIT, &sa, NULL);
+	sigaction(SIGINT, &sa, NULL);
 	data = ft_init_data(envp);
 	while (1)
 	{
@@ -99,7 +100,15 @@ int	main(int argc, char **argv, char **envp)
 			ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
 			ft_printf("---------------------------------------\n");
 			mini_execute(data);
-			reset(data);
+			mini_reset(data);
 		}
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	(void) argv;
+	if (argc > 1)
+		return (0);
+	main_core(envp);
 }
