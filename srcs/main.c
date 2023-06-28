@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 16:20:46 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:13:05 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,35 @@ int	parse(t_data *data)
 	return (0);
 }
 
+void	close_fd(t_data *data)
+{
+	if(data->fd.cmd_in > 2)
+		close(data->fd.cmd_in);
+	if(data->fd.cmd_next_in > 2)
+		close(data->fd.cmd_next_in);
+	if(data->fd.cmd_out > 2)
+		close(data->fd.cmd_out);
+}
 
 void	mini_reset(t_data *data)
 {
-	free_list_ltkn(data->ltkn);
+	if(data->ltkn)
+		free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
-	free(data->line);
-	free (data->read);
+	if(data->line)
+		free(data->line);
+	if(data->read)
+		free (data->read);
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
+	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));
 	ft_bzero(&data->hd, sizeof(data->hd));
 	data->temp_infile = NULL;
 	data->temp_outfile =  NULL;
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;
+	data->read = NULL;
+	data->line = NULL;
 }
 
 void block_signal(int sig)
@@ -91,7 +106,7 @@ void	main_core(char **envp)
 	ft_bzero(&sa, sizeof(sa));
 	sa.sa_sigaction = &sig_handler;
 	block_signal(SIGQUIT);
-	sigaction(SIGINT, &sa, NULL);
+	// sigaction(SIGINT, &sa, NULL);
 	while (1)
 	{
 		while (1)
