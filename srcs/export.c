@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 09:21:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:29:46 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ void	add_to_env(t_data *data, t_ltkn *temp)
 	while (temp->arg[1][data->exp.i] != '=' && temp->arg[1][data->exp.i])
 	{
 		data->exp.i++;
-		if (temp->arg[1][0] >= '0' && temp->arg[1][0] <= '9')
+		if (ft_isalpha(temp->arg[1][0]) == 0 && temp->arg[1][0] != 95)
 		{
 			ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
 			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-			break ;
+			return ;
 		}
 	}
+	if (data->exp.i == (int)ft_strlen(temp->arg[1]))
+		return ;
 	data->exp.k = data->exp.i;
 	data->exp.i = 0;
 	while (ft_strncmp(temp->arg[1], data->envp[data->exp.i], data->exp.k))
@@ -81,7 +83,7 @@ void	print_env(int fd, t_data *data)
 	data->exp.i = 0;
 	while (data->exp.temp_env[data->exp.i])
 	{
-		ft_putstr_fd("declare -x", fd);
+		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(data->exp.temp_env[data->exp.i++], fd);
 		ft_putstr_fd("\n", fd);
 	}

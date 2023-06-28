@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/14 12:29:18 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:35:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	prep_line(t_data *data)
 	data->line = ft_calloc(len + 5, sizeof(char));
 	if (!data->line)
 		mini_free(data);
-	while (data->read[data->i])
+	while (data->read[data->i] && data->read[data->i] != '\n')
 	{
 		in_quotes(data);
 		dollar_sign(data);

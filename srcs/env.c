@@ -29,7 +29,7 @@ void build_env(t_data *data, char **envp)
 	while (i < j)
 	{
 		data->envp[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-		ft_strlcpy(data->envp[i], envp[i], ft_strlen(envp[i] + 1));
+		ft_strlcpy(data->envp[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}
 }
@@ -51,7 +51,7 @@ void	add_var(t_data *data, char **envp, t_ltkn *temp)
 	while (i < j)
 	{
 		new_env[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-		ft_strlcpy(new_env[i], envp[i], ft_strlen(envp[i] + 1));
+		ft_strlcpy(new_env[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}
 	new_env[i] = ft_calloc(ft_strlen(temp->arg[1]) + 1, sizeof(char));
@@ -127,10 +127,10 @@ void	find_var(t_data *data)
 		data->env.k++;
 		data->env.j++;
 	}
-	data->env.result = ft_calloc(data->env.k + 1, sizeof(char));
+	data->env.result = ft_calloc(data->env.k + 2, sizeof(char));
 	if (!data->env.result)
 		mini_free(data);
-	data->env.j = data->env.len + 1;
+	data->env.j = data->env.len;
 	data->env.k = 0;
 	while (data->envp[data->env.i][data->env.j])
 		data->env.result[data->env.k++] = data->envp[data->env.i]

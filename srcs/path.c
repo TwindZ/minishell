@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/27 16:10:42 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:38:03 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	path_pre_check(char *arg, t_ltkn *temp)
 	}
 	if (access(arg, X_OK) == 0)
 	{
+		if (chdir(arg) != -1)
+			return (0);
 		temp->path = arg;
 		return (1);
 	}

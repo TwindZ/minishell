@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 17:49:22 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:37:14 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ void	mini_reset(t_data *data)
 	data->fd.cmd_out = 0;
 	data->temp_infile = NULL;
 	data->temp_outfile =  NULL;
-
+	data->temp_in_mod = 0;
+	data->temp_out_mod = 0;
 }
 
 void	main_core(char **envp)

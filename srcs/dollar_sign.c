@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 13:51:16 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:31:05 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	make_tocheck(t_data *data)
 		}
 		data->dolsign.idx++;
 	}
+	data->dolsign.tocheck = ft_strjoin(data->dolsign.tocheck, "=", 1);
 }
 
 void	adjust_line(t_data *data)
