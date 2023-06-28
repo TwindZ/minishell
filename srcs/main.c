@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 12:49:47 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:26:36 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,9 @@ void	mini_reset(t_data *data)
 	data->ltkn = NULL;
 	free(data->line);
 	free (data->read);
-	data->exe_flag.back_pipe = 0;
-	data->exe_flag.file_in = 0;
-	data->exe_flag.file_out = 0;
-	data->exe_flag.front_pipe = 0;
-	data->exe_flag.heredoc_in = 0;
-	data->fd.cmd_in = 0;
-	data->fd.cmd_next_in = 0;
-	data->fd.cmd_out = 0;
+	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
+	ft_bzero(&data->fd, sizeof(data->fd));
+	ft_bzero(&data->hd, sizeof(data->hd));
 	data->temp_infile = NULL;
 	data->temp_outfile =  NULL;
 	data->temp_in_mod = 0;
@@ -90,11 +85,11 @@ void	main_core(char **envp)
 	t_data				*data;
 	struct sigaction	sa;
 	
+	data = ft_init_data(envp);
 	ft_bzero(&sa, sizeof(sa));
 	sa.sa_sigaction = &sig_handler;
 	block_signal(SIGQUIT);
 	sigaction(SIGINT, &sa, NULL);
-	data = ft_init_data(envp);
 	while (1)
 	{
 		while (1)
