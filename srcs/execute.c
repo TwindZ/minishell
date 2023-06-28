@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 14:06:04 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:30:52 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	mini_execute(t_data *data)
 	{
 		data->exe_flag.front_pipe = temp->front_pipe;
 		if (temp->in_mod == 1)
-			open_infile(data, temp->infile);//TODO si fichier existe pas
+			open_infile(data, temp->infile);
 		if(data->fd.cmd_in == -1)
 			break ;
 		if (temp->in_mod == 2)

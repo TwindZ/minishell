@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 11:19:30 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:04:37 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	set_out_trunk(t_data *data, char **arg)
 {
 	free(arg[data->i++]);
-	if (is_meta(data, arg) == 0)
+	if (arg[data->i] && is_meta(data, arg) == 0 && ft_strncmp(arg[data->i], "|\0", 2))
 	{
 		open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		data->temp_out_mod = 1;
@@ -25,15 +25,15 @@ void	set_out_trunk(t_data *data, char **arg)
 	}
 	else
 	{
-		ft_putstr_fd("erreur de syntaxe deux meta", 2);
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
+		return ;
 	}
 }
 
 void	set_out_apend(t_data *data, char **arg)
 {
 	free(arg[data->i++]);
-	if (is_meta(data, arg) == 0)
+	if (arg[data->i] && is_meta(data, arg) == 0 && ft_strncmp(arg[data->i], "|\0", 2))
 	{
 		open_outfile(data, arg[data->i], 0); //TODO si fichier qui suis est un token besoin d'erreur
 		data->temp_out_mod = 2;
@@ -43,38 +43,38 @@ void	set_out_apend(t_data *data, char **arg)
 	}
 	else
 	{
-		ft_putstr_fd("erreur de syntaxe deux meta", 2);
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
+		return ;
 	}
 }
 
 void	set_infile(t_data *data, char **arg)
 {
 	free(arg[data->i++]);
-	if (is_meta(data, arg) == 0)
+	if (arg[data->i] && is_meta(data, arg) == 0 && ft_strncmp(arg[data->i], "|\0", 2))
 	{
 		data->temp_in_mod = 1;
 		data->temp_infile = arg[data->i];
 	}
 	else
 	{
-		ft_putstr_fd("erreur de syntaxe deux meta", 2);
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
+		return ;
 	}
 }
 
 void	set_heredoc(t_data *data, char **arg)
 {
 	free(arg[data->i++]);
-	if (is_meta(data, arg) == 0)
+	if (arg[data->i] && is_meta(data, arg) == 0 && ft_strncmp(arg[data->i], "|\0", 2))
 	{
 		data->temp_in_mod = 2;
 		data->temp_infile = arg[data->i];
 	}
 	else
 	{
-		ft_putstr_fd("erreur de syntaxe deux meta", 2);
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
+		return ;
 	}
 }
 

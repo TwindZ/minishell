@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:25:23 by emman             #+#    #+#             */
-/*   Updated: 2023/06/22 11:05:03 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:29:25 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_meta(t_data *data, char **arg)
 
 void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp)
 {
-	if (strncmp(arg[data->i], "|\0", 2) == 0)
+	if (strncmp(arg[data->i], "|\0", 2) == 0 && temp)
 	{
 		temp->front_pipe = 1;
 		data->j = 0;
@@ -32,7 +32,7 @@ void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp)
 	}	
 	else if (is_meta(data, arg))
 		set_meta(data, arg);
-	else
+	else if (temp)
 		temp->arg[data->j++] = arg[data->i];
 }
 

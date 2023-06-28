@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 11:08:12 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:11:24 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 		temp->infile = data->temp_infile;
 		temp->outfile = data->temp_outfile;
 	}
-	if (strncmp(arg[data->i], "|\0", 2) == 0)
+	if (temp && strncmp(arg[data->i], "|\0", 2) == 0)
 	{
 		data->temp_in_mod = 0;
 		data->temp_out_mod = 0;
@@ -76,11 +76,14 @@ void	make_list_ltkn(t_data *data)
 	arg = ft_split(data->line, '\t');
 	while (arg[data->i])
 	{
-		if (data->j == 0 && is_meta(data, arg) == 0)
+		if (data->j == 0 && is_meta(data, arg) == 0 && ft_strncmp(arg[data->i], "|\0", 2))
 			temp = new_node(data, arg, temp);
 		else
 			build_cmd_param(data, arg, temp);
-		set_redirect(data, arg, temp);
+		if(arg[data->i] == NULL)
+			break ;
+		if(temp)
+			set_redirect(data, arg, temp);
 		data->i++;
 	}
 	free(arg);
