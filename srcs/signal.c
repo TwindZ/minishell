@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:23:51 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 13:03:58 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:21:14 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ void	sig_handler(int sig, siginfo_t *info, void *ucontext)
 	(void)	ucontext;
 	if(sig == SIGINT)
 	{
-		// ft_printf("CTRL-C");
+		kill(data->child, SIGQUIT);
 		ft_putstr_fd("\n", 1);
-		// rl_on_new_line();
+		rl_on_new_line();
 		rl_redisplay();
-		// rl_replace_line();
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 14:30:52 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:20:27 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ void	set_io(t_data *data)
 
 void	executer(t_data *data, char *path, char **argv)
 {
-	int	id;
-
-	id = fork();
-	if (id == 0)
+	data->child = fork();
+	if (data->child == 0)
 	{
 		set_io(data);
 		execve(path, argv, data->envp);
@@ -82,6 +80,7 @@ void	executer(t_data *data, char *path, char **argv)
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
 	wait (NULL);
+	data->child = 0;
 }
 
 //TODO si fini par un meta doit detecter un \n

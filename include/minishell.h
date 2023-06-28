@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 17:41:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:19:23 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ typedef struct s_data
 	t_meta		meta;
 	t_env		env;
 	t_exp		exp;
+	int			child;
 }				t_data;
 
 void	mini_execute(t_data *data);
