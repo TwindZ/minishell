@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 17:49:22 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:34:50 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,18 @@ void	mini_reset(t_data *data)
 	data->fd.cmd_out = 0;
 	data->temp_infile = NULL;
 	data->temp_outfile =  NULL;
+	data->temp_in_mod = 0;
+	data->temp_out_mod = 0;
 
+}
+
+void block_signal(int sig)
+{
+	sigset_t	sigset;
+	
+	sigemptyset(&sigset);
+	sigaddset(&sigset, sig);
+	sigprocmask(SIG_BLOCK, &sigset, NULL);
 }
 
 void	main_core(char **envp)
@@ -80,10 +91,9 @@ void	main_core(char **envp)
 	t_data				*data;
 	struct sigaction	sa;
 	
+	ft_bzero(&sa, sizeof(sa));
 	sa.sa_sigaction = &sig_handler;
-	sa.sa_flags = 
-	sa.sa_mask = SIGQUIT;
-	sigaction(SIGQUIT, &sa, NULL);
+	block_signal(SIGQUIT);
 	sigaction(SIGINT, &sa, NULL);
 	data = ft_init_data(envp);
 	while (1)

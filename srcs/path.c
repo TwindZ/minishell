@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/27 16:10:42 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:40:34 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ int	path_pre_check(char *arg, t_ltkn *temp)
 		temp->path = ft_strjoin(temp->path, "*builtin", 0);
 		return (1);
 	}
-	if (access(arg, X_OK) == 0)
+	if (access(arg, X_OK))
 	{
+		if(chdir(arg) != -1)
+		{
+			ft_putstr_fd(" Minishell: ", 2);
+			ft_putstr_fd(arg, 2);
+			ft_putstr_fd(": is a directory", 2);
+			return (0);
+		}
 		temp->path = arg;
 		return (1);
 	}

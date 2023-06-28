@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:23:51 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 17:44:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:36:41 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ void	sig_handler(int sig, siginfo_t *info, void *ucontext)
 	(void)	sig;
 	(void)	info;
 	(void)	ucontext;
-	if(sig == SIGQUIT)
-		ft_printf("no no no !!!!");//TODO enlever le message
 	if(sig == SIGINT)
 	{
-		mini_reset(data);
+		// ft_printf("CTRL-C");
 		ft_putstr_fd("\n", 1);
-		main_core(NULL);
+		rl_on_new_line();
+		rl_redisplay();
+		// rl_replace_line();
 	}
 }
+
+
+// rl_on_new_line,
+// rl_replace_line, rl_redisplay,

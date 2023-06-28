@@ -51,7 +51,7 @@ void	add_var(t_data *data, char **envp, t_ltkn *temp)
 	while (i < j)
 	{
 		new_env[i] = ft_calloc(ft_strlen(envp[i]) + 1, sizeof(char));
-		ft_strlcpy(new_env[i], envp[i], ft_strlen(envp[i] + 1));
+		ft_strlcpy(new_env[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}
 	new_env[i] = ft_calloc(ft_strlen(temp->arg[1]) + 1, sizeof(char));
