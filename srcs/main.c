@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/28 11:34:50 by emlamoth         ###   ########.fr       */
+=======
+/*   Updated: 2023/06/28 09:37:14 by fbouchar         ###   ########.fr       */
+>>>>>>> 3646939438c8e026d534efe1a633cb468858915b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +78,6 @@ void	mini_reset(t_data *data)
 	data->temp_outfile =  NULL;
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;
-
 }
 
 void block_signal(int sig)

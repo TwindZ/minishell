@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/27 15:10:42 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:02:49 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mini_echo(int fd, t_ltkn *temp)
 	}
 	while (temp->arg[i])
 	{
-		if (ft_strncmp(temp->arg[i], "-n\0", 3) == 0)
+		if (i < 2 && ft_strncmp(temp->arg[1], "-n\0", 3) == 0)
 			i++;
 		ft_putstr_fd(temp->arg[i], fd);
 		i++;
@@ -110,6 +110,13 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	to_find = ft_strjoin(temp->arg[1], "=", 0);
 	while (data->envp[i])
 	{
+		if (ft_isalpha(temp->arg[1][0]) == 0 && temp->arg[1][0] != 95)
+		{
+			ft_putstr_fd("Minishell: unset: `", STDERR_FILENO);
+			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+			return ;
+		}
 		if (ft_strncmp(to_find, data->envp[i], ft_strlen(to_find)) == 0)
 			;
 		else
