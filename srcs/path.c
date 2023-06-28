@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 12:47:26 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:25:08 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,16 @@ int	path_pre_check(char *arg, t_ltkn *temp)
 		temp->path = ft_strjoin(temp->path, "*builtin", 0);
 		return (1);
 	}
-	if (access(arg, X_OK))
+	if (access(arg, X_OK) == 0)
 	{
-		if(chdir(arg) != -1)
+		if(chdir(arg) == 0)
 		{
 			ft_putstr_fd(" Minishell: ", 2);
 			ft_putstr_fd(arg, 2);
 			ft_putstr_fd(": is a directory", 2);
 			return (0);
 		}
+		else
 		temp->path = arg;
 		return (1);
 	}
@@ -85,11 +86,9 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	{
 		while (paths[i])
 		{
-			ft_printf("test path\n");
-			if(paths)
 			if (temp->path)
 				free(temp->path);
-				temp->path = find_path(paths[i], arg[data->i]);
+			temp->path = find_path(paths[i], arg[data->i]);
 			if (temp->path)
 				break ;
 			i++;
