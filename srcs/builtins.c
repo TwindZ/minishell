@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 11:02:49 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:14:35 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	mini_pwd(int fd)
 	ft_putstr_fd(getcwd(buffer, sizeof(buffer)), fd);
 	ft_putstr_fd("\n", fd);
 }
-
-//mini exit rendu dans main.c
 
 void	mini_env(t_data *data)
 {
