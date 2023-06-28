@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/22 13:52:55 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/27 15:42:33 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	builtin(t_data *data, t_ltkn *temp)
 	else if (ft_strncmp(temp->arg[0], "cd\0", 3) == 0)
 		mini_cd(data, temp);
 	else if (ft_strncmp(temp->arg[0], "export\0", 7) == 0)
-		mini_export(data, temp);
+		mini_export(data->fd.cmd_out, data, temp);
 	else if (ft_strncmp(temp->arg[0], "unset\0", 6) == 0)
 		mini_unset(data, temp);
 	data->fd.cmd_in = data->fd.cmd_next_in;
@@ -97,7 +97,7 @@ void	mini_execute(t_data *data)
 			open_infile(data, temp->infile);
 		if (temp->in_mod == 2)
 			heredoc(data, temp->infile);
-		if (temp->out_mod != 0)
+		if (temp->out_mod > 0)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if (temp->front_pipe)
 			ft_pipe(data);

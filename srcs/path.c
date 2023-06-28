@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:29 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:10:42 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,24 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 		return ;
 	path_env = getenvp(data, "PATH", 1);
 	paths = ft_split(path_env, ':');
-	free(path_env);
-	while (paths[i])
+	if(path_env)
+		free(path_env);
+	if(paths)
 	{
-		if (temp->path)
-			free(temp->path);
-		temp->path = find_path(paths[i], arg[data->i]);
-		if (temp->path)
-			break ;
-		i++;
+		while (paths[i])
+		{
+			ft_printf("test path\n");
+			if(paths)
+			if (temp->path)
+				free(temp->path);
+				temp->path = find_path(paths[i], arg[data->i]);
+			if (temp->path)
+				break ;
+			i++;
+		}
+		ft_freeall(paths);
 	}
-	ft_freeall(paths);
 	if (!temp->path)
 		path_error(temp);
 }
+//TODO si on unset le PATH ca plante;

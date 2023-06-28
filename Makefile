@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/27 11:36:13 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/27 16:34:16 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS =	main.c					\
 		redirection.c			\
 		heredoc.c				\
 		export.c				\
+		signal.c				\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/
