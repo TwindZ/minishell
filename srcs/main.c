@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 14:15:55 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:20:32 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	parse(t_data *data)
 		return (1);
 	ft_printf("%s\n", data->line);
 	make_list_ltkn(data);
-	if(!data->ltkn)
+	if(!data->ltkn || data->temp_in_mod == -1)
 		return (1);
 	return (0);
 }
@@ -116,6 +116,7 @@ void	mini_reset(t_data *data)
 		free(data->line);
 	if(data->read)
 		free (data->read);
+	// mini_free(data);
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));
@@ -156,7 +157,10 @@ void	main_core(char **envp)
 			ft_printf("\n\n---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");
 			if (parse(data))
+			{
+				mini_reset(data);
 				break ;
+			}
 			print_list(data);
 			ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
 			ft_printf("---------------------------------------\n");

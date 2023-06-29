@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 16:04:37 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:17:49 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	set_out_trunk(t_data *data, char **arg)
 	}
 	else
 	{
+		if (data->temp_outfile)
+			free(data->temp_outfile);
+		free(arg[data->i]);
 		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
 		return ;
 	}
@@ -50,11 +53,33 @@ void	set_out_apend(t_data *data, char **arg)
 
 void	set_infile(t_data *data, char **arg)
 {
+	int	fd;
+	
+	fd = 0;
 	free(arg[data->i++]);
+	if(data->temp_in_mod == -1)
+	{
+		free (arg[data->i++]);
+		return;
+	}
 	if (arg[data->i] && is_meta(data, arg) == 0 && ft_strncmp(arg[data->i], "|\0", 2))
 	{
-		data->temp_in_mod = 1;
-		data->temp_infile = arg[data->i];
+		fd = open(arg[data->i], O_RDONLY);
+		if(fd == -1)
+		{
+			ft_putstr_fd("Minishell: ", 2);
+			ft_putstr_fd(arg[data->i], 2);
+			ft_putstr_fd(": No such file or directory\n", 2);
+			data->temp_in_mod = -1;
+			free (arg[data->i++]);
+		}
+		else
+		{
+			data->temp_in_mod = 1;
+			data->temp_infile = arg[data->i];
+		}
+		if(fd > 2)
+			close (fd);
 	}
 	else
 	{

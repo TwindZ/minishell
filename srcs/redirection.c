@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 11:32:12 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:20:57 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	open_outfile(t_data *data, char *file, int mod)
 			data->fd.cmd_out = open(file, O_RDWR | O_APPEND);
 		data->exe_flag.file_out = 1;
 	}
-	ft_printf("data->fd.cmd_out : %d\n", data->fd.cmd_out);
 	if (data->fd.cmd_out == -1 || fd == -1)
 		ft_putstr_fd("Minishell : file can't be create", 2);
 }

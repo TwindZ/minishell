@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 14:16:01 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:20:50 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 				break ;
 			i++;
 		}
-			ft_printf("path?: %s", paths[i]);
 		ft_freeall(paths);
 	}
 	if (!temp->path)
