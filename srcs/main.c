@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 17:13:05 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:10:31 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	parse(t_data *data)
 		return (1);
 	ft_printf("%s\n", data->line);
 	make_list_ltkn(data);
-	if(!data->ltkn)
+	if(!data->ltkn || data->temp_in_mod == -1)
 		return (1);
 	return (0);
 }
@@ -116,7 +116,10 @@ void	main_core(char **envp)
 			ft_printf("\n\n---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");
 			if (parse(data))
+			{
+				mini_reset(data);
 				break ;
+			}
 			print_list(data);
 			ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
 			ft_printf("---------------------------------------\n");

@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 16:20:27 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:05:49 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,7 @@ void	mini_execute(t_data *data)
 	{
 		data->exe_flag.front_pipe = temp->front_pipe;
 		if (temp->in_mod == 1)
-			open_infile(data, temp->infile);
-		if(data->fd.cmd_in == -1)
-			break ;
+			open_infile(data, temp->infile);//TODO si un de pas bon ne dois pas marcher
 		if (temp->in_mod == 2)
 			heredoc(data, temp->infile);
 		if (temp->out_mod > 0)
@@ -110,6 +108,7 @@ void	mini_execute(t_data *data)
 			executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
+	
 }
 	// data->exe_flag.back_pipe = 0;
 	// dup2(0, STDIN_FILENO);
