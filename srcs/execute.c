@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 14:06:04 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:40:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	builtin(t_data *data, t_ltkn *temp)
 		mini_export(data->fd.cmd_out, data, temp);
 	else if (ft_strncmp(temp->arg[0], "unset\0", 6) == 0)
 		mini_unset(data, temp);
+	else if (ft_strncmp(temp->arg[0], "exit\0", 5) == 0)
+		mini_exit(data, temp);
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);

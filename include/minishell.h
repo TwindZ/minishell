@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/27 17:41:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:35:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
 void	mini_echo(int fd, t_ltkn *temp);
 void	mini_pwd(int fd);
-void	mini_exit(t_data *data);
+void	mini_exit(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
 void	mini_unset(t_data *data, t_ltkn *temp);
 char	**env_cpy(char **envp, int exp);

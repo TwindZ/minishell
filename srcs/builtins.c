@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 13:14:35 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:28:09 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,39 @@
 void	mini_echo(int fd, t_ltkn *temp)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 0;
 	if (temp->arg[1] == NULL)
 	{
 		ft_putstr_fd("\n", fd);
 		return ;
 	}
+	if (ft_strncmp(temp->arg[1], "-n\0", 3) == 0 && temp->arg[2] == NULL)
+	{
+		return ;
+	}
 	while (temp->arg[i])
 	{
-		if (i < 2 && ft_strncmp(temp->arg[1], "-n\0", 3) == 0)
+		while (ft_strncmp(temp->arg[i], "-n\0", 3) == 0 && temp->arg[i + 1] != NULL && flag == 0)
 			i++;
-		ft_putstr_fd(temp->arg[i], fd);
+		if (ft_strncmp(temp->arg[i], "-n\0", 3) == 0 && flag == 1)
+		{
+			ft_putstr_fd(temp->arg[i], fd);
+			if (ft_strncmp(temp->arg[i + 1], "-n\0", 3) == 0)
+				flag = 1;
+			else 
+				flag = 0;
+		}
+		else if (ft_strncmp(temp->arg[i], "-n\0", 3) && flag == 0)
+		{
+			ft_putstr_fd(temp->arg[i], fd);
+			if (ft_strncmp(temp->arg[i + 1], "-n\0", 3))
+				flag = 0;
+			else
+				flag = 1;
+		}
 		i++;
 		if (temp->arg[i] != NULL)
 			ft_putstr_fd(" ", fd);
