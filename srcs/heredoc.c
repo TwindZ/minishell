@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 13:45:17 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 17:47:11 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	heredoc(t_data *data, char *delimiter)
 		close(data->fd.cmd_in);
 	while (1)
 	{
-		data->readhd = readline("heredoc>");
-		if (!(ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter))))
+		data->readhd = readline(">");
+	// ft_printf("HEREDOC %s", data->readhd);
+		
+		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
 		while (data->hd.data[data->hd.i])
@@ -40,7 +42,7 @@ void	heredoc(t_data *data, char *delimiter)
 			dollar_sign_hd(data);
 			data->hd.i++;
 		}
-		free(data->readhd);
+		// free(data->readhd);
 		data->readhd = NULL;
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}

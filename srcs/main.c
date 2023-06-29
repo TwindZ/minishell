@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 15:19:29 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:54:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,11 @@ void	mini_reset(t_data *data)
 	if(data->ltkn)
 		free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
-	// if(data->line)
-	// 	free(data->line);
-	// if(data->read)
-	// 	free (data->read);
-	mini_free(data);
+	if(data->line)
+		free(data->line);
+	if(data->read)
+		free (data->read);
+	// mini_free(data);
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));

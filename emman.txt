@@ -23,3 +23,7 @@ comment savoir qu'une commande ne prend pas d'entre
 
 env | > allo > bonjour >> test cat -e
 leaks
+
+
+
+heredoc marche pas avec cat 
