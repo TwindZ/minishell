@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 16:19:23 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:58:31 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ typedef struct s_data
 	t_exe_flag	exe_flag;
 	t_heredoc	hd;
 	t_ltkn 		*ltkn;
-	t_ltkn		*cur_ltkn;
 	char		*temp_infile;
 	int			temp_in_mod;
 	char		*temp_outfile;

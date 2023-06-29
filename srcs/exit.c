@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 14:26:27 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:11:22 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,50 @@ void	free_list_ltkn(t_ltkn *ltkn)
 	}
 }
 
+void	freenull(void *ptr)
+{
+	free(ptr);
+	ptr = NULL;
+}
+
 void	mini_free(t_data *data)
 {
-	(void) data;
-	// if (data->rdflag == 1)
-	// {
-		// free(data->read);
-		// free (data->line);
-	// }
-	// data->rdflag = 0;
-	// data->ltkn = NULL;
-	// free_list_ltkn(data->ltkn);
-	// free(data);
-	//------------------------------------
-	// if(data->envp)
-	// 	free(data->envp);
-	// if(data->envp)
-	// 	free(data->envp);
+	if(data->temp_infile)
+		freenull(data->temp_infile);
+	if(data->temp_outfile)
+		freenull(data->temp_outfile);
+	if(data->file)
+		freenull(data->file);
+	if(data->read)
+		freenull(data->read);
+	if(data->readhd)
+		freenull(data->readhd);
+	if(data->line)
+		freenull(data->line);
+	if(data->linetemp)
+		freenull(data->linetemp);
+	if(data->ltkn->path)
+		freenull(data->ltkn->path);
+	if(data->ltkn->infile)
+		freenull(data->ltkn->infile);
+	if(data->ltkn->outfile)
+		freenull(data->ltkn->outfile);
+	if(data->dolsign.tocheck)
+		freenull(data->dolsign.tocheck);
+	if(data->dolsign.towrite)
+		freenull(data->dolsign.towrite);
+	if(data->dshd.tocheck)
+		freenull(data->dshd.tocheck);
+	if(data->dshd.towrite)
+		freenull(data->dshd.towrite);
+	if(data->meta.temp)
+		freenull(data->meta.temp);
+	if(data->env.result)
+		freenull(data->env.result);
+	if(data->exp.swap)
+		freenull(data->exp.swap);
+	if(data->hd.data)
+		freenull(data->hd.data);
+	if(data->hd.end)
+		freenull(data->hd.end);
 }
-// TODO ça prend un focntion de sortie universelle
