@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 13:18:35 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:45:31 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	mini_reset(t_data *data)
 {
 	free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
-	free(data->line);
+	free (data->line);
 	free (data->read);
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	ft_bzero(&data->fd, sizeof(data->fd));

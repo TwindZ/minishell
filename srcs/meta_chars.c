@@ -47,6 +47,7 @@ void	make_temp(t_data *data)
 	}
 	data->meta.i = 0;
 	free (data->line);
+	data->line = NULL;
 }
 
 void	remake_line(t_data *data, char meta)
@@ -61,6 +62,7 @@ void	remake_line(t_data *data, char meta)
 	}
 	place_tab(data, meta);
 	free (data->meta.temp);
+	data->meta.temp = NULL;
 }
 
 void	place_tab(t_data *data, char meta)

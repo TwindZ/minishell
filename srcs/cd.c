@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:19:05 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 11:33:57 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:31:46 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 
 	data->i = 0;
 	home = NULL;
-	home = getenvp(data, "HOME", 1);
+	home = getenvp(data, "HOME=", 1);
 	if (!home)
 		ft_putstr_fd("HOME not found", STDERR_FILENO);
 	while (temp->arg[data->i])
 		data->i++;
 	change_dir(data, temp, home);
+	free (home);
 }
 
 void	change_dir(t_data *data, t_ltkn *temp, char *home)

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 13:11:29 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:38:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	dollar_sign_hd(t_data *data)
 		if (data->dshd.towrite != NULL)
 			adjust_line_hd(data);
 		free(data->dshd.tocheck);
+		data->dshd.tocheck = NULL;
 		free(data->dshd.towrite);
+		data->dshd.towrite = NULL;
 	}
 }
 
@@ -75,6 +77,7 @@ void	adjust_line_hd(t_data *data)
 	}
 	data->dshd.i = 0;
 	free (data->hd.data);
+	data->hd.data = NULL;
 	data->hd.data = ft_safe_calloc((data->dshd.linelen
 				+ data->dshd.towritelen
 				+ ft_strlen(data->readhd) + 2), sizeof(char), data);
@@ -88,6 +91,7 @@ void	adjust_line_hd(t_data *data)
 		data->hd.data[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
 	if (data->linetemp != NULL)
 		free (data->linetemp);
+	data->linetemp = NULL;
 }
 
 void	init_adjust_hd(t_data *data)
