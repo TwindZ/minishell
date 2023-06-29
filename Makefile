@@ -6,7 +6,7 @@
 #    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/06/29 11:19:47 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/06/29 12:53:19 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS =	main.c					\
 		echo.c					\
 		cd.c					\
 		signal.c				\
+		ft_safe_calloc.c		\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/

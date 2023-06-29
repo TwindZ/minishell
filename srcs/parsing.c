@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 12:46:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:06:13 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	prep_line(t_data *data)
 	data->i = 0;
 	data->j = 0;
 	len = ft_strlen(data->read);
-	data->line = ft_calloc(len + 5, sizeof(char));
-	if (!data->line)
-		mini_free(data);
+	data->line = ft_safe_calloc(len + 5, sizeof(char), data);
 	while (data->read[data->i] && data->read[data->i] != '\n')
 	{
 		in_quotes(data);

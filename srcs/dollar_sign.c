@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 11:31:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:10:32 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ void	make_tocheck(t_data *data)
 		data->i++;
 	data->dolsign.end = data->i;
 	data->dolsign.len = data->dolsign.end - data->dolsign.start;
-	data->dolsign.tocheck = ft_calloc(data->dolsign.len + 1, sizeof(char));
-	if (!data->dolsign.tocheck)
-		mini_free(data);
+	data->dolsign.tocheck = ft_safe_calloc(data->dolsign.len + 1, sizeof(char), data);
 	while (data->dolsign.start < data->dolsign.end)
 	{
 		data->dolsign.tocheck[data->dolsign.idx]
@@ -75,11 +73,9 @@ void	adjust_line(t_data *data)
 	}
 	data->dolsign.i = 0;
 	free (data->line);
-	data->line = ft_calloc((data->dolsign.linelen
+	data->line = ft_safe_calloc((data->dolsign.linelen
 				+ data->dolsign.towritelen
-				+ ft_strlen(data->read) + 2), sizeof(char));
-	if (!data->line)
-		mini_free(data);
+				+ ft_strlen(data->read) + 2), sizeof(char), data);
 	while (data->linetemp[data->dolsign.i])
 	{
 		data->line[data->dolsign.i] = data->linetemp[data->dolsign.i];
@@ -98,5 +94,5 @@ void	init_adjust(t_data *data)
 	data->dolsign.linelen = ft_strlen(data->line);
 	data->dolsign.towritelen = ft_strlen(data->dolsign.towrite);
 	data->linetemp = NULL;
-	data->linetemp = ft_calloc(data->dolsign.linelen + 1, sizeof(char));
+	data->linetemp = ft_safe_calloc(data->dolsign.linelen + 1, sizeof(char), data);
 }

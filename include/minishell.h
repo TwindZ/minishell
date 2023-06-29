@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 11:14:52 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:15:12 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ void	mini_exit(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
 void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	mini_unset(t_data *data, t_ltkn *temp);
-char	**env_cpy(char **envp, int exp);
+char	**env_cpy(char **envp, int exp, t_data *data);
 
 void	mini_env(t_data *data);
 char	*getenvp(t_data *data, char *var, int extract);
@@ -233,4 +233,5 @@ void 	add_var(t_data *data, char **envp, t_ltkn *temp);
 void	mini_reset(t_data *data);
 t_data	*ft_init_data(char **envp);
 void	main_core(char **envp);
+void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
 #endif

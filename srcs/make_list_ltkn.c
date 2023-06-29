@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 11:35:25 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:19:38 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
 	t_ltkn	*ltkn;
 
 	ltkn = ft_calloc(1, sizeof(t_ltkn));
+	if (!ltkn)
+		return (NULL);
 	ltkn->arg = ft_calloc(nbarg + 1, sizeof(char *));
 	if (!ltkn)
 		return (NULL);
