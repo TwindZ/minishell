@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 14:26:27 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:42:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,4 @@ void	free_list_ltkn(t_ltkn *ltkn)
 	}
 }
 
-void	mini_free(t_data *data)
-{
-	(void) data;
-	// if (data->rdflag == 1)
-	// {
-		// free(data->read);
-		// free (data->line);
-	// }
-	// data->rdflag = 0;
-	// data->ltkn = NULL;
-	// free_list_ltkn(data->ltkn);
-	// free(data);
-	//------------------------------------
-	// if(data->envp)
-	// 	free(data->envp);
-	// if(data->envp)
-	// 	free(data->envp);
-}
 // TODO ça prend un focntion de sortie universelle

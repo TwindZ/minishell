@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 16:19:23 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:16:14 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_data
 	char		*line;
 	char		*linetemp;
 	int			rdflag;
+	int			flag;
 	int			i;
 	int			j;
 	t_quotes	quotes;
@@ -209,12 +210,14 @@ void	free_ltkn(t_ltkn *ltkn);
 
 void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
-void	mini_echo(int fd, t_ltkn *temp);
+void	mini_echo(int fd, t_ltkn *temp, t_data *data);
+void	echo_print(int fd, t_ltkn *temp, t_data *data);
 void	mini_pwd(int fd);
-void	mini_exit(t_data *data);
+void	mini_exit(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
+void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	mini_unset(t_data *data, t_ltkn *temp);
-char	**env_cpy(char **envp, int exp);
+char	**env_cpy(char **envp, int exp, t_data *data);
 
 void	mini_env(t_data *data);
 char	*getenvp(t_data *data, char *var, int extract);
@@ -231,4 +234,5 @@ void 	add_var(t_data *data, char **envp, t_ltkn *temp);
 void	mini_reset(t_data *data);
 t_data	*ft_init_data(char **envp);
 void	main_core(char **envp);
+void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 16:38:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:16:01 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,17 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	int		i;
 
 	i = 0;
+	path_env = NULL;
+	paths = NULL;
 	if (path_pre_check(arg[data->i], temp))
 		return ;
 	path_env = getenvp(data, "PATH", 1);
 	paths = ft_split(path_env, ':');
 	if(path_env)
+	{
 		free(path_env);
+		path_env = NULL;
+	}
 	if(paths)
 	{
 		while (paths[i])
@@ -92,7 +97,10 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 			if (ft_strncmp(temp->path, "*directory", 10) == 0 && temp->path)
 				return ;
 			if (temp->path)
+			{
 				free(temp->path);
+				temp->path = NULL;
+			}
 			temp->path = find_path(paths[i], arg[data->i]);
 			if (temp->path)
 				break ;

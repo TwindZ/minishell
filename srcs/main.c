@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/28 17:13:05 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:15:55 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,66 @@ t_data	*ft_init_data(char **envp)
 	{
 		data = ft_calloc(1, sizeof(t_data));
 		if (!data)
-			return (NULL);
+			exit (1);
 		build_env(data, envp);
 	}
 	return (data);
 }
 
-void	mini_exit(t_data *data)
+void	mini_exit(t_data *data, t_ltkn *temp)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	ft_printf("exit\n");
-	free_list_ltkn(data->ltkn);
-	free (data->read);
-	ft_freeall(data->envp);
-	free (data);
-	exit(EXIT_SUCCESS);
+	while (temp->arg[j])
+		j++;
+	if (j > 2)
+	{
+		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd("too many arguments\n", STDERR_FILENO);
+		return ;
+	}
+	if (j == 2)
+	{
+		while (ft_isdigit(temp->arg[1][i]) == 1)
+			i++;
+		if (i == (int)ft_strlen(temp->arg[1]))
+		{
+			j = ft_atoi(temp->arg[1]);
+			free_list_ltkn(data->ltkn);
+			free (data->read);
+			free (data->line);
+			ft_freeall(data->envp);
+			free (data);
+			exit(j);
+		}
+		else 
+		{
+			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
+			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+			free_list_ltkn(data->ltkn);
+			free (data->read);
+			free (data->line);
+			ft_freeall(data->envp);
+			free (data);
+			exit(255);
+		}
+	}
+	else
+		free_list_ltkn(data->ltkn);
+		free (data->read);
+		free (data->line);
+		ft_freeall(data->envp);
+		free (data);
+		exit(0);
 }
 
 int	parse(t_data *data)
 {
-	if (ft_strncmp(data->read, "exit", 4) == 0)
-		mini_exit(data);
 	if (ft_strlen(data->read) == 0)
 		return (1);
 	add_history(data->read);

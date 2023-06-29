@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/21 12:33:15 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:38:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	dollar_sign_hd(t_data *data)
 		if (data->dshd.towrite != NULL)
 			adjust_line_hd(data);
 		free(data->dshd.tocheck);
+		data->dshd.tocheck = NULL;
 		free(data->dshd.towrite);
+		data->dshd.towrite = NULL;
 	}
 }
 
@@ -49,9 +51,7 @@ void	make_tocheck_hd(t_data *data)
 		data->hd.i++;
 	data->dshd.end = data->hd.i;
 	data->dshd.len = data->dshd.end - data->dshd.start;
-	data->dshd.tocheck = malloc(sizeof(char) * data->dshd.len + 1);
-	if (!data->dshd.tocheck)
-		mini_free(data);
+	data->dshd.tocheck = ft_safe_calloc(data->dshd.len + 1, sizeof(char), data);
 	while (data->dshd.start < data->dshd.end)
 	{
 		data->dshd.tocheck[data->dshd.idx]
@@ -77,11 +77,10 @@ void	adjust_line_hd(t_data *data)
 	}
 	data->dshd.i = 0;
 	free (data->hd.data);
-	data->hd.data = ft_calloc((data->dshd.linelen
+	data->hd.data = NULL;
+	data->hd.data = ft_safe_calloc((data->dshd.linelen
 				+ data->dshd.towritelen
-				+ ft_strlen(data->readhd) + 2), sizeof(char));
-	if (!data->hd.data)
-		mini_free(data);
+				+ ft_strlen(data->readhd) + 2), sizeof(char), data);
 	while (data->linetemp[data->dshd.i])
 	{
 		data->hd.data[data->dshd.i] = data->linetemp[data->dshd.i];
@@ -92,6 +91,7 @@ void	adjust_line_hd(t_data *data)
 		data->hd.data[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
 	if (data->linetemp != NULL)
 		free (data->linetemp);
+	data->linetemp = NULL;
 }
 
 void	init_adjust_hd(t_data *data)
@@ -100,5 +100,5 @@ void	init_adjust_hd(t_data *data)
 	data->dshd.linelen = ft_strlen(data->hd.data);
 	data->dshd.towritelen = ft_strlen(data->dshd.towrite);
 	data->linetemp = NULL;
-	data->linetemp = ft_calloc(data->dshd.linelen + 1, sizeof(char));
+	data->linetemp = ft_safe_calloc(data->dshd.linelen + 1, sizeof(char), data);
 }

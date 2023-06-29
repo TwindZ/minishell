@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freeall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 12:43:06 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/05/01 17:01:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 13:47:11 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ char	**ft_freeall(char **ar)
 	while (ar[i])
 	{
 		free(ar[i]);
+		ar[i] = NULL;
 		i++;
 	}
 	free(ar);
+	ar = NULL;
 	return (NULL);
 }

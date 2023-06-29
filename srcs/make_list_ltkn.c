@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/28 16:11:24 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 14:16:42 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
 	nbarg = 0;
 	nbarg = ft_count_arg(arg, data->i);
 	if (!data->ltkn)
-	{	
+	{
 		temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
 		data->ltkn = temp;
 	}
@@ -94,6 +94,8 @@ t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
 	t_ltkn	*ltkn;
 
 	ltkn = ft_calloc(1, sizeof(t_ltkn));
+	if (!ltkn)
+		return (NULL);
 	ltkn->arg = ft_calloc(nbarg + 1, sizeof(char *));
 	if (!ltkn)
 		return (NULL);
