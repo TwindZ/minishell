@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 09:35:39 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:14:52 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ typedef struct s_data
 	char		*line;
 	char		*linetemp;
 	int			rdflag;
+	int			flag;
 	int			i;
 	int			j;
 	t_quotes	quotes;
@@ -208,10 +209,12 @@ void	free_ltkn(t_ltkn *ltkn);
 
 void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
-void	mini_echo(int fd, t_ltkn *temp);
+void	mini_echo(int fd, t_ltkn *temp, t_data *data);
+void	echo_print(int fd, t_ltkn *temp, t_data *data);
 void	mini_pwd(int fd);
 void	mini_exit(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
+void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	mini_unset(t_data *data, t_ltkn *temp);
 char	**env_cpy(char **envp, int exp);
 

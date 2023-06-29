@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 10:41:37 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:56:09 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 			j = ft_atoi(temp->arg[1]);
 			free_list_ltkn(data->ltkn);
 			free (data->read);
+			free (data->line);
 			ft_freeall(data->envp);
 			free (data);
 			exit(j);
@@ -62,6 +63,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 			free_list_ltkn(data->ltkn);
 			free (data->read);
+			free (data->line);
 			ft_freeall(data->envp);
 			free (data);
 			exit(255);
@@ -70,6 +72,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	else
 		free_list_ltkn(data->ltkn);
 		free (data->read);
+		free (data->line);
 		ft_freeall(data->envp);
 		free (data);
 		exit(0);
