@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 14:19:58 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:06:21 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,4 +234,5 @@ void	mini_reset(t_data *data);
 t_data	*ft_init_data(char **envp);
 void	main_core(char **envp);
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
+void	freenull(void *ptr);
 #endif

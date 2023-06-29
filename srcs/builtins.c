@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 13:29:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:17:12 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 
 	data->i = 0;
 	data->j = 0;
+	to_find = NULL;
 	while (data->envp[data->i])
 		data->i++;
 	new_env = ft_safe_calloc(data->i, sizeof(char *), data);
 	data->i = 0;
-	to_find = NULL;
 	to_find = ft_strjoin(temp->arg[1], "=", 0);
 	while (data->envp[data->i])
 	{
@@ -68,8 +68,8 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 		data->i++;
 	}
 	ft_freeall(data->envp);
-	data->envp = NULL;
 	data->envp = new_env;
-	free (to_find);
+	new_env = NULL;
+	freenull(to_find);
 }
 // TODO changer les messages d'erreurs avec stderr ou perror

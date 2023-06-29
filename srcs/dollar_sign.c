@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 13:44:19 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:01:33 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ void	dollar_sign(t_data *data)
 		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
-		free(data->dolsign.tocheck);
-		data->dolsign.tocheck = NULL;
-		free(data->dolsign.towrite);
-		data->dolsign.towrite = NULL;
+		freenull(data->dolsign.tocheck);
+		freenull(data->dolsign.towrite);
 	}
 }
 
@@ -74,7 +72,7 @@ void	adjust_line(t_data *data)
 		data->dolsign.i++;
 	}
 	data->dolsign.i = 0;
-	free (data->line);
+	freenull(data->line);
 	data->line = ft_safe_calloc((data->dolsign.linelen
 				+ data->dolsign.towritelen
 				+ ft_strlen(data->read) + 2), sizeof(char), data);
@@ -87,7 +85,7 @@ void	adjust_line(t_data *data)
 	while (data->dolsign.towritelen-- != 0)
 		data->line[data->j++] = data->dolsign.towrite[data->dolsign.i++];
 	if (data->linetemp != NULL)
-		free (data->linetemp);
+		freenull(data->linetemp);
 }
 
 void	init_adjust(t_data *data)

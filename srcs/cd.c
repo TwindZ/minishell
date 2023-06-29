@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:19:05 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 13:31:46 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:04:10 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 	while (temp->arg[data->i])
 		data->i++;
 	change_dir(data, temp, home);
-	free (home);
+	freenull(home);
 }
 
 void	change_dir(t_data *data, t_ltkn *temp, char *home)

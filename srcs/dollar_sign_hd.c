@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 13:38:50 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:03:05 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void	dollar_sign_hd(t_data *data)
 		data->dshd.towrite = getenvp(data, data->dshd.tocheck, 1);
 		if (data->dshd.towrite != NULL)
 			adjust_line_hd(data);
-		free(data->dshd.tocheck);
-		data->dshd.tocheck = NULL;
-		free(data->dshd.towrite);
-		data->dshd.towrite = NULL;
+		freenull(data->dshd.tocheck);
+		freenull(data->dshd.towrite);
 	}
 }
-
+//TODO faire une modif comme la fonction dollar_sign
 void	init_dollar_hd(t_data *data)
 {
 	data->dshd.start = 0;
@@ -76,8 +74,7 @@ void	adjust_line_hd(t_data *data)
 		data->dshd.i++;
 	}
 	data->dshd.i = 0;
-	free (data->hd.data);
-	data->hd.data = NULL;
+	freenull(data->hd.data);
 	data->hd.data = ft_safe_calloc((data->dshd.linelen
 				+ data->dshd.towritelen
 				+ ft_strlen(data->readhd) + 2), sizeof(char), data);
@@ -90,8 +87,7 @@ void	adjust_line_hd(t_data *data)
 	while (data->dshd.towritelen-- != 0)
 		data->hd.data[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
 	if (data->linetemp != NULL)
-		free (data->linetemp);
-	data->linetemp = NULL;
+		freenull(data->linetemp);
 }
 
 void	init_adjust_hd(t_data *data)

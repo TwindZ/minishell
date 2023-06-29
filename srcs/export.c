@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 13:33:47 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:04:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,12 @@ void	add_to_env(t_data *data, t_ltkn *temp)
 	else if (data->exp.i != data->exp.j)
 	{
 		data->exp.new_env = env_cpy(data->envp, 0, data);
-		free (data->exp.new_env[data->exp.i]);
-		data->exp.new_env[data->exp.i] = NULL;
+		freenull(data->exp.new_env[data->exp.i]);
 		data->exp.new_env[data->exp.i] = ft_safe_calloc(
 				ft_strlen(temp->arg[1]) + 1, sizeof(char), data);
 		ft_strlcpy(data->exp.new_env[data->exp.i], temp->arg[1],
 			ft_strlen(temp->arg[1]) + 1);
 		ft_freeall(data->envp);
-		data->envp = NULL;
 		data->envp = env_cpy(data->exp.new_env, 0, data);
 		ft_freeall(data->exp.new_env);
 	}
@@ -85,7 +83,6 @@ void	add_var(t_data *data, char **envp, t_ltkn *temp)
 			sizeof(char), data);
 	ft_strlcpy(new_env[i], temp->arg[1], ft_strlen(temp->arg[1]) + 1);
 	ft_freeall(data->envp);
-	data->envp = NULL;
 	data->envp = new_env;
 }
 
