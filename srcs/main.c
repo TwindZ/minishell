@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 15:54:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/01 09:37:30 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	main_core(char **envp)
 		{
 			data->read = readline("Minishell>");
 			data->rdflag = 1;
-			ft_printf("\n\n---------------------------------------\n");
+			ft_printf("---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");
 			if (parse(data))
 			{
@@ -177,3 +177,4 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	main_core(envp);
 }
+//TODO reconvertir les caratere qui on ete changer durant le parsing

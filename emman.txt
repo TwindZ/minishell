@@ -24,6 +24,11 @@ comment savoir qu'une commande ne prend pas d'entre
 env | > allo > bonjour >> test cat -e
 leaks
 
-
+ ls "jfhaldh" | pipe ouvert fait un peu comme le cat|cat|ls fait le dernier ls et ecrit l<ecrreur apres
 
 heredoc marche pas avec cat 
+
+soutenace non fonctionnel
+- signaux
+-retour de processus
+

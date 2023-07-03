@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 14:20:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/02 12:12:10 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,26 @@ void	set_io(t_data *data)
 		close(data->fd.cmd_in);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
+	// dup2(STDIN_FILENO, 0);
+	// dup2(STDOUT_FILENO, 1);
 	data->exe_flag.front_pipe = 0;
 	data->exe_flag.file_out = 0;
 }
 
 void	executer(t_data *data, char *path, char **argv)
 {
+	static int back;
+	void	*ptr_back;
+	
+	ptr_back = &back;
+	back = 0;
+	
 	data->child = fork();
 	if (data->child == 0)
 	{
 		set_io(data);
-		execve(path, argv, data->envp);
+		ptr_back = execve(path, argv, data->envp);
+		ft_printf("back %d\n", back);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -80,7 +89,10 @@ void	executer(t_data *data, char *path, char **argv)
 		if (data->fd.cmd_out > 2)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
+		// dup2(STDIN_FILENO, 0);
+		// dup2(STDOUT_FILENO, 1);
 	}
+		ft_printf("back %d\n", back);
 	wait (NULL);
 	data->child = 0;
 }
