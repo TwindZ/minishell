@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 20:25:01 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/03 16:23:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_count_arg(char **arg, int i)
 	while ((ft_strncmp(arg[i], "|\0", 2)) && arg[i++])
 		j++;
 	return (j);
-	ft_printf("%d\n", j);
 }
 
 t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/01 09:10:02 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/03 13:36:17 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,15 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 				freenull(temp->path);
 			temp->path = find_path(paths[i], arg[data->i]);
 			if (temp->path)
+			{
+				data->child_count++;
 				break ;
+			}
 			i++;
 		}
 		ft_freeall(paths);
 	}
 	if (!temp->path)
 		path_error(temp);
+	ft_printf("child count %d\n", data->child_count);
 }

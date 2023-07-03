@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/01 09:37:30 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/03 17:13:01 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_data	*ft_init_data(char **envp)
 		if (!data)
 			exit (1);
 		build_env(data, envp);
+		data->child = getpid();
 	}
 	return (data);
 }
@@ -34,7 +35,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	i = 0;
 	j = 0;
 	ft_printf("exit\n");
-	while (temp->arg[j])
+	while (temp && temp->arg[j])
 		j++;
 	if (j > 2)
 	{
@@ -70,11 +71,14 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 		}
 	}
 	else
-		free_list_ltkn(data->ltkn);
-		free (data->read);
-		free (data->line);
-		ft_freeall(data->envp);
-		free (data);
+		if(temp)
+		{	
+			free_list_ltkn(data->ltkn);
+			free (data->read);
+			free (data->line);
+			ft_freeall(data->envp);
+			free (data);
+		}
 		exit(0);
 }
 
@@ -127,32 +131,26 @@ void	mini_reset(t_data *data)
 	data->temp_out_mod = 0;
 	data->read = NULL;
 	data->line = NULL;
-}
-
-void block_signal(int sig)
-{
-	sigset_t	sigset;
-	
-	sigemptyset(&sigset);
-	sigaddset(&sigset, sig);
-	sigprocmask(SIG_BLOCK, &sigset, NULL);
+	data->child_count = getpid();
 }
 
 void	main_core(char **envp)
 {
 	t_data				*data;
-	struct sigaction	sa;
-	
+
 	data = ft_init_data(envp);
-	ft_bzero(&sa, sizeof(sa));
-	sa.sa_sigaction = &sig_handler;
-	block_signal(SIGQUIT);
-	// sigaction(SIGINT, &sa, NULL);
+	signal(SIGINT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
+	// signal(SIGQUIT, SIG_IGN);
+	signal(SIGCHLD, sig_handler);
 	while (1)
 	{
 		while (1)
 		{
 			data->read = readline("Minishell>");
+			ft_printf("data.read %s\n", data->read);
+			if(!data->read)
+				mini_exit(data, data->ltkn);
 			data->rdflag = 1;
 			ft_printf("---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");

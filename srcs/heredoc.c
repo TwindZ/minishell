@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 17:47:11 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/03 17:32:15 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,48 @@ void	hd_out(t_data *data)
 	data->exe_flag.back_pipe = 1;
 }
 
-void	heredoc(t_data *data, char *delimiter)
+int	heredoc(t_data *data, char *delimiter)
 {
+	
+	data->hdprocess = 1;
 	data->hd.i = 0;
 	data->readhd = NULL;
 	if (data->fd.cmd_in > 2)
 		close(data->fd.cmd_in);
-	while (1)
+	data->child = getpid();
+	data->child = fork();
+	if(data->child == 0)
 	{
-		data->readhd = readline(">");
-	// ft_printf("HEREDOC %s", data->readhd);
 		
-		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
-			break ;
-		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
-		while (data->hd.data[data->hd.i])
+		while (data->hdprocess)
 		{
-			dollar_sign_hd(data);
-			data->hd.i++;
+			data->readhd = readline(">");
+			if(!data->readhd)
+			{
+				ft_printf("HEREDOC ici %s", data->readhd);
+				return (1);
+			}
+			if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
+				break ;
+			data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
+			while (data->hd.data[data->hd.i])
+			{
+				dollar_sign_hd(data);
+				data->hd.i++;
+			}
+			// free(data->readhd);
+			data->readhd = NULL;
+			data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 		}
-		// free(data->readhd);
+		if (data->hd.data)
+			hd_out(data);
+		free(data->readhd);
 		data->readhd = NULL;
-		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
+		data->hdprocess = 0;
+		exit(0);
 	}
-	if (data->hd.data)
-		hd_out(data);
-	free(data->readhd);
-	data->readhd = NULL;
+	else
+		wait(NULL);
+		printf("dekc");
+	return (0);
 }

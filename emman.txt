@@ -32,3 +32,4 @@ soutenace non fonctionnel
 - signaux
 -retour de processus
 
+deux heredoc en ligne nImprime rien en bash (<< ! << 1 cat -e)

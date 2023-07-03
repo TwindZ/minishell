@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/02 12:12:10 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/03 17:07:43 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,13 @@ void	set_io(t_data *data)
 }
 
 void	executer(t_data *data, char *path, char **argv)
-{
-	static int back;
-	void	*ptr_back;
-	
-	ptr_back = &back;
-	back = 0;
-	
+{	
+	data->child = 0;
 	data->child = fork();
 	if (data->child == 0)
 	{
 		set_io(data);
-		ptr_back = execve(path, argv, data->envp);
-		ft_printf("back %d\n", back);
+		execve(path, argv, data->envp);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -92,7 +86,6 @@ void	executer(t_data *data, char *path, char **argv)
 		// dup2(STDIN_FILENO, 0);
 		// dup2(STDOUT_FILENO, 1);
 	}
-		ft_printf("back %d\n", back);
 	wait (NULL);
 	data->child = 0;
 }
@@ -109,7 +102,10 @@ void	mini_execute(t_data *data)
 		if (temp->in_mod == 1)
 			open_infile(data, temp->infile);//TODO si un de pas bon ne dois pas marcher
 		if (temp->in_mod == 2)
-			heredoc(data, temp->infile);
+			{
+				if(heredoc(data, temp->infile))
+					return ;
+			}
 		if (temp->out_mod > 0)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if (temp->front_pipe)
