@@ -16,6 +16,7 @@ SRCS =	main.c					\
 		quotes.c				\
 		dollar_sign.c			\
 		dollar_sign_hd.c		\
+		dollar_question.c		\
 		meta_chars.c			\
 		meta_replace.c			\
 		exit.c					\

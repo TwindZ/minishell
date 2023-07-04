@@ -31,6 +31,7 @@ void	mini_echo(int fd, t_ltkn *temp, t_data *data)
 	}
 	if (ft_strncmp(temp->arg[1], "-n\0", 3))
 		ft_putstr_fd("\n", fd);
+	data->prevout = 0;
 }
 
 void	echo_print(int fd, t_ltkn *temp, t_data *data)

@@ -17,6 +17,8 @@ void	dollar_sign(t_data *data)
 	init_dollar(data);
 	if (data->read[data->i] == '$')
 	{
+		if (data->read[data->i + 1] == '?')
+			return ;
 		make_tocheck(data);
 		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
 		if (data->dolsign.towrite != NULL)

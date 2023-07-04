@@ -24,6 +24,7 @@ void	prep_line(t_data *data)
 	{
 		in_quotes(data);
 		dollar_sign(data);
+		dollar_question(data);
 		meta_chars(data, '|');
 		meta_chars(data, '<');
 		meta_chars(data, '>');
@@ -57,6 +58,7 @@ void	in_quotes(t_data *data)
 				&& data->read[data->i] != '>' && data->read[data->i] != '<')
 				data->line[data->j++] = data->read[data->i++];
 			dollar_sign(data);
+			dollar_question(data);
 			replace_meta(data);
 		}
 		data->i++;

@@ -103,6 +103,12 @@ typedef struct s_exp
 	char	*swap;
 }				t_exp;
 
+typedef struct s_unset
+{
+	char	**new_env;
+	char	*to_find;
+}				t_unset;
+
 typedef struct s_heredoc
 {
 	char	*end;
@@ -144,6 +150,7 @@ typedef struct s_data
 	char		*linetemp;
 	int			rdflag;
 	int			flag;
+	int			prevout;
 	int			i;
 	int			j;
 	t_quotes	quotes;
@@ -152,6 +159,7 @@ typedef struct s_data
 	t_meta		meta;
 	t_env		env;
 	t_exp		exp;
+	t_unset		unset;
 	int			child;
 }				t_data;
 
@@ -184,6 +192,8 @@ void	double_quotes(t_data *data);
 void	single_quotes(t_data *data);
 void	quotes_priority(t_data *data);
 
+void	dollar_question(t_data *data);
+
 void	dollar_sign(t_data *data);
 void	init_dollar(t_data *data);
 void	make_tocheck(t_data *data);
@@ -211,11 +221,13 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp);
 
 void	mini_echo(int fd, t_ltkn *temp, t_data *data);
 void	echo_print(int fd, t_ltkn *temp, t_data *data);
-void	mini_pwd(int fd);
+void	mini_pwd(int fd, t_data *data);
 void	mini_exit(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
 void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	mini_unset(t_data *data, t_ltkn *temp);
+void	unset_adjust(t_data *data, t_ltkn *temp);
+void	unset_error(t_data *data, t_ltkn *temp);
 char	**env_cpy(char **envp, int exp, t_data *data);
 
 void	mini_env(t_data *data);

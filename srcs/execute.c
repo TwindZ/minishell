@@ -32,7 +32,7 @@ void	builtin(t_data *data, t_ltkn *temp)
 	if (ft_strncmp(temp->arg[0], "echo\0", 5) == 0)
 		mini_echo(data->fd.cmd_out, temp, data);
 	else if (ft_strncmp(temp->arg[0], "pwd\0", 4) == 0)
-		mini_pwd(data->fd.cmd_out);
+		mini_pwd(data->fd.cmd_out, data);
 	else if (ft_strncmp(temp->arg[0], "env\0", 4) == 0)
 		mini_env(data);
 	else if (ft_strncmp(temp->arg[0], "cd\0", 3) == 0)

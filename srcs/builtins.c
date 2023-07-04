@@ -12,12 +12,13 @@
 
 #include "../include/minishell.h"
 
-void	mini_pwd(int fd)
+void	mini_pwd(int fd, t_data *data)
 {
 	char	buffer[PATH_MAX];
 
 	ft_putstr_fd(getcwd(buffer, sizeof(buffer)), fd);
 	ft_putstr_fd("\n", fd);
+	data->prevout = 0;
 }
 
 void	mini_env(t_data *data)
@@ -31,45 +32,63 @@ void	mini_env(t_data *data)
 		ft_putstr_fd("\n", data->fd.cmd_out);
 		i++;
 	}
+	data->prevout = 0;
 }
 
 void	mini_unset(t_data *data, t_ltkn *temp)
 {
-	char	*to_find;
-	char	**new_env;
-
 	data->i = 0;
 	data->j = 0;
-	to_find = NULL;
+	data->unset.to_find = NULL;
 	while (data->envp[data->i])
 		data->i++;
-	new_env = ft_safe_calloc(data->i, sizeof(char *), data);
+	data->unset.new_env = ft_safe_calloc(data->i, sizeof(char *), data);
 	data->i = 0;
-	to_find = ft_strjoin(temp->arg[1], "=", 0);
+	data->unset.to_find = ft_strjoin(temp->arg[1], "=", 0);
+	unset_adjust(data, temp);
+	if (data->unset.new_env[data->j] != NULL)
+	{
+		ft_freeall(data->envp);
+		data->envp = data->unset.new_env;
+	}
+	data->prevout = 0;
+	data->unset.new_env = NULL;
+	freenull(data->unset.to_find);
+}
+
+void	unset_adjust(t_data *data, t_ltkn *temp)
+{
 	while (data->envp[data->i])
 	{
-		if (ft_isalpha(temp->arg[1][0]) == 0 && temp->arg[1][0] != 95)
+		if (temp->arg[1] == NULL || (ft_isalpha(temp->arg[1][0]) == 0 &&
+			temp->arg[1][0] != 95))
 		{
-			ft_putstr_fd("Minishell: unset: `", STDERR_FILENO);
-			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+			unset_error(data, temp);
 			return ;
 		}
-		if (ft_strncmp(to_find, data->envp[data->i], ft_strlen(to_find)) == 0)
+		if (ft_strncmp(data->unset.to_find, data->envp[data->i],
+			ft_strlen(data->unset.to_find)) == 0)
 			;
 		else
 		{
-			new_env[data->j] = ft_safe_calloc(ft_strlen(data->envp[data->i]) + 1,
+			data->unset.new_env[data->j] = 
+				ft_safe_calloc(ft_strlen(data->envp[data->i]) + 1,
 					sizeof(char), data);
-			ft_strlcpy(new_env[data->j], data->envp[data->i],
+			ft_strlcpy(data->unset.new_env[data->j], data->envp[data->i],
 				ft_strlen(data->envp[data->i]) + 1);
 			data->j++; 
 		}
 		data->i++;
 	}
-	ft_freeall(data->envp);
-	data->envp = new_env;
-	new_env = NULL;
-	freenull(to_find);
 }
-// TODO changer les messages d'erreurs avec stderr ou perror
+
+void	unset_error(t_data *data, t_ltkn *temp)
+{
+	ft_putstr_fd("Minishell: unset: `", STDERR_FILENO);
+	if (temp->arg[1] == NULL)
+		ft_putstr_fd("", STDERR_FILENO);
+	else
+		ft_putstr_fd(temp->arg[1], STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+	data->prevout = 1;
+}

@@ -26,14 +26,24 @@ void	mini_export(int fd, t_data *data, t_ltkn *temp)
 
 void	add_to_env(t_data *data, t_ltkn *temp)
 {
+	if (temp->arg[1][0] == '=')
+	{
+		ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
+		ft_putstr_fd(temp->arg[1], STDERR_FILENO);
+		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		data->prevout = 1;
+		return ;
+	}
 	while (temp->arg[1][data->exp.i] != '=' && temp->arg[1][data->exp.i])
 	{
 		data->exp.i++;
-		if (ft_isalpha(temp->arg[1][0]) == 0 && temp->arg[1][0] != 95)
+		if (ft_isalpha(temp->arg[1][data->exp.i]) == 0 && temp->arg[1][0] != 95 &&
+			temp->arg[1][data->exp.i] != '=')
 		{
 			ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
 			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
 			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+			data->prevout = 1;
 			return ;
 		}
 	}
@@ -55,6 +65,7 @@ void	add_to_env(t_data *data, t_ltkn *temp)
 			ft_strlen(temp->arg[1]) + 1);
 		ft_freeall(data->envp);
 		data->envp = env_cpy(data->exp.new_env, 0, data);
+		data->prevout = 0;
 		ft_freeall(data->exp.new_env);
 	}
 }
@@ -113,6 +124,7 @@ void	print_env(int fd, t_data *data)
 		ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(data->exp.temp_env[data->exp.i++], fd);
 		ft_putstr_fd("\n", fd);
+		data->prevout = 0;
 	}
 	ft_freeall(data->exp.temp_env);
 	data->exp.swap = NULL;

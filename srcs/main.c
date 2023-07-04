@@ -40,6 +40,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	{
 		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd("too many arguments\n", STDERR_FILENO);
+		data->prevout = 1;
 		return ;
 	}
 	if (j == 2)
