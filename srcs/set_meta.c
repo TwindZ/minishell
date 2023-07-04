@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 17:42:27 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:38:10 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void	set_heredoc(t_data *data, char **arg)
 		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
 		return ;
 	}
+	data->pid.count++;
 }
 
 void	set_meta(t_data *data, char **arg)

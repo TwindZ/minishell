@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/03 17:07:43 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:45:01 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	set_io(t_data *data)
 		close(data->fd.cmd_in);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
+	if (data->fd.cmd_next_in > 2)
+		close(data->fd.cmd_next_in);
 	// dup2(STDIN_FILENO, 0);
 	// dup2(STDOUT_FILENO, 1);
 	data->exe_flag.front_pipe = 0;
@@ -68,13 +70,12 @@ void	set_io(t_data *data)
 
 void	executer(t_data *data, char *path, char **argv)
 {	
-	data->child = 0;
-	data->child = fork();
-	if (data->child == 0)
+	data->pid.pid[data->pid.index] = fork();
+	if (data->pid.pid[data->pid.index] == 0)
 	{
 		set_io(data);
-		execve(path, argv, data->envp);
-		exit(EXIT_FAILURE);
+		if(execve(path, argv, data->envp) == -1)
+			exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -83,18 +84,18 @@ void	executer(t_data *data, char *path, char **argv)
 		if (data->fd.cmd_out > 2)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
-		// dup2(STDIN_FILENO, 0);
-		// dup2(STDOUT_FILENO, 1);
 	}
-	wait (NULL);
-	data->child = 0;
+	data->pid.index++;
+	// wait(NULL);
 }
 
 //TODO si fini par un meta doit detecter un \n
 void	mini_execute(t_data *data)
 {
+	ft_printf("child %d\n", data->pid.count);
 	t_ltkn	*temp;
-
+	
+	data->pid.pid = ft_calloc(data->pid.count, sizeof(int));
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
@@ -102,10 +103,9 @@ void	mini_execute(t_data *data)
 		if (temp->in_mod == 1)
 			open_infile(data, temp->infile);//TODO si un de pas bon ne dois pas marcher
 		if (temp->in_mod == 2)
-			{
-				if(heredoc(data, temp->infile))
-					return ;
-			}
+		{
+			heredoc_set(data, temp->infile);
+		}
 		if (temp->out_mod > 0)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if (temp->front_pipe)
@@ -117,6 +117,14 @@ void	mini_execute(t_data *data)
 		else if (temp->path)
 			executer(data, temp->path, temp->arg);
 		temp = temp->next;
+	}
+	data->pid.index = 0;
+	while(data->pid.count > 0)
+	{
+		ft_printf("child count mini execute %d\n", data->pid.count);
+		wait(&data->pid.pid[data->pid.index]);
+		data->pid.index++;
+		data->pid.count--;
 	}
 	
 }

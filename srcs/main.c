@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/03 17:13:01 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:55:03 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_data	*ft_init_data(char **envp)
 		if (!data)
 			exit (1);
 		build_env(data, envp);
-		data->child = getpid();
 	}
 	return (data);
 }
@@ -131,7 +130,8 @@ void	mini_reset(t_data *data)
 	data->temp_out_mod = 0;
 	data->read = NULL;
 	data->line = NULL;
-	data->child_count = getpid();
+	free(data->pid.pid);
+	ft_bzero(&data->pid, sizeof(data->pid));
 }
 
 void	main_core(char **envp)
@@ -148,7 +148,6 @@ void	main_core(char **envp)
 		while (1)
 		{
 			data->read = readline("Minishell>");
-			ft_printf("data.read %s\n", data->read);
 			if(!data->read)
 				mini_exit(data, data->ltkn);
 			data->rdflag = 1;

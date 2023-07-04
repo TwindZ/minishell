@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/03 13:36:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:42:24 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 			temp->path = find_path(paths[i], arg[data->i]);
 			if (temp->path)
 			{
-				data->child_count++;
+				data->pid.count++;
 				break ;
 			}
 			i++;
@@ -116,5 +116,4 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	}
 	if (!temp->path)
 		path_error(temp);
-	ft_printf("child count %d\n", data->child_count);
 }
