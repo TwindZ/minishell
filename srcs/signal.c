@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:23:51 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/04 22:10:16 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/05 18:16:26 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,19 @@ void	sig_handler(int sig)
 {
 	t_data *data;
 	
-	(void) sig;
 	data = ft_init_data(NULL);
+	mini_reset(data);
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_on_new_line();
+	rl_replace_line("", 0);
 	
-	if(data->hdprocess)
+	// if(sig == SIGQUIT)
+	
+	if(sig == SIGINT)
 	{
-		exit(1);
+		if(data->hdprocess)
+			exit(45);
+		else
+			rl_redisplay();
 	}
-	else if (data->pid.count > 0)
-	{
-		data->pid.index = 0;
-		signal(SIGQUIT, SIG_DFL);
-		while(data->pid.count)
-			{
-				kill(data->pid.pid[data->pid.index], SIGQUIT);
-				data->pid.count--;
-				data->pid.index++;
-			}
-		signal(SIGQUIT, SIG_IGN);
-	}
-	else
-	{
-		mini_reset(data);
-		ft_putstr_fd("\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		
-	}
-	// else if(sig == SIGCHLD)
-	// {
-	// }
 }

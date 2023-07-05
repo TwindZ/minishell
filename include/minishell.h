@@ -6,23 +6,34 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/04 16:39:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/05 16:25:52 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define READ_END 0
-# define WRITE_END 1
+// # define READLINE_LIBRARY
+// # include <term.h>
+// # include "readline.h"
+// # include <libc.h>
 
+// # include <stdio.h>
+// # include <signal.h>
+// # include <sys/wait.h>
+// # include "history.h"
+
+# define READLINE_LIBRARY
 # include <term.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <libc.h>
-# include "../srcs/libft/libft.h"
-# include <stdio.h>
+# include <fcntl.h>
 # include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include "../srcs/libft/libft.h"
+# include "readline.h"
+# include "history.h"
+# include <libc.h>
 
 typedef struct s_pid
 {
@@ -179,7 +190,7 @@ void	sig_handler(int sig);
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
-int		whitespace(t_data *data);
+int		ft_whitespace(t_data *data);
 void	prep_line(t_data *data);
 void	in_quotes(t_data *data);
 void	transform_spaces(t_data *data);

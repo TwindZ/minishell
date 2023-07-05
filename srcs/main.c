@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/04 21:58:44 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/05 18:10:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	parse(t_data *data)
 	if (ft_strlen(data->read) == 0)
 		return (1);
 	add_history(data->read);
-	if (whitespace(data) == 0)
+	if (ft_whitespace(data) == 0)
 		return (1);
 	if (fuckin_quotes(data) == -1)
 		return (1);
@@ -123,6 +123,8 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));
+	if(data->hd.data)
+		free(data->hd.data);
 	ft_bzero(&data->hd, sizeof(data->hd));
 	data->temp_infile = NULL;
 	data->temp_outfile =  NULL;
@@ -140,6 +142,7 @@ void	main_core(char **envp)
 
 	data = ft_init_data(envp);
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -147,6 +150,7 @@ void	main_core(char **envp)
 		while (1)
 		{
 			data->read = readline("Minishell>");
+			ft_printf("data_read %s", data->read);
 			if(!data->read)
 				mini_exit(data, data->ltkn);
 			data->rdflag = 1;
