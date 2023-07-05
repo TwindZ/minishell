@@ -46,7 +46,9 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	data->i = 0;
 	data->unset.to_find = ft_strjoin(temp->arg[1], "=", 0);
 	unset_adjust(data, temp);
-	if (data->unset.new_env[data->j] != NULL)
+	if (data->unset.new_env[data->j - 1] == NULL)
+		;
+	else
 	{
 		ft_freeall(data->envp);
 		data->envp = data->unset.new_env;
@@ -61,7 +63,7 @@ void	unset_adjust(t_data *data, t_ltkn *temp)
 	while (data->envp[data->i])
 	{
 		if (temp->arg[1] == NULL || (ft_isalpha(temp->arg[1][0]) == 0 &&
-			temp->arg[1][0] != 95))
+			temp->arg[1][0] != 95 && temp->arg[1][0] == 47))
 		{
 			unset_error(data, temp);
 			return ;

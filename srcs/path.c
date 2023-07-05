@@ -36,14 +36,16 @@ int	path_pre_check(char *arg, t_ltkn *temp)
 	{
 		if(chdir(arg) == 0)
 		{
-			ft_putstr_fd("Minishell: ", 2);
-			ft_putstr_fd(arg, 2);
-			ft_putstr_fd(": is a directory\n", 2);
+			ft_putstr_fd("Minishell: ", STDERR_FILENO);
+			ft_putstr_fd(arg, STDERR_FILENO);
+			ft_putstr_fd(": is a directory\n", STDERR_FILENO);
 			if(temp->path)
 			{
 				free(temp->path);
 				temp->path = NULL;
-			}	
+			}
+			// data->prevout = 126;
+			//TODO mettre data
 			temp->path = ft_strjoin(NULL, "*directory", 0);
 			return (0);
 		}
@@ -59,6 +61,8 @@ void	path_error(t_ltkn *temp)
 	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(temp->arg[0], 2);
 	ft_putstr_fd(": command not found\n", 2);
+	// data->prevout = 127;
+	//TODO mettre data
 }
 
 char	*find_path(char *prefix, char *sufix)

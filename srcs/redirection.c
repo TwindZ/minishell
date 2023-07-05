@@ -44,7 +44,10 @@ void	open_outfile(t_data *data, char *file, int mod)
 		data->exe_flag.file_out = 1;
 	}
 	if (data->fd.cmd_out == -1 || fd == -1)
+	{
 		ft_putstr_fd("Minishell : file can't be create", 2);
+		data->prevout = 1;
+	}
 }
 
 // si fichier existe pas
@@ -63,5 +66,6 @@ void	open_infile(t_data *data, char *file)
 		ft_putstr_fd("Minishell: ", 2);
 		ft_putstr_fd(file, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		data->prevout = 1;
 	}
 }

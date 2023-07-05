@@ -29,12 +29,14 @@ int	fuckin_quotes(t_data *data)
 	if (data->quotes.dbl % 2 != 0)
 	{
 		ft_putstr_fd("double quote missing\n", 2);
-		return (-1);
+		data->prevout = 1;
+		return (1);
 	}
 	if (data->quotes.sgl % 2 != 0)
 	{
 		ft_printf("single quote missing\n");
-		return (-1);
+		data->prevout = 1;
+		return (1);
 	}
 	return (0);
 }

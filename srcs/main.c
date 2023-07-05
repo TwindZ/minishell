@@ -38,13 +38,14 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 		j++;
 	if (j > 2)
 	{
-		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
-		ft_putstr_fd("too many arguments\n", STDERR_FILENO);
+		ft_putstr_fd("Minishell: exit: too many arguments\n", STDERR_FILENO);
 		data->prevout = 1;
 		return ;
 	}
 	if (j == 2)
 	{
+		if (temp->arg[1][0] == '-' || temp->arg[1][0] == '+')
+			i++;
 		while (ft_isdigit(temp->arg[1][i]) == 1)
 			i++;
 		if (i == (int)ft_strlen(temp->arg[1]))

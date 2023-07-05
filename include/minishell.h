@@ -241,6 +241,7 @@ void	add_to_env(t_data *data, t_ltkn *temp);
 void	print_env(int fd, t_data *data);
 void	build_env(t_data *data, char **envp);
 void 	add_var(t_data *data, char **envp, t_ltkn *temp);
+void	error_export(t_data *data, t_ltkn *temp, int arg);
 
 void	mini_reset(t_data *data);
 t_data	*ft_init_data(char **envp);

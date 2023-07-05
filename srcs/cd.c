@@ -20,7 +20,11 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 	home = NULL;
 	home = getenvp(data, "HOME=", 1);
 	if (!home)
-		ft_putstr_fd("HOME not found", STDERR_FILENO);
+	{
+		ft_putstr_fd("Minishell: cd: HOME not set\n", STDERR_FILENO);
+		data->prevout = 1;
+		return ;
+	}
 	while (temp->arg[data->i])
 		data->i++;
 	change_dir(data, temp, home);
@@ -50,6 +54,13 @@ void	change_dir(t_data *data, t_ltkn *temp, char *home)
 		if (result != 0)
 			ft_putstr_fd("Minishell: cd: cant't find HOME directory\n",
 				STDERR_FILENO);
+		data->prevout = 1;
+		return ;
+	}
+	else if (data->i > 2)
+	{
+		ft_putstr_fd("Minishell: cd: too many arguments\n", STDERR_FILENO);
+		data->prevout = 1;
 		return ;
 	}
 }

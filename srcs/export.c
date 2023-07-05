@@ -26,26 +26,16 @@ void	mini_export(int fd, t_data *data, t_ltkn *temp)
 
 void	add_to_env(t_data *data, t_ltkn *temp)
 {
-	if (temp->arg[1][0] == '=')
-	{
-		ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
-		ft_putstr_fd(temp->arg[1], STDERR_FILENO);
-		ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-		data->prevout = 1;
-		return ;
-	}
+	if (temp->arg[1][0] == '=' || ft_isdigit(temp->arg[1][0]) == 1)
+		error_export(data, temp, 1);
+	if (temp->arg[2] != NULL && temp->arg[2][0] == '=')
+		error_export(data, temp, 2);
 	while (temp->arg[1][data->exp.i] != '=' && temp->arg[1][data->exp.i])
 	{
+		if (ft_isalnum(temp->arg[1][data->exp.i]) == 0
+			&& temp->arg[1][0] != 95 && temp->arg[1][data->exp.i] != '=')
+			error_export(data, temp, 1);
 		data->exp.i++;
-		if (ft_isalpha(temp->arg[1][data->exp.i]) == 0 && temp->arg[1][0] != 95 &&
-			temp->arg[1][data->exp.i] != '=')
-		{
-			ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
-			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-			data->prevout = 1;
-			return ;
-		}
 	}
 	if (data->exp.i == (int)ft_strlen(temp->arg[1]))
 		return ;
@@ -138,4 +128,13 @@ void	init_export(t_data *data)
 	data->exp.new_env = NULL;
 	data->exp.temp_env = NULL;
 	data->exp.swap = NULL;
+}
+
+void	error_export(t_data *data, t_ltkn *temp, int arg)
+{
+	ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
+	ft_putstr_fd(temp->arg[arg], STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+	data->prevout = 1;
+	return ;
 }
