@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/04 17:55:03 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:58:44 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,7 @@ void	main_core(char **envp)
 	data = ft_init_data(envp);
 	signal(SIGINT, sig_handler);
 	// signal(SIGQUIT, sig_handler);
-	// signal(SIGQUIT, SIG_IGN);
-	signal(SIGCHLD, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		while (1)

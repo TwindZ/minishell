@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/04 17:40:48 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:42:54 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void heredoc_set(t_data *data, char *delimiter)
 	if (data->fd.cmd_in > 2)
 		close(data->fd.cmd_in);
 	ft_pipe(data);
+	data->hdprocess = 1;
 	data->pid.pid[data->pid.index] = fork();
 	if(data->pid.pid[data->pid.index]== 0)
 		heredoc(data, delimiter);
@@ -80,5 +81,6 @@ void heredoc_set(t_data *data, char *delimiter)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
-	data->pid.index++;	
+	data->pid.index++;
+	data->hdprocess = 0;
 }
