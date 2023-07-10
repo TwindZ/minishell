@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/05 18:10:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 07:54:39 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ void	mini_reset(t_data *data)
 	data->temp_out_mod = 0;
 	data->read = NULL;
 	data->line = NULL;
+	data->hdprocess = 0;
+	data->exeprocess = 0;
 	free(data->pid.pid);
 	ft_bzero(&data->pid, sizeof(data->pid));
 }

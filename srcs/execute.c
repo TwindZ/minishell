@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/05 17:10:15 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 07:51:29 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	set_io(t_data *data)
 
 void	executer(t_data *data, char *path, char **argv)
 {	
+	data->exeprocess = 1;
 	data->pid.pid[data->pid.index] = fork();
 	if (data->pid.pid[data->pid.index] == 0)
 	{
@@ -88,7 +89,7 @@ void	executer(t_data *data, char *path, char **argv)
 	}
 	ft_printf("child %d\n", data->pid.pid[data->pid.index]);
 	data->pid.index++;
-	// wait(NULL);
+	// data->exeprocess = 0;
 }
 
 //TODO si fini par un meta doit detecter un \n
@@ -135,6 +136,11 @@ void	mini_execute(t_data *data)
 		ft_printf("status : %i ", WEXITSTATUS(status));
 		ft_printf("status : %i ", WIFSIGNALED(status));
 		ft_printf("status : %i\n", WTERMSIG(status));
+		if(WTERMSIG(status) == 3)
+		{
+			ft_putstr_fd("Quit : 3\n", STDOUT_FILENO);
+		}
+		
 		
 	}
 }
