@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 15:14:23 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/03 16:23:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	ft_count_arg(char **arg, int i)
 	while ((ft_strncmp(arg[i], "|\0", 2)) && arg[i++])
 		j++;
 	return (j);
-	ft_printf("%d\n", j);
 }
 
 t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
@@ -52,8 +51,6 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 		temp->out_mod = data->temp_out_mod;
 		temp->infile = data->temp_infile;
 		temp->outfile = data->temp_outfile;
-		data->temp_outfile = NULL;
-		data->temp_infile = NULL;
 	}
 	if (temp && strncmp(arg[data->i], "|\0", 2) == 0)
 	{
@@ -61,8 +58,7 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 		data->temp_out_mod = 0;
 		data->temp_infile = NULL;
 		data->temp_outfile = NULL;
-		free(arg[data->i]);
-		arg[data->i] = NULL;
+		freenull(arg[data->i]);
 	}
 }
 

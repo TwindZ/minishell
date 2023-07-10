@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 14:20:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 07:51:29 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,24 @@ void	set_io(t_data *data)
 		close(data->fd.cmd_in);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
+	if (data->fd.cmd_next_in > 2)
+		close(data->fd.cmd_next_in);
+	// dup2(STDIN_FILENO, 0);
+	// dup2(STDOUT_FILENO, 1);
 	data->exe_flag.front_pipe = 0;
 	data->exe_flag.file_out = 0;
 }
 
 void	executer(t_data *data, char *path, char **argv)
-{
-	data->child = fork();
-	if (data->child == 0)
+{	
+	data->exeprocess = 1;
+	data->pid.pid[data->pid.index] = fork();
+	if (data->pid.pid[data->pid.index] == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		set_io(data);
-		execve(path, argv, data->envp);
-		exit(EXIT_FAILURE);
+		if(execve(path, argv, data->envp) == -1)
+			exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -81,23 +87,31 @@ void	executer(t_data *data, char *path, char **argv)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
-	wait (NULL);
-	data->child = 0;
+	ft_printf("child %d\n", data->pid.pid[data->pid.index]);
+	data->pid.index++;
+	// data->exeprocess = 0;
 }
 
 //TODO si fini par un meta doit detecter un \n
 void	mini_execute(t_data *data)
 {
-	t_ltkn	*temp;
+	int	status;
 
+	status = 0;
+	ft_printf("child %d\n", data->pid.count);
+	t_ltkn	*temp;
+	
+	if(data->pid.count)
+		data->pid.pid = ft_safe_calloc(data->pid.count, sizeof(int), data);
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
+		ft_printf("child %s\n", temp->path);
 		data->exe_flag.front_pipe = temp->front_pipe;
 		if (temp->in_mod == 1)
 			open_infile(data, temp->infile);//TODO si un de pas bon ne dois pas marcher
 		if (temp->in_mod == 2)
-			heredoc(data, temp->infile);
+			heredoc_set(data, temp->infile);
 		if (temp->out_mod > 0)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if (temp->front_pipe)
@@ -110,7 +124,25 @@ void	mini_execute(t_data *data)
 			executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
-	
+	data->pid.index = 0;
+	while(data->pid.count > 0)
+	{
+		ft_printf("child count mini execute %d\n", data->pid.count);
+		ft_printf("child count mini execute %d\n", data->pid.pid[data->pid.index]);
+		waitpid(data->pid.pid[data->pid.index], &status, 0);
+		data->pid.index++;
+		data->pid.count--;
+		ft_printf("status : %i ", WIFEXITED(status));
+		ft_printf("status : %i ", WEXITSTATUS(status));
+		ft_printf("status : %i ", WIFSIGNALED(status));
+		ft_printf("status : %i\n", WTERMSIG(status));
+		if(WTERMSIG(status) == 3)
+		{
+			ft_putstr_fd("Quit : 3\n", STDOUT_FILENO);
+		}
+		
+		
+	}
 }
 	// data->exe_flag.back_pipe = 0;
 	// dup2(0, STDIN_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 15:34:43 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 09:33:25 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	mini_free(t_data *data)
 		freenull(data->temp_infile);
 	if(data->temp_outfile != NULL)
 	{
-		ft_printf("\nBATARD !!\n");
 		freenull(data->temp_outfile);
 	}
 	if(data->file)
@@ -62,4 +61,5 @@ void	mini_free(t_data *data)
 		freenull(data->hd.data);
 	if(data->hd.end)
 		freenull(data->hd.end);
+	ft_printf("\nBATARD !!\n");
 }

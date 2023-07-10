@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 15:19:29 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 07:54:39 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	i = 0;
 	j = 0;
 	ft_printf("exit\n");
-	while (temp->arg[j])
+	while (temp && temp->arg[j])
 		j++;
 	if (j > 2)
 	{
@@ -72,11 +72,14 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 		}
 	}
 	else
-		free_list_ltkn(data->ltkn);
-		free (data->read);
-		free (data->line);
-		ft_freeall(data->envp);
-		free (data);
+		if(temp)
+		{	
+			free_list_ltkn(data->ltkn);
+			free (data->read);
+			free (data->line);
+			ft_freeall(data->envp);
+			free (data);
+		}
 		exit(0);
 }
 
@@ -85,7 +88,7 @@ int	parse(t_data *data)
 	if (ft_strlen(data->read) == 0)
 		return (1);
 	add_history(data->read);
-	if (whitespace(data) == 0)
+	if (ft_whitespace(data) == 0)
 		return (1);
 	if (fuckin_quotes(data) == -1)
 		return (1);
@@ -114,14 +117,16 @@ void	mini_reset(t_data *data)
 	if(data->ltkn)
 		free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
-	// if(data->line)
-	// 	free(data->line);
-	// if(data->read)
-	// 	free (data->read);
-	mini_free(data);
+	if(data->line)
+		free(data->line);
+	if(data->read)
+		free (data->read);
+	// mini_free(data);
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));
+	if(data->hd.data)
+		free(data->hd.data);
 	ft_bzero(&data->hd, sizeof(data->hd));
 	data->temp_infile = NULL;
 	data->temp_outfile =  NULL;
@@ -129,34 +134,31 @@ void	mini_reset(t_data *data)
 	data->temp_out_mod = 0;
 	data->read = NULL;
 	data->line = NULL;
-}
-
-void block_signal(int sig)
-{
-	sigset_t	sigset;
-	
-	sigemptyset(&sigset);
-	sigaddset(&sigset, sig);
-	sigprocmask(SIG_BLOCK, &sigset, NULL);
+	data->hdprocess = 0;
+	data->exeprocess = 0;
+	free(data->pid.pid);
+	ft_bzero(&data->pid, sizeof(data->pid));
 }
 
 void	main_core(char **envp)
 {
 	t_data				*data;
-	struct sigaction	sa;
-	
+
 	data = ft_init_data(envp);
-	ft_bzero(&sa, sizeof(sa));
-	sa.sa_sigaction = &sig_handler;
-	block_signal(SIGQUIT);
-	// sigaction(SIGINT, &sa, NULL);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
+	// signal(SIGQUIT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		while (1)
 		{
 			data->read = readline("Minishell>");
+			ft_printf("data_read %s", data->read);
+			if(!data->read)
+				mini_exit(data, data->ltkn);
 			data->rdflag = 1;
-			ft_printf("\n\n---------------------------------------\n");
+			ft_printf("---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");
 			if (parse(data))
 			{
@@ -179,3 +181,4 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	main_core(envp);
 }
+//TODO reconvertir les caratere qui on ete changer durant le parsing

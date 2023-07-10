@@ -3,26 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 08:54:43 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 09:52:04 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define READ_END 0
-# define WRITE_END 1
-
+# define READLINE_LIBRARY
 # include <term.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <libc.h>
-# include "../srcs/libft/libft.h"
-# include <stdio.h>
+# include <fcntl.h>
 # include <signal.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include "../srcs/libft/libft.h"
+# include "readline.h"
+# include "history.h"
+# include <libc.h>
+
+typedef struct s_pid
+{
+	int		*pid;
+	int		index;
+	int		count;
+}				t_pid;
 
 typedef struct s_ltkn
 {
@@ -162,24 +170,28 @@ typedef struct s_data
 	t_exp		exp;
 	t_unset		unset;
 	int			child;
+	int			hdprocess;
+	int			exeprocess;
+	t_pid		pid;
 }				t_data;
 
 void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
 void 	open_infile(t_data *data, char *file);
-void 	open_outfile(t_data *data, char *file, int mod);
+void 	open_outfile(t_data *data, char *file, int mod);		
 void	heredoc(t_data *data, char *delimiter);
+void	heredoc_set(t_data *data, char *delimiter);
 void	free_list_ltkn(t_ltkn *ltkn);
 void 	ft_pipe(t_data *data);
 void	set_meta(t_data *data, char **arg);
 int		is_meta(t_data *data, char **arg);
 void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp);
 
-void	sig_handler(int sig, siginfo_t *info, void *ucontext);
+void	sig_handler(int sig);
 
 void	mini_start(t_data *data);
 void	mini_free(t_data *data);
-int		whitespace(t_data *data);
+int		ft_whitespace(t_data *data);
 void	prep_line(t_data *data);
 void	in_quotes(t_data *data);
 void	transform_spaces(t_data *data);

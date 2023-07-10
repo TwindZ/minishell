@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 14:36:21 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/04 16:42:24 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	path_pre_check(char *arg, t_ltkn *temp)
 			return (0);
 		}
 		else
-		temp->path = arg;
+			temp->path = ft_strdup(arg);
 		return (1);
 	}
 	return (0);
@@ -94,23 +94,26 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	paths = ft_split(path_env, ':');
 	if(path_env)
 	{
-		free(path_env);
-		path_env = NULL;
+		freenull(path_env);
 	}
 	if(paths)
 	{
 		while (paths[i])
 		{
+			
 			if (ft_strncmp(temp->path, "*directory", 10) == 0 && temp->path)
-				return ;
-			if (temp->path)
 			{
-				free(temp->path);
-				temp->path = NULL;
+				ft_freeall(paths);
+				return ;
 			}
+			if (temp->path)
+				freenull(temp->path);
 			temp->path = find_path(paths[i], arg[data->i]);
 			if (temp->path)
+			{
+				data->pid.count++;
 				break ;
+			}
 			i++;
 		}
 		ft_freeall(paths);
