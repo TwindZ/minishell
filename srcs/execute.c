@@ -6,26 +6,11 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 16:29:11 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 17:27:00 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-// char infile[] = "outfile.txt";
-// char outfile[] = "outfile.txt";
-// char *argv_env[] = {"env", NULL};
-// char path_env[] = "/usr/bin/env";
-// char *argv_grep[] = {"grep", "PATH", NULL};
-// char path_grep[] = "/usr/bin/grep";
-// char *argv_cat[] = {"cat", "-e", NULL};
-// char path_cat[] = "/bin/cat";
-// char *argv_wc[] = {"wc", NULL};
-// char path_wc[] = "/usr/bin/wc";
-// char *argv_echo[] = {"echo", "allo$USER toiallo", NULL};
-// char path_echo[] = "/bin/echo";	
-// char *argv_ls[] = {"", "-la", NULL};
-// char path_ls[] = "/bin/ls";
 
 void	builtin(t_data *data, t_ltkn *temp)
 {
@@ -47,8 +32,6 @@ void	builtin(t_data *data, t_ltkn *temp)
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
 }
-	// else if (ft_strncmp(temp->arg[0], "exit\0", 5) == 0)
-	// 	mini_exit(data); //TODO si on a le gout ! heurk et &&
 
 void	set_io(t_data *data)
 {
@@ -62,8 +45,6 @@ void	set_io(t_data *data)
 		close(data->fd.cmd_out);
 	if (data->fd.cmd_next_in > 2)
 		close(data->fd.cmd_next_in);
-	// dup2(STDIN_FILENO, 0);
-	// dup2(STDOUT_FILENO, 1);
 	data->exe_flag.front_pipe = 0;
 	data->exe_flag.file_out = 0;
 }
@@ -88,28 +69,47 @@ void	executer(t_data *data, char *path, char **argv)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
-	// ft_printf("child %d\n", data->pid.pid[data->pid.index]);
 	data->pid.index++;
-	// data->exeprocess = 0;
+}
+
+void	ft_waiting(t_data *data)
+{
+	int	status;
+
+	status = 0;	
+	data->pid.index = 0;
+	while(data->pid.count > 0)
+	{
+		waitpid(data->pid.pid[data->pid.index], &status, 0);
+		data->pid.index++;
+		data->pid.count--;
+		if(WIFEXITED(status))
+			data->prevout = WEXITSTATUS(status);
+		else if(WIFSIGNALED(status))
+		{
+			if(WTERMSIG(status) == 2)
+				data->prevout = 130;
+			else if(WTERMSIG(status) == 3)
+			{
+				ft_putstr_fd("Quit : 3\n", STDOUT_FILENO);
+				data->prevout = 131;
+			}
+			else
+				data->prevout = WTERMSIG(status);
+		}
+	}
 }
 
 //TODO si fini par un meta doit detecter un \n
 void	mini_execute(t_data *data)
 {
-	int	status;
-
-	status = 0;
-	// ft_printf("child %d\n", data->pid.count);
 	t_ltkn	*temp;
-	
 	
 	if(data->pid.count > 0)
 		data->pid.pid = ft_safe_calloc(data->pid.count, sizeof(int), data);
 	temp = data->ltkn;
-	
 	while (temp != NULL)
 	{
-		// ft_printf("child %s\n", temp->path);
 		data->exe_flag.front_pipe = temp->front_pipe;
 		if (temp->in_mod == 1)
 			open_infile(data, temp->infile);//TODO si un de pas bon ne dois pas marcher
@@ -127,59 +127,5 @@ void	mini_execute(t_data *data)
 			executer(data, temp->path, temp->arg);
 		temp = temp->next;
 	}
-	data->pid.index = 0;
-	while(data->pid.count > 0)
-	{
-		// ft_printf("child count mini execute %d\n", data->pid.count);
-		// ft_printf("child count mini execute %d\n", data->pid.pid[data->pid.index]);
-		waitpid(data->pid.pid[data->pid.index], &status, 0);
-		data->pid.index++;
-		data->pid.count--;
-		// ft_printf("status : %i ", WIFEXITED(status));
-		// ft_printf("status : %i ", WEXITSTATUS(status));
-		// ft_printf("status : %i ", WIFSIGNALED(status));
-		// ft_printf("status : %i\n", WTERMSIG(status));
-		if(WIFEXITED(status))
-			data->prevout = WEXITSTATUS(status);
-		else if(WIFSIGNALED(status))
-		{
-			if(WTERMSIG(status) == 2)
-				data->prevout = 130;
-			else if(WTERMSIG(status) == 3)
-			{
-				ft_putstr_fd("Quit : 3\n", STDOUT_FILENO);
-				data->prevout = 131;
-			}
-			else
-				data->prevout = WTERMSIG(status);
-		}
-		
-		
-	}
+	ft_waiting(data);
 }
-	// data->exe_flag.back_pipe = 0;
-	// dup2(0, STDIN_FILENO);
-	// dup2(1, STDOUT_FILENO);
-	// heredoc(data);
-	// ft_pipe(data);
-	// data->file = "outfile3.txt";
-	// data->exe_flag.file_in = 0;
-	// data->exe_flag.file_in = 1;
-	// open_infile(data);
-	// data->exe_flag.front_pipe = 1;
-	// ft_pipe(data);
-	// executer(data, path_env, argv_env);
-	// ft_pipe(data);
-	// executer(data, path_grep, argv_grep);
-	// data->exe_flag.front_pipe = 0;
-	// executer(data, path_cat, argv_cat);
-	// if(data->exe_flag.front_pipe)
-	// data->exe_flag.file_out_w = 1;
-	// open_outfile(data);
-	// executer(data, path_wc, argv_wc);
-	// data->exe_flag.file_out_w = 0;
-	// if(data->exe_flag.front_pipe)
-	// if(data->exe_flag.front_pipe)
-	// ft_pipe(data);
-	// if(data->exe_flag.front_pipe)
-	// executer(data, path4, argv4);
