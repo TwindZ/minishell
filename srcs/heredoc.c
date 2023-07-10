@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 13:45:17 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 09:00:37 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,16 @@ void	heredoc(t_data *data, char *delimiter)
 		if (!(ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter))))
 			break ;
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
+		data->hd.datatemp = NULL;
+		data->hd.datatemp = ft_strdup(data->hd.data);
 		while (data->hd.data[data->hd.i])
 		{
 			dollar_sign_hd(data);
 			data->hd.i++;
 		}
-		free(data->readhd);
-		data->readhd = NULL;
+		data->hd.data = ft_strdup(data->hd.datatemp);
+		freenull(data->hd.datatemp);
+		freenull(data->readhd);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}
 	if (data->hd.data)

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 15:06:21 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:54:43 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_heredoc
 {
 	char	*end;
 	char	*data;
+	char	*datatemp;
 	int		i;
 }				t_heredoc;
 

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 15:03:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 09:23:54 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	dollar_sign_hd(t_data *data)
 	init_dollar_hd(data);
 	if (data->hd.data[data->hd.i] == '$')
 	{
+		// if (data->read[data->i + 1] == '?')
+		// 	return ;
+		// if (data->read[data->i + 1] == ' ')
+		// 	data->hd.i++;
 		make_tocheck_hd(data);
 		data->dshd.towrite = getenvp(data, data->dshd.tocheck, 1);
 		if (data->dshd.towrite != NULL)
@@ -61,31 +65,31 @@ void	make_tocheck_hd(t_data *data)
 		}
 		data->dshd.idx++;
 	}
-	data->dshd.tocheck[data->dshd.idx] = '\0';
+	data->dshd.tocheck = ft_strjoin(data->dshd.tocheck, "=", 1);
 }
 
 void	adjust_line_hd(t_data *data)
 {
 	init_adjust_hd(data);
 	while (data->dshd.i < data->dshd.linelen
-		|| data->hd.data[data->dshd.i])
+		|| data->hd.datatemp[data->dshd.i])
 	{
-		data->linetemp[data->dshd.i] = data->hd.data[data->dshd.i];
+		data->linetemp[data->dshd.i] = data->hd.datatemp[data->dshd.i];
 		data->dshd.i++;
 	}
 	data->dshd.i = 0;
-	freenull(data->hd.data);
-	data->hd.data = ft_safe_calloc((data->dshd.linelen
+	freenull(data->hd.datatemp);
+	data->hd.datatemp = ft_safe_calloc((data->dshd.linelen
 				+ data->dshd.towritelen
 				+ ft_strlen(data->readhd) + 2), sizeof(char), data);
 	while (data->linetemp[data->dshd.i])
 	{
-		data->hd.data[data->dshd.i] = data->linetemp[data->dshd.i];
+		data->hd.datatemp[data->dshd.i] = data->linetemp[data->dshd.i];
 		data->dshd.i++;
 	}
 	data->dshd.i = 0;
 	while (data->dshd.towritelen-- != 0)
-		data->hd.data[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
+		data->hd.datatemp[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
 	if (data->linetemp != NULL)
 		freenull(data->linetemp);
 }
