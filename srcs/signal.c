@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:23:51 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 07:53:53 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/10 13:22:06 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sig_handler(int sig)
 	{
 		if(data->hdprocess)
 		{
-			ft_printf("hd");
+			// ft_printf("hd");
 			rl_replace_line("", 0);
 			ft_putstr_fd("\n", STDOUT_FILENO);
 			rl_on_new_line();
@@ -36,17 +36,16 @@ void	sig_handler(int sig)
 		}
 		else if (data->exeprocess)
 		{
-			ft_printf("exe");
+			// ft_printf("exe");
 			rl_replace_line("", 0);
 			ft_putstr_fd("\n", STDOUT_FILENO);
 			rl_on_new_line();
-			// rl_redisplay();
 		}	
 		else
 		{
-			ft_printf("else");
+			// ft_printf("else");
+			ft_putchar_fd('\n', STDOUT_FILENO);
 			rl_replace_line("", 0);
-			ft_putstr_fd("\n", STDOUT_FILENO);
 			rl_on_new_line();
 			rl_redisplay();
 		}	

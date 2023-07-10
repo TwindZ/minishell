@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 09:52:04 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:28:25 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,6 @@ typedef struct s_data
 	t_env		env;
 	t_exp		exp;
 	t_unset		unset;
-	int			child;
 	int			hdprocess;
 	int			exeprocess;
 	t_pid		pid;

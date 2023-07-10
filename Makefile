@@ -6,7 +6,7 @@
 #    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/03 16:33:06 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/07/10 11:22:48 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,7 +95,6 @@ fclean: clean
 	@$(MAKE) fclean -C ./srcs/libft
 	@rm -f $(NAME)
 	@echo "${RED}MINISHELL DELETED${NC}"
-
 
 bonus: all
 

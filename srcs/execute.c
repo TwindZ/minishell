@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 07:51:29 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/10 16:29:11 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	executer(t_data *data, char *path, char **argv)
 	data->pid.pid[data->pid.index] = fork();
 	if (data->pid.pid[data->pid.index] == 0)
 	{
+		
 		signal(SIGQUIT, SIG_DFL);
 		set_io(data);
 		if(execve(path, argv, data->envp) == -1)
@@ -87,7 +88,7 @@ void	executer(t_data *data, char *path, char **argv)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
 	}
-	ft_printf("child %d\n", data->pid.pid[data->pid.index]);
+	// ft_printf("child %d\n", data->pid.pid[data->pid.index]);
 	data->pid.index++;
 	// data->exeprocess = 0;
 }
@@ -98,15 +99,17 @@ void	mini_execute(t_data *data)
 	int	status;
 
 	status = 0;
-	ft_printf("child %d\n", data->pid.count);
+	// ft_printf("child %d\n", data->pid.count);
 	t_ltkn	*temp;
 	
-	if(data->pid.count)
+	
+	if(data->pid.count > 0)
 		data->pid.pid = ft_safe_calloc(data->pid.count, sizeof(int), data);
 	temp = data->ltkn;
+	
 	while (temp != NULL)
 	{
-		ft_printf("child %s\n", temp->path);
+		// ft_printf("child %s\n", temp->path);
 		data->exe_flag.front_pipe = temp->front_pipe;
 		if (temp->in_mod == 1)
 			open_infile(data, temp->infile);//TODO si un de pas bon ne dois pas marcher
@@ -116,7 +119,7 @@ void	mini_execute(t_data *data)
 			open_outfile(data, temp->outfile, temp->out_mod);
 		if (temp->front_pipe)
 			ft_pipe(data);
-		if (!temp->path)
+		if (!temp->path || ft_strncmp(temp->path, "*directory", 10) == 0)
 			break ;
 		else if (strncmp(temp->path, "*builtin", 9) == 0)
 			builtin(data, temp);
@@ -127,18 +130,28 @@ void	mini_execute(t_data *data)
 	data->pid.index = 0;
 	while(data->pid.count > 0)
 	{
-		ft_printf("child count mini execute %d\n", data->pid.count);
-		ft_printf("child count mini execute %d\n", data->pid.pid[data->pid.index]);
+		// ft_printf("child count mini execute %d\n", data->pid.count);
+		// ft_printf("child count mini execute %d\n", data->pid.pid[data->pid.index]);
 		waitpid(data->pid.pid[data->pid.index], &status, 0);
 		data->pid.index++;
 		data->pid.count--;
-		ft_printf("status : %i ", WIFEXITED(status));
-		ft_printf("status : %i ", WEXITSTATUS(status));
-		ft_printf("status : %i ", WIFSIGNALED(status));
-		ft_printf("status : %i\n", WTERMSIG(status));
-		if(WTERMSIG(status) == 3)
+		// ft_printf("status : %i ", WIFEXITED(status));
+		// ft_printf("status : %i ", WEXITSTATUS(status));
+		// ft_printf("status : %i ", WIFSIGNALED(status));
+		// ft_printf("status : %i\n", WTERMSIG(status));
+		if(WIFEXITED(status))
+			data->prevout = WEXITSTATUS(status);
+		else if(WIFSIGNALED(status))
 		{
-			ft_putstr_fd("Quit : 3\n", STDOUT_FILENO);
+			if(WTERMSIG(status) == 2)
+				data->prevout = 130;
+			else if(WTERMSIG(status) == 3)
+			{
+				ft_putstr_fd("Quit : 3\n", STDOUT_FILENO);
+				data->prevout = 131;
+			}
+			else
+				data->prevout = WTERMSIG(status);
 		}
 		
 		

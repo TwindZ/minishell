@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 07:54:39 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/10 13:08:53 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,13 @@ void	main_core(char **envp)
 		while (1)
 		{
 			data->read = readline("Minishell>");
-			ft_printf("data_read %s", data->read);
+			// ft_printf("data_read %s", data->read);
 			if(!data->read)
+			{
+				// rl_replace_line("Minishell>exit salut", 0);
 				mini_exit(data, data->ltkn);
+			}
+				
 			data->rdflag = 1;
 			ft_printf("---------------------------------------\n");
 			ft_printf("*****************DEBUG*****************\n");
