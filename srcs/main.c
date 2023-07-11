@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 13:08:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:58:10 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,16 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->pid, sizeof(data->pid));
 }
 
-void	main_core(char **envp)
+// void	main_core(char **envp)
+// {
+	
+// }
+
+int	main(int argc, char **argv, char **envp)
 {
+	(void) argv;
+	if (argc > 1)
+		return (0);
 	t_data				*data;
 
 	data = ft_init_data(envp);
@@ -176,13 +184,6 @@ void	main_core(char **envp)
 			mini_reset(data);
 		}
 	}
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	(void) argv;
-	if (argc > 1)
-		return (0);
-	main_core(envp);
+	// main_core(envp);
 }
 //TODO reconvertir les caratere qui on ete changer durant le parsing
