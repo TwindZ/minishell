@@ -6,7 +6,7 @@
 #    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/10 11:22:48 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/07/11 16:12:14 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ SRCS =	main.c					\
 		parsing.c				\
 		quotes.c				\
 		dollar_sign.c			\
-		dollar_sign_hd.c		\
 		dollar_question.c		\
 		meta_chars.c			\
 		meta_replace.c			\
@@ -33,6 +32,7 @@ SRCS =	main.c					\
 		cd.c					\
 		signal.c				\
 		ft_safe_calloc.c		\
+		dshd.c					\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/

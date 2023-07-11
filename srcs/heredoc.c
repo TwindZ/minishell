@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 15:09:35 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:18:33 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,8 @@ void	heredoc(t_data *data, char *delimiter)
 		// ft_printf("herdoc %s\n", delimiter);
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		// while (data->readhd[data->hd.i])
-		// {
-		// 	dollar_sign_hd(data);
-		// 	data->hd.i++;
-		// }
+		dshd(data);
+
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
 		freenull(data->readhd);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
