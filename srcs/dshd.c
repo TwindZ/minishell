@@ -1,9 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dshd.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 16:21:44 by emlamoth          #+#    #+#             */
+/*   Updated: 2023/07/11 16:21:47 by emlamoth         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// void	dshd2_init(t_data *data)
-// {
-// 	ft_bzero(&data->dshd2, sizeof(dshd2));
-// }
+#include "../include/minishell.h"
 
 void	dshd_init(t_data *data)
 {
