@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 10:43:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/10 09:23:54 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:16:20 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,27 @@
 void	dollar_sign_hd(t_data *data)
 {
 	init_dollar_hd(data);
-	if (data->hd.data[data->hd.i] == '$')
+	if (data->readhd[data->hd.i] == '$')
 	{
 		// if (data->read[data->i + 1] == '?')
 		// 	return ;
-		// if (data->read[data->i + 1] == ' ')
-		// 	data->hd.i++;
+		if (data->readhd[data->hd.i + 1] == ' ')
+		{
+			// data->readhd[data->hd.i++];
+			// data->readhd[data->hd.i++];
+			data->hd.i++;
+		}
+		data->dshd.flag = 1;
 		make_tocheck_hd(data);
 		data->dshd.towrite = getenvp(data, data->dshd.tocheck, 1);
 		if (data->dshd.towrite != NULL)
 			adjust_line_hd(data);
 		freenull(data->dshd.tocheck);
 		freenull(data->dshd.towrite);
+	}
+	else if (data->dshd.flag == 1 && data->readhd[data->hd.i])
+	{
+		data->readhd[data->dshd.start2++] = data->linetemp[data->hd.i];
 	}
 }
 //TODO faire une modif comme la fonction dollar_sign
@@ -46,18 +55,18 @@ void	make_tocheck_hd(t_data *data)
 	data->dshd.start2 = data->hd.i;
 	data->hd.i++;
 	data->dshd.start = data->hd.i;
-	while ((data->hd.data[data->hd.i] >= 65 && data->hd.data[data->hd.i] <= 90)
-		|| (data->hd.data[data->hd.i] >= 97 && data->hd.data[data->hd.i] <= 121)
-		|| (data->hd.data[data->hd.i] >= 48 && data->hd.data[data->hd.i] <= 57)
-		|| data->hd.data[data->hd.i] == '_' )
+	while ((data->readhd[data->hd.i] >= 65 && data->readhd[data->hd.i] <= 90)
+		|| (data->readhd[data->hd.i] >= 97 && data->readhd[data->hd.i] <= 121)
+		|| (data->readhd[data->hd.i] >= 48 && data->readhd[data->hd.i] <= 57)
+		|| data->readhd[data->hd.i] == '_' )
 		data->hd.i++;
 	data->dshd.end = data->hd.i;
 	data->dshd.len = data->dshd.end - data->dshd.start;
-	data->dshd.tocheck = ft_safe_calloc(data->dshd.len + 1, sizeof(char), data);
+	data->dshd.tocheck = ft_safe_calloc(data->dshd.len + 2, sizeof(char), data);
 	while (data->dshd.start < data->dshd.end)
 	{
 		data->dshd.tocheck[data->dshd.idx]
-			= data->hd.data[data->dshd.start++];
+			= data->readhd[data->dshd.start++];
 		if (data->dshd.tocheck[0] >= 48 && data->dshd.tocheck[0] <= 57)
 		{
 			data->hd.i = data->dshd.start;
@@ -71,33 +80,34 @@ void	make_tocheck_hd(t_data *data)
 void	adjust_line_hd(t_data *data)
 {
 	init_adjust_hd(data);
-	while (data->dshd.i < data->dshd.linelen
-		|| data->hd.datatemp[data->dshd.i])
+	while (data->dshd.i < data->dshd.linelen || data->readhd[data->dshd.i])
 	{
-		data->linetemp[data->dshd.i] = data->hd.datatemp[data->dshd.i];
+		data->linetemp[data->dshd.i] = data->readhd[data->dshd.i];
 		data->dshd.i++;
 	}
 	data->dshd.i = 0;
-	freenull(data->hd.datatemp);
-	data->hd.datatemp = ft_safe_calloc((data->dshd.linelen
+	freenull(data->readhd);
+	data->readhd = ft_safe_calloc((data->dshd.linelen
 				+ data->dshd.towritelen
 				+ ft_strlen(data->readhd) + 2), sizeof(char), data);
 	while (data->linetemp[data->dshd.i])
 	{
-		data->hd.datatemp[data->dshd.i] = data->linetemp[data->dshd.i];
+		data->readhd[data->dshd.i] = data->linetemp[data->dshd.i];
 		data->dshd.i++;
 	}
 	data->dshd.i = 0;
 	while (data->dshd.towritelen-- != 0)
-		data->hd.datatemp[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
-	if (data->linetemp != NULL)
-		freenull(data->linetemp);
+		data->readhd[data->dshd.start2++] = data->dshd.towrite[data->dshd.i++];
+	// if (data->hd.datatemp[data->dshd.start2 + 1] != '\0')
+	data->readhd[data->dshd.start2++] = ' ';
+	// if (data->linetemp != NULL)
+	// 	freenull(data->linetemp);
 }
 
 void	init_adjust_hd(t_data *data)
 {
 	data->dshd.i = 0;
-	data->dshd.linelen = ft_strlen(data->hd.data);
+	data->dshd.linelen = ft_strlen(data->hd.datatemp);
 	data->dshd.towritelen = ft_strlen(data->dshd.towrite);
 	data->linetemp = NULL;
 	data->linetemp = ft_safe_calloc(data->dshd.linelen + 1, sizeof(char), data);

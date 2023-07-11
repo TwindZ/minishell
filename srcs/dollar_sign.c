@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 15:01:33 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 14:25:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	dollar_sign(t_data *data)
 	{
 		if (data->read[data->i + 1] == '?')
 			return ;
+		if (data->read[data->i + 1] == ' ' || data->read[data->i + 1] == '\0'
+			|| data->read[data->i + 1] == '"')
+			data->line[data->j++] = '$';
 		make_tocheck(data);
 		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
 		if (data->dolsign.towrite != NULL)

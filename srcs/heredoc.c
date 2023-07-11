@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 09:53:28 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/10 13:57:42 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,23 @@ void	heredoc(t_data *data, char *delimiter)
 	while (1)
 	{
 		data->readhd = readline(">");
-		ft_printf("herdoc %s\n", delimiter);
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
-		data->hd.datatemp = NULL;
-		data->hd.datatemp = ft_strdup(data->hd.data);
-		while (data->hd.data[data->hd.i])
+		// data->hd.datatemp = NULL;
+		// data->hd.datatemp = ft_strdup(data->hd.data);
+		// data->dshd.start2 = 0;
+		while (data->readhd[data->hd.i])
 		{
 			dollar_sign_hd(data);
 			data->hd.i++;
 		}
-		// free(data->readhd);
-		data->readhd = NULL;
+		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
+		// freenull(data->hd.data);
+		// data->hd.data = ft_strdup(data->hd.datatemp);
+		data->dshd.flag = 0;
+		// freenull(data->hd.datatemp);
+		freenull(data->readhd);
+		data->hd.i = 0;
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}
 	data->fd.cmd_in = data->fd.cmd_next_in;
