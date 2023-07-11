@@ -6,7 +6,7 @@
 #    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/11 16:12:14 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/07/11 16:40:26 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	main.c					\
 		make_list_ltkn.c		\
 		make_list_ltkn_util.c	\
 		path.c					\
+		path_util.c				\
 		builtins.c				\
 		env.c					\
 		set_meta.c				\

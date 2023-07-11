@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 14:20:57 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:29:35 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_pipe(t_data *data)
 		data->fd.cmd_out = fd[1];
 		data->exe_flag.back_pipe = 1;
 	}
+	
 }
 
 void	open_outfile(t_data *data, char *file, int mod)

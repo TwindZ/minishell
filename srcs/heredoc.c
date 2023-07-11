@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 16:18:33 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:31:26 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	set_hd_io(t_data *data)
 		close(data->fd.cmd_out);
 	if (data->fd.cmd_next_in > 2)
 		close(data->fd.cmd_next_in);
-	// dup2(STDIN_FILENO, 0);
-	// dup2(STDOUT_FILENO, 1);
 	data->exe_flag.front_pipe = 0;
 	data->exe_flag.file_out = 0;
 }
@@ -42,11 +40,9 @@ void	heredoc(t_data *data, char *delimiter)
 	while (1)
 	{
 		data->readhd = readline(">");
-		// ft_printf("herdoc %s\n", delimiter);
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
 		dshd(data);
-
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
 		freenull(data->readhd);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
@@ -58,16 +54,15 @@ void	heredoc(t_data *data, char *delimiter)
 	exit(0);
 }
 
-void heredoc_set(t_data *data, char *delimiter)
+void	heredoc_set(t_data *data, char *delimiter)
 {
-	
 	data->hd.i = 0;
 	if (data->fd.cmd_in > 2)
 		close(data->fd.cmd_in);
 	ft_pipe(data);
 	data->hdprocess = 1;
 	data->pid.pid[data->pid.index] = fork();
-	if(data->pid.pid[data->pid.index]== 0)
+	if (data->pid.pid[data->pid.index] == 0)
 		heredoc(data, delimiter);
 	else
 	{

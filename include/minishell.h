@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 16:18:08 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/11 16:41:14 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,4 +273,6 @@ void	main_core(char **envp);
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
 void	freenull(void *ptr);
 void 	dshd(t_data *data);
+void	path_error(t_data *data, t_ltkn *temp, int err);
+int		is_builtin(char *arg);
 #endif
