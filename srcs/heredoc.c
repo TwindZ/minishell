@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 13:57:42 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:08:41 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,20 @@ void	heredoc(t_data *data, char *delimiter)
 	data->readhd = NULL;
 	while (1)
 	{
+		data->hd.i = 0;
 		data->readhd = readline(">");
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		// data->hd.datatemp = NULL;
-		// data->hd.datatemp = ft_strdup(data->hd.data);
-		// data->dshd.start2 = 0;
 		while (data->readhd[data->hd.i])
 		{
 			dollar_sign_hd(data);
 			data->hd.i++;
 		}
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
-		// freenull(data->hd.data);
-		// data->hd.data = ft_strdup(data->hd.datatemp);
 		data->dshd.flag = 0;
-		// freenull(data->hd.datatemp);
 		freenull(data->readhd);
-		data->hd.i = 0;
+		// if (data->linetemp != NULL)
+		// 	freenull(data->linetemp);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}
 	data->fd.cmd_in = data->fd.cmd_next_in;
@@ -68,16 +64,15 @@ void	heredoc(t_data *data, char *delimiter)
 	exit(0);
 }
 
-void heredoc_set(t_data *data, char *delimiter)
+void	heredoc_set(t_data *data, char *delimiter)
 {
-	
 	data->hd.i = 0;
 	if (data->fd.cmd_in > 2)
 		close(data->fd.cmd_in);
 	ft_pipe(data);
 	data->hdprocess = 1;
 	data->pid.pid[data->pid.index] = fork();
-	if(data->pid.pid[data->pid.index]== 0)
+	if (data->pid.pid[data->pid.index] == 0)
 		heredoc(data, delimiter);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/10 14:25:39 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:10:44 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	make_tocheck(t_data *data)
 		data->i++;
 	data->dolsign.end = data->i;
 	data->dolsign.len = data->dolsign.end - data->dolsign.start;
-	data->dolsign.tocheck = ft_safe_calloc(data->dolsign.len + 1, sizeof(char), data);
+	data->dolsign.tocheck = ft_safe_calloc(data->dolsign.len + 1,
+			sizeof(char), data);
 	while (data->dolsign.start < data->dolsign.end)
 	{
 		data->dolsign.tocheck[data->dolsign.idx]
@@ -99,5 +100,6 @@ void	init_adjust(t_data *data)
 	data->dolsign.linelen = ft_strlen(data->line);
 	data->dolsign.towritelen = ft_strlen(data->dolsign.towrite);
 	data->linetemp = NULL;
-	data->linetemp = ft_safe_calloc(data->dolsign.linelen + 1, sizeof(char), data);
+	data->linetemp = ft_safe_calloc(data->dolsign.linelen + 1,
+			sizeof(char), data);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/05 16:24:15 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:24:07 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,36 +45,6 @@ int	ft_whitespace(t_data *data)
 	if (str[data->i] == '\0')
 		return (0);
 	return (1);
-}
-
-void	in_quotes(t_data *data)
-{
-	if (data->read[data->i] == '"')
-	{
-		data->i++;
-		while (data->read[data->i] != '"')
-		{
-			if (data->read[data->i] != '$' && data->read[data->i] != '|'
-				&& data->read[data->i] != '>' && data->read[data->i] != '<')
-				data->line[data->j++] = data->read[data->i++];
-			dollar_sign(data);
-			dollar_question(data);
-			replace_meta(data);
-		}
-		data->i++;
-	}
-	if (data->read[data->i] == 39)
-	{
-		data->i++;
-		while (data->read[data->i] != 39)
-		{
-			if (data->read[data->i] != '|' && data->read[data->i] != '>'
-				&& data->read[data->i] != '<')
-				data->line[data->j++] = data->read[data->i++];
-			replace_meta(data);
-		}
-		data->i++;
-	}
 }
 
 void	transform_spaces(t_data *data)

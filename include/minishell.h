@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 13:02:03 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:25:31 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void	mini_free(t_data *data);
 int		ft_whitespace(t_data *data);
 void	prep_line(t_data *data);
 void	in_quotes(t_data *data);
+void	in_double_quotes(t_data *data);
 void	transform_spaces(t_data *data);
 void	write_chars(t_data *data);
 void	replace_meta(t_data *data);
@@ -239,6 +240,8 @@ void	mini_pwd(int fd, t_data *data);
 void	mini_exit(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
 void	change_dir(t_data *data, t_ltkn *temp, char *home);
+void	error_directory(t_data *data, t_ltkn *temp);
+void	error_arguments(t_data *data);
 void	mini_unset(t_data *data, t_ltkn *temp);
 void	unset_adjust(t_data *data, t_ltkn *temp);
 void	unset_error(t_data *data, t_ltkn *temp);
@@ -255,7 +258,9 @@ void	add_to_env(t_data *data, t_ltkn *temp);
 void	print_env(int fd, t_data *data);
 void	build_env(t_data *data, char **envp);
 void 	add_var(t_data *data, char **envp, t_ltkn *temp);
+void	modif_var(t_data *data, t_ltkn *temp);
 void	error_export(t_data *data, t_ltkn *temp, int arg);
+void	export_sort(t_data *data);
 
 void	mini_reset(t_data *data);
 t_data	*ft_init_data(char **envp);

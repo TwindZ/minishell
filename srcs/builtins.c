@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 15:17:12 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:06:26 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	unset_adjust(t_data *data, t_ltkn *temp)
 {
 	while (data->envp[data->i])
 	{
-		if (temp->arg[1] == NULL || (ft_isalpha(temp->arg[1][0]) == 0 &&
-			temp->arg[1][0] != 95 && temp->arg[1][0] == 47))
+		if (temp->arg[1] == NULL || (ft_isalpha(temp->arg[1][0]) == 0
+			&& temp->arg[1][0] != 95 && temp->arg[1][0] == 47))
 		{
 			unset_error(data, temp);
 			return ;
 		}
 		if (ft_strncmp(data->unset.to_find, data->envp[data->i],
-			ft_strlen(data->unset.to_find)) == 0)
+				ft_strlen(data->unset.to_find)) == 0)
 			;
 		else
 		{

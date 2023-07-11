@@ -27,7 +27,7 @@ void	build_env(t_data *data, char **envp)
 	while (i < j)
 	{
 		data->envp[i] = ft_safe_calloc(ft_strlen(envp[i]) + 1,
-			sizeof(char), data);
+				sizeof(char), data);
 		ft_strlcpy(data->envp[i], envp[i], ft_strlen(envp[i]) + 1);
 		i++;
 	}

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
+#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/03 16:33:06 by emlamoth         ###   ########.fr        #
+#    Updated: 2023/07/11 13:23:41 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ SRCS =	main.c					\
 		execute.c				\
 		parsing.c				\
 		quotes.c				\
+		in_quotes.c				\
 		dollar_sign.c			\
 		dollar_sign_hd.c		\
 		dollar_question.c		\
@@ -29,6 +30,7 @@ SRCS =	main.c					\
 		redirection.c			\
 		heredoc.c				\
 		export.c				\
+		export_utils.c			\
 		echo.c					\
 		cd.c					\
 		signal.c				\

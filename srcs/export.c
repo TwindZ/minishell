@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 15:04:50 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/11 13:02:20 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,7 @@ void	add_to_env(t_data *data, t_ltkn *temp)
 	if (data->exp.i == data->exp.j)
 		add_var(data, data->envp, temp);
 	else if (data->exp.i != data->exp.j)
-	{
-		data->exp.new_env = env_cpy(data->envp, 0, data);
-		freenull(data->exp.new_env[data->exp.i]);
-		data->exp.new_env[data->exp.i] = ft_safe_calloc(
-				ft_strlen(temp->arg[1]) + 1, sizeof(char), data);
-		ft_strlcpy(data->exp.new_env[data->exp.i], temp->arg[1],
-			ft_strlen(temp->arg[1]) + 1);
-		ft_freeall(data->envp);
-		data->envp = env_cpy(data->exp.new_env, 0, data);
-		data->prevout = 0;
-		ft_freeall(data->exp.new_env);
-	}
+		modif_var(data, temp);
 }
 
 void	add_var(t_data *data, char **envp, t_ltkn *temp)
@@ -87,6 +76,20 @@ void	add_var(t_data *data, char **envp, t_ltkn *temp)
 	data->envp = new_env;
 }
 
+void	modif_var(t_data *data, t_ltkn *temp)
+{
+	data->exp.new_env = env_cpy(data->envp, 0, data);
+	freenull(data->exp.new_env[data->exp.i]);
+	data->exp.new_env[data->exp.i] = ft_safe_calloc(
+			ft_strlen(temp->arg[1]) + 1, sizeof(char), data);
+	ft_strlcpy(data->exp.new_env[data->exp.i], temp->arg[1],
+		ft_strlen(temp->arg[1]) + 1);
+	ft_freeall(data->envp);
+	data->envp = env_cpy(data->exp.new_env, 0, data);
+	data->prevout = 0;
+	ft_freeall(data->exp.new_env);
+}
+
 void	print_env(int fd, t_data *data)
 {
 	data->exp.temp_env = env_cpy(data->envp, 0, data);
@@ -95,16 +98,7 @@ void	print_env(int fd, t_data *data)
 		data->exp.k = 0;
 		while (data->exp.k < data->exp.j - 1)
 		{
-			if (ft_strncmp(data->exp.temp_env[data->exp.k],
-					data->exp.temp_env[data->exp.k + 1],
-					ft_strlen(data->exp.temp_env[data->exp.k])) > 0)
-			{
-				data->exp.swap = data->exp.temp_env[data->exp.k];
-				data->exp.temp_env[data->exp.k]
-					= data->exp.temp_env[data->exp.k + 1];
-				data->exp.temp_env[data->exp.k + 1] = data->exp.swap;
-			}
-			data->exp.k++;
+			export_sort(data);
 		}
 		data->exp.i++;
 	}
@@ -118,23 +112,4 @@ void	print_env(int fd, t_data *data)
 	}
 	ft_freeall(data->exp.temp_env);
 	data->exp.swap = NULL;
-}
-
-void	init_export(t_data *data)
-{
-	data->exp.i = 0;
-	data->exp.j = 0;
-	data->exp.k = 0;
-	data->exp.new_env = NULL;
-	data->exp.temp_env = NULL;
-	data->exp.swap = NULL;
-}
-
-void	error_export(t_data *data, t_ltkn *temp, int arg)
-{
-	ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
-	ft_putstr_fd(temp->arg[arg], STDERR_FILENO);
-	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-	data->prevout = 1;
-	return ;
 }
