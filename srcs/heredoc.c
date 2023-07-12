@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 13:08:41 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:16:04 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ void	heredoc(t_data *data, char *delimiter)
 			data->hd.i++;
 		}
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
+		data->readhd = NULL;
 		data->dshd.flag = 0;
-		freenull(data->readhd);
+		// freenull(data->readhd);
 		// if (data->linetemp != NULL)
 		// 	freenull(data->linetemp);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);

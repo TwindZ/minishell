@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 13:25:31 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 08:30:02 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ void	in_double_quotes(t_data *data);
 void	transform_spaces(t_data *data);
 void	write_chars(t_data *data);
 void	replace_meta(t_data *data);
-void	meta_replace(t_data *data);
+void	meta_replace(t_ltkn *temp);
 
 int		fuckin_quotes(t_data *data);
 void	init_quotes(t_data *data);
