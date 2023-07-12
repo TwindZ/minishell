@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 09:39:24 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 10:06:31 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	hd_out(t_data *data)
 {
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	ft_putstr_fd(data->hd.data, data->fd.cmd_out);
-	close(data->fd.cmd_out);
+	if(data->fd.cmd_out > 2)
+		close(data->fd.cmd_out);
 	free(data->hd.data);
 	data->hd.data = NULL;
 }
@@ -51,7 +52,8 @@ void	heredoc(t_data *data, char *delimiter)
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	set_hd_io(data);
 	ft_putstr_fd(data->hd.data, STDOUT_FILENO);
-	close(data->fd.cmd_out);
+	if(data->fd.cmd_out > 2)
+		close(data->fd.cmd_out);
 	exit(0);
 }
 
