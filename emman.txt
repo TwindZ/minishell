@@ -35,3 +35,5 @@ soutenace non fonctionnel
 deux heredoc en ligne nImprime rien en bash (<< ! << 1 cat -e)
 
 export test | unset test | echo $?
+
+ls > test | < Makefile cat
