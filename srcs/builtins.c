@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:06:26 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 09:07:42 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	data->unset.to_find = NULL;
 	while (data->envp[data->i])
 		data->i++;
+	ft_printf("%i\n", data->i);
 	data->unset.new_env = ft_safe_calloc(data->i, sizeof(char *), data);
 	data->i = 0;
 	data->unset.to_find = ft_strjoin(temp->arg[1], "=", 0);
@@ -82,6 +83,7 @@ void	unset_adjust(t_data *data, t_ltkn *temp)
 		}
 		data->i++;
 	}
+	ft_printf("TEST\n");
 }
 
 void	unset_error(t_data *data, t_ltkn *temp)
