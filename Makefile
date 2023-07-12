@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/11 13:23:41 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/07/12 09:39:33 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ SRCS =	main.c					\
 		quotes.c				\
 		in_quotes.c				\
 		dollar_sign.c			\
-		dollar_sign_hd.c		\
 		dollar_question.c		\
 		meta_chars.c			\
 		meta_replace.c			\
@@ -24,6 +23,7 @@ SRCS =	main.c					\
 		make_list_ltkn.c		\
 		make_list_ltkn_util.c	\
 		path.c					\
+		path_util.c				\
 		builtins.c				\
 		env.c					\
 		set_meta.c				\
@@ -35,6 +35,7 @@ SRCS =	main.c					\
 		cd.c					\
 		signal.c				\
 		ft_safe_calloc.c		\
+		dshd.c					\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/
@@ -97,7 +98,6 @@ fclean: clean
 	@$(MAKE) fclean -C ./srcs/libft
 	@rm -f $(NAME)
 	@echo "${RED}MINISHELL DELETED${NC}"
-
 
 bonus: all
 

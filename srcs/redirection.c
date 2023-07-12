@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 14:20:57 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:42:40 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,21 @@ void	ft_pipe(t_data *data)
 {
 	int	fd[2];
 
-	if (data->exe_flag.file_out == 0)
-	{
+	// if (data->exe_flag.file_out == 0)
+	// {
 		pipe(fd);
 		data->fd.cmd_next_in = fd[0];
-		data->fd.cmd_out = fd[1];
 		data->exe_flag.back_pipe = 1;
-	}
+		if(data->exe_flag.file_out == 0)
+			data->fd.cmd_out = fd[1];
+		else
+		{
+			ft_putstr_fd("\0", fd[1]);
+			close(fd[1]);
+		}
+			
+	// }
+	
 }
 
 void	open_outfile(t_data *data, char *file, int mod)

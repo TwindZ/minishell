@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 14:16:04 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 09:39:24 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	set_hd_io(t_data *data)
 		close(data->fd.cmd_out);
 	if (data->fd.cmd_next_in > 2)
 		close(data->fd.cmd_next_in);
-	// dup2(STDIN_FILENO, 0);
-	// dup2(STDOUT_FILENO, 1);
 	data->exe_flag.front_pipe = 0;
 	data->exe_flag.file_out = 0;
 }
@@ -45,17 +43,9 @@ void	heredoc(t_data *data, char *delimiter)
 		data->readhd = readline(">");
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
-		while (data->readhd[data->hd.i])
-		{
-			dollar_sign_hd(data);
-			data->hd.i++;
-		}
+		dshd(data);
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 1);
-		data->readhd = NULL;
-		data->dshd.flag = 0;
-		// freenull(data->readhd);
-		// if (data->linetemp != NULL)
-		// 	freenull(data->linetemp);
+		freenull(data->readhd);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
 	}
 	data->fd.cmd_in = data->fd.cmd_next_in;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 08:30:02 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 09:40:15 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@
 # include "readline.h"
 # include "history.h"
 # include <libc.h>
+
+typedef struct s_dshd
+{
+	char *templine;
+	char *vardata;
+	char *var;
+	int i;
+	int j;
+	int k;
+	int save_j;
+	int	varlen;
+}				t_dshd;
 
 typedef struct s_pid
 {
@@ -68,22 +80,6 @@ typedef struct s_dolsign
 	char	*tocheck;
 	char	*towrite;
 }				t_dolsign;
-
-typedef struct s_dshd
-{
-	int		start;
-	int		start2;
-	int		end;
-	int		len;
-	int		idx;
-	int		towritelen;
-	int		linelen;
-	int		i;
-	int		j;
-	int		flag;
-	char	*tocheck;
-	char	*towrite;
-}				t_dshd;
 
 typedef struct s_meta
 {
@@ -165,15 +161,14 @@ typedef struct s_data
 	int			j;
 	t_quotes	quotes;
 	t_dolsign	dolsign;
-	t_dshd		dshd;
 	t_meta		meta;
 	t_env		env;
 	t_exp		exp;
 	t_unset		unset;
-	int			child;
 	int			hdprocess;
 	int			exeprocess;
 	t_pid		pid;
+	t_dshd		dshd;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -267,4 +262,7 @@ t_data	*ft_init_data(char **envp);
 void	main_core(char **envp);
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
 void	freenull(void *ptr);
+void 	dshd(t_data *data);
+void	path_error(t_data *data, t_ltkn *temp, int err);
+int		is_builtin(char *arg);
 #endif
