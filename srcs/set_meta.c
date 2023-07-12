@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 17:17:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:53:57 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	set_out(t_data *data, char **arg, int mod)
 		if (data->temp_outfile)
 			freenull(data->temp_outfile);
 		freenull(arg[data->i]);
+		data->syntax = -1;
 		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
 		return ;
 	}
@@ -74,6 +75,7 @@ void	set_infile(t_data *data, char **arg)
 		check_infile(data, arg);
 	else
 	{
+		data->syntax = -1;
 		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
 		return ;
 	}
@@ -92,6 +94,7 @@ void	set_heredoc(t_data *data, char **arg)
 	}
 	else
 	{
+		data->syntax = -1;
 		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
 		return ;
 	}
@@ -106,6 +109,6 @@ void	set_meta(t_data *data, char **arg)
 		set_out(data, arg, 2);
 	else if (ft_strncmp(arg[data->i], "<\0", 2) == 0)
 		set_infile(data, arg);
-	else if (ft_strncmp(arg[data->i], "<<\0", 3) == 0)
+	else if (ft_strncmp(arg[data->i], "<<", 3) == 0)
 		set_heredoc(data, arg);
 }

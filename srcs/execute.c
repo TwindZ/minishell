@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 11:15:40 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:25:21 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,4 @@ void	mini_execute(t_data *data)
 		temp = temp->next;
 		data->exe_flag.file_out = 0;
 	}
-	ft_waiting(data);
 }

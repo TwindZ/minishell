@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:24:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:09:34 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ int	ft_whitespace(t_data *data)
 {
 	char	*str;
 
-	str = data->read;
+	str = NULL;
+	str = ft_strdup(data->read);
 	data->i = 0;
 	while ((str[data->i] == ' '
 			|| (str[data->i] >= 9 && str[data->i] <= 13)) && str[data->i])
 		data->i++;
 	if (str[data->i] == '\0')
+	{
+		freenull(str);
 		return (0);
+	}
+	freenull(str);
 	return (1);
 }
 
@@ -51,7 +56,7 @@ void	transform_spaces(t_data *data)
 {
 	if (data->read[data->i] == ' ')
 	{
-		if (data->line[data->j - 1] != '\t' && data->j > 0)
+		if (data->j > 0 && data->line[data->j - 1] != '\t')
 			data->line[data->j++] = '\t';
 		data->i++;
 	}

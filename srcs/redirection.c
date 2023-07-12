@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 10:44:20 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:23:36 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,17 @@ void	ft_pipe(t_data *data)
 {
 	int	fd[2];
 
-	// if (data->exe_flag.file_out == 0)
-	// {
-		pipe(fd);
-		data->fd.cmd_next_in = fd[0];
-		data->exe_flag.back_pipe = 1;
-		if(data->exe_flag.file_out == 0)
-			data->fd.cmd_out = fd[1];
-		else
-		{
-			ft_putstr_fd("\0", fd[1]);
-			if(fd[1] > 2)
-				close(fd[1]);
-		}
-			
-	// }
-	
+	pipe(fd);
+	data->fd.cmd_next_in = fd[0];
+	data->exe_flag.back_pipe = 1;
+	if (data->exe_flag.file_out == 0)
+		data->fd.cmd_out = fd[1];
+	else
+	{
+		ft_putstr_fd("\0", fd[1]);
+		if (fd[1] > 2)
+			close(fd[1]);
+	}
 }
 
 void	open_outfile(t_data *data, char *file, int mod)
@@ -42,7 +37,7 @@ void	open_outfile(t_data *data, char *file, int mod)
 	if (mod == 0)
 	{
 		fd = open(file, O_WRONLY | O_CREAT, 00644);
-		if(fd > 2)
+		if (fd > 2)
 			close(fd);
 	}
 	else
@@ -60,12 +55,10 @@ void	open_outfile(t_data *data, char *file, int mod)
 	}
 }
 
-// si fichier existe pas
 void	open_infile(t_data *data, char *file)
 {
 	if (data->exe_flag.back_pipe)
 	{
-		
 		ft_putstr_fd("test openfile", 2);
 		data->exe_flag.back_pipe = 0;
 		if (data->fd.cmd_in > 2)

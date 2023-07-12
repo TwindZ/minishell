@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 17:10:50 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:53:36 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	make_list_ltkn(t_data *data)
 			temp = new_node(data, arg, temp);
 		else
 			build_cmd_param(data, arg, temp);
-		if (arg[data->i] == NULL || data->temp_in_mod == -1)
+		if (arg[data->i] == NULL || data->temp_in_mod == -1 || data->syntax == -1)
 			break ;
 		if (temp)
 			set_redirect(data, arg, temp);
