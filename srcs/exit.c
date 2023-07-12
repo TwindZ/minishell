@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:58:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:05:00 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 void	mini_exit(t_data *data, t_ltkn *temp)
 {
+	int child;
+	
+	child = 0;
+	if(data->pid.count > 0)
+		child = data->pid.pid[data->pid.index - 1];
 	data->i = 0;
 	data->j = 0;
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	while (temp && temp->arg[data->j])
 		data->j++;
 	if (data->j > 2)
@@ -25,10 +29,16 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 		data->prevout = 1;
 		return ;
 	}
+	if(data->pid.count)
+	{
+		kill(child, SIGQUIT);
+		return ;
+	}
 	if (data->j == 2)
 		exit_args(data, temp);
 	else if (temp)
 		exit_free(data);
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(0);
 }
 
