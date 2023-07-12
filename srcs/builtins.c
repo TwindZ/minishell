@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 09:07:42 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:10:12 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,14 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	data->unset.to_find = NULL;
 	while (data->envp[data->i])
 		data->i++;
-	ft_printf("%i\n", data->i);
 	data->unset.new_env = ft_safe_calloc(data->i, sizeof(char *), data);
 	data->i = 0;
 	data->unset.to_find = ft_strjoin(temp->arg[1], "=", 0);
 	unset_adjust(data, temp);
-	if (data->unset.new_env[data->j - 1] == NULL)
-		;
-	else
+	if (data->unset.new_env[data->j] == NULL)
 	{
 		ft_freeall(data->envp);
-		data->envp = data->unset.new_env;
+		data->envp = env_cpy(data->unset.new_env, 0, data);
 	}
 	data->prevout = 0;
 	data->unset.new_env = NULL;
@@ -79,11 +76,10 @@ void	unset_adjust(t_data *data, t_ltkn *temp)
 					sizeof(char), data);
 			ft_strlcpy(data->unset.new_env[data->j], data->envp[data->i],
 				ft_strlen(data->envp[data->i]) + 1);
-			data->j++; 
+			data->j++;
 		}
 		data->i++;
 	}
-	ft_printf("TEST\n");
 }
 
 void	unset_error(t_data *data, t_ltkn *temp)
