@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:39:37 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/06/29 11:31:28 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:06:59 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	fuckin_quotes(t_data *data)
 	{
 		ft_putstr_fd("double quote missing\n", 2);
 		data->prevout = 1;
-		return (1);
+		return (-1);
 	}
 	if (data->quotes.sgl % 2 != 0)
 	{
 		ft_printf("single quote missing\n");
 		data->prevout = 1;
-		return (1);
+		return (-1);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 12:09:23 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:31:58 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ typedef struct s_data
 	int			exeprocess;
 	t_pid		pid;
 	t_dshd		dshd;
+	int			syntax;
 }				t_data;
 
 void	mini_execute(t_data *data);
@@ -266,4 +267,5 @@ void	freenull(void *ptr);
 void	dshd(t_data *data);
 void	path_error(t_data *data, t_ltkn *temp, int err);
 int		is_builtin(char *arg);
+void	ft_waiting(t_data *data);
 #endif

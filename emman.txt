@@ -37,3 +37,11 @@ deux heredoc en ligne nImprime rien en bash (<< ! << 1 cat -e)
 export test | unset test | echo $?
 
 ls > test | < Makefile cat
+
+< Makefile cat | cat -e test 2 | ls > test3 | cat | ls | << ! cat -e | cat -e | grep salut | wc < Makefile > test3
+
+env | grep PATH > test | ls > test2 | < Makefile echo | < Makefile cat -e
+
+>>><><><><><> |<>|<>|>
+
+export test=$USER | env | grep test | > testlol cat -e
