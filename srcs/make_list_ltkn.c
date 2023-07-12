@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 13:53:36 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:59:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	make_list_ltkn(t_data *data)
 	data->j = 0;
 	arg = NULL;
 	arg = ft_split(data->line, '\t');
+	if(!arg)
+		return ;
 	while (arg[data->i])
 	{
 		if (data->j == 0 && is_meta(data, arg) == 0
@@ -86,7 +88,8 @@ void	make_list_ltkn(t_data *data)
 			set_redirect(data, arg, temp);
 		data->i++;
 	}
-	free(arg);
+	if(arg)
+		free(arg);
 	arg = NULL;
 }
 

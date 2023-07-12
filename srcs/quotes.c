@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 10:39:37 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:06:59 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:00:37 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	fuckin_quotes(t_data *data)
 	}
 	if (data->quotes.sgl % 2 != 0)
 	{
-		ft_printf("single quote missing\n");
+		ft_putstr_fd("single quote missing\n", 2);
 		data->prevout = 1;
 		return (-1);
 	}

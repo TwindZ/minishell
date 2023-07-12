@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:26:32 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:59:46 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 void	mini_pwd(int fd, t_data *data)
 {
 	char	buffer[PATH_MAX];
-
-	ft_putstr_fd(getcwd(buffer, sizeof(buffer)), fd);
+	char	*cwd;
+	
+	cwd = getcwd(buffer, sizeof(buffer));
+	if(!cwd)
+		cwd = data->lastwd;
+	ft_putstr_fd(cwd, fd);
 	ft_putstr_fd("\n", fd);
 	data->prevout = 0;
 }
