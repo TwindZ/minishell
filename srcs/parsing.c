@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:24:07 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 13:14:31 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	transform_spaces(t_data *data)
 {
 	if (data->read[data->i] == ' ')
 	{
-		if (data->line[data->j - 1] != '\t' && data->j > 0)
+		if (data->j > 0 && data->line[data->j - 1] != '\t')
 			data->line[data->j++] = '\t';
 		data->i++;
 	}

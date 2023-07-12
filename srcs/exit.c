@@ -3,63 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/10 09:33:25 by emlamoth         ###   ########.fr       */
+/*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
+/*   Updated: 2023/07/12 13:29:34 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-void	freenull(void *ptr)
+void	mini_exit(t_data *data, t_ltkn *temp)
 {
-	free(ptr);
-	ptr = NULL;
+	data->i = 0;
+	data->j = 0;
+	ft_printf("exit\n");
+	while (temp && temp->arg[data->j])
+		data->j++;
+	if (data->j > 2)
+	{
+		ft_putstr_fd("Minishell: exit: too many arguments\n", STDERR_FILENO);
+		data->prevout = 1;
+		return ;
+	}
+	if (data->j == 2)
+		exit_args(data, temp);
+	else if (temp)
+		exit_free(data);
+	exit(0);
 }
 
-void	free_list_ltkn(t_ltkn *ltkn)
+void	exit_free(t_data *data)
 {
-	t_ltkn	*temp;
-
-	temp = NULL;
-	while (ltkn)
-	{
-		temp = ltkn->next;
-		ltkn->arg = ft_freeall(ltkn->arg);
-		if (ltkn->infile)
-			freenull(ltkn->infile);
-		if (ltkn->outfile)
-			freenull(ltkn->outfile);
-		freenull(ltkn->arg);
-		if (ltkn->path)
-			freenull(ltkn->path);
-		freenull (ltkn);
-		ltkn = temp;
-	}
+	free_list_ltkn(data->ltkn);
+	free (data->read);
+	free (data->line);
+	ft_freeall(data->envp);
+	free (data);
 }
 
-void	mini_free(t_data *data)
+void	exit_args(t_data *data, t_ltkn *temp)
 {
-	if(data->temp_infile)
-		freenull(data->temp_infile);
-	if(data->temp_outfile != NULL)
+	int exitnum;
+
+	exitnum = 0;
+	if (temp->arg[1][0] == '-' || temp->arg[1][0] == '+')
+		data->i++;
+	while (ft_isdigit(temp->arg[1][data->i]) == 1)
+		data->i++;
+	if (data->i == (int)ft_strlen(temp->arg[1]))
 	{
-		freenull(data->temp_outfile);
+		exitnum = ft_atoi(temp->arg[1]);
+		exit_free(data);
+		exit(exitnum);
 	}
-	if(data->file)
-		freenull(data->file);
-	if(data->read)
-		freenull(data->read);
-	if(data->readhd)
-		freenull(data->readhd);
-	if(data->line)
-		freenull(data->line);
-	if(data->meta.temp)
-		freenull(data->meta.temp);
-	if(data->hd.data)
-		freenull(data->hd.data);
-	if(data->hd.end)
-		freenull(data->hd.end);
-	ft_printf("\nBATARD !!\n");
+	else 
+	{
+		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd(temp->arg[1], STDERR_FILENO);
+		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		exit_free(data);
+		exit(255);
+	}
 }

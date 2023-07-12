@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/10 19:58:10 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/12 11:32:15 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,63 +24,6 @@ t_data	*ft_init_data(char **envp)
 		build_env(data, envp);
 	}
 	return (data);
-}
-
-void	mini_exit(t_data *data, t_ltkn *temp)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	ft_printf("exit\n");
-	while (temp && temp->arg[j])
-		j++;
-	if (j > 2)
-	{
-		ft_putstr_fd("Minishell: exit: too many arguments\n", STDERR_FILENO);
-		data->prevout = 1;
-		return ;
-	}
-	if (j == 2)
-	{
-		if (temp->arg[1][0] == '-' || temp->arg[1][0] == '+')
-			i++;
-		while (ft_isdigit(temp->arg[1][i]) == 1)
-			i++;
-		if (i == (int)ft_strlen(temp->arg[1]))
-		{
-			j = ft_atoi(temp->arg[1]);
-			free_list_ltkn(data->ltkn);
-			free (data->read);
-			free (data->line);
-			ft_freeall(data->envp);
-			free (data);
-			exit(j);
-		}
-		else 
-		{
-			ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
-			ft_putstr_fd(temp->arg[1], STDERR_FILENO);
-			ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-			free_list_ltkn(data->ltkn);
-			free (data->read);
-			free (data->line);
-			ft_freeall(data->envp);
-			free (data);
-			exit(255);
-		}
-	}
-	else
-		if(temp)
-		{	
-			free_list_ltkn(data->ltkn);
-			free (data->read);
-			free (data->line);
-			ft_freeall(data->envp);
-			free (data);
-		}
-		exit(0);
 }
 
 int	parse(t_data *data)
@@ -121,7 +64,6 @@ void	mini_reset(t_data *data)
 		free(data->line);
 	if(data->read)
 		free (data->read);
-	// mini_free(data);
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));

@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 10:45:03 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 12:09:23 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 
 typedef struct s_dshd
 {
-	char *templine;
-	char *vardata;
-	char *var;
-	int i;
-	int j;
-	int k;
-	int save_j;
-	int	varlen;
+	char	*templine;
+	char	*vardata;
+	char	*var;
+	int		i;
+	int		j;
+	int		k;
+	int		save_j;
+	int		varlen;
 }				t_dshd;
 
 typedef struct s_pid
@@ -46,14 +46,13 @@ typedef struct s_pid
 
 typedef struct s_ltkn
 {
-	
 	char			*path;
 	char			**arg;
 	char			*infile;
 	int				in_mod;
 	char			*outfile;
 	int				out_mod;
-	int 			front_pipe;
+	int				front_pipe;
 	struct s_ltkn	*next;
 }				t_ltkn;
 
@@ -143,7 +142,7 @@ typedef struct s_data
 	t_fd		fd;
 	t_exe_flag	exe_flag;
 	t_heredoc	hd;
-	t_ltkn 		*ltkn;
+	t_ltkn		*ltkn;
 	char		*temp_infile;
 	int			temp_in_mod;
 	char		*temp_outfile;
@@ -173,12 +172,12 @@ typedef struct s_data
 
 void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
-void 	open_infile(t_data *data, char *file);
-void 	open_outfile(t_data *data, char *file, int mod);		
+void	open_infile(t_data *data, char *file);
+void	open_outfile(t_data *data, char *file, int mod);		
 void	heredoc(t_data *data, char *delimiter);
 void	heredoc_set(t_data *data, char *delimiter);
 void	free_list_ltkn(t_ltkn *ltkn);
-void 	ft_pipe(t_data *data);
+void	ft_pipe(t_data *data);
 void	set_meta(t_data *data, char **arg);
 int		is_meta(t_data *data, char **arg);
 void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp);
@@ -233,6 +232,8 @@ void	mini_echo(int fd, t_ltkn *temp, t_data *data);
 void	echo_print(int fd, t_ltkn *temp, t_data *data);
 void	mini_pwd(int fd, t_data *data);
 void	mini_exit(t_data *data, t_ltkn *temp);
+void	exit_free(t_data *data);
+void	exit_args(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
 void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	error_directory(t_data *data, t_ltkn *temp);
@@ -252,7 +253,7 @@ void	init_export(t_data *data);
 void	add_to_env(t_data *data, t_ltkn *temp);
 void	print_env(int fd, t_data *data);
 void	build_env(t_data *data, char **envp);
-void 	add_var(t_data *data, char **envp, t_ltkn *temp);
+void	add_var(t_data *data, char **envp, t_ltkn *temp);
 void	modif_var(t_data *data, t_ltkn *temp);
 void	error_export(t_data *data, t_ltkn *temp, int arg);
 void	export_sort(t_data *data);
@@ -262,7 +263,7 @@ t_data	*ft_init_data(char **envp);
 void	main_core(char **envp);
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
 void	freenull(void *ptr);
-void 	dshd(t_data *data);
+void	dshd(t_data *data);
 void	path_error(t_data *data, t_ltkn *temp, int err);
 int		is_builtin(char *arg);
 #endif

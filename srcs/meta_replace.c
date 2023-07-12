@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:47:35 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 08:34:10 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 11:22:25 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	meta_replace(t_ltkn *temp)
 {
 	int	i;
 	int	j;
-	
+
 	j = 1;
 	while (temp->arg[j])
 	{

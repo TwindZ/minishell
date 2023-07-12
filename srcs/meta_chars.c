@@ -34,7 +34,7 @@ void	init_meta(t_data *data)
 void	make_temp(t_data *data)
 {
 	data->meta.len = ft_strlen(data->line);
-	if (data->line[data->i - 1] != '\t' && data->j > 0)
+	if (data->j > 0 && data->line[data->i - 1] != '\t')
 		data->meta.spaces += 1;
 	if (data->line[data->i + 1] != '\t')
 		data->meta.spaces += 1;
@@ -69,7 +69,7 @@ void	place_tab(t_data *data, char meta)
 {
 	if (data->read[data->i] == meta)
 	{
-		if (data->line[data->meta.i - 1] != '\t' && data->j > 0)
+		if (data->j > 0 && data->line[data->meta.i - 1] != '\t')
 			data->line[data->j++] = '\t';
 		if (data->read[data->i] == meta)
 			data->line[data->j++] = meta;
