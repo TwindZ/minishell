@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 12:00:21 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:04:26 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	ft_whitespace(t_data *data)
 		data->i++;
 	if (str[data->i] == '\0')
 	{
-		freenull(str);
+		free(str);
 		return (0);
 	}
-	freenull(str);
+	free(str);
 	return (1);
 }
 

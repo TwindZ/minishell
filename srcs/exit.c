@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 11:00:40 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:53:18 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,18 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	exit(0);
 }
 
-void	exit_free(t_data *data)
+void	exit_free(t_data *data, int ex)
 {
 	if(data->ltkn)
 		free_list_ltkn(data->ltkn);
 	if(data->read)
-		freenull(data->read);
+		free(data->read);
 	if(data->line)
-		freenull(data->line);
+		free(data->line);
 	ft_freeall(data->envp);
-	freenull(data);
+	freen(data);
+	if(ex)
+		exit(1)
 }
 
 void	exit_args(t_data *data, t_ltkn *temp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:19:05 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 20:54:38 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/13 14:50:21 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 		data->i++;
 	change_dir(data, temp, home);
 	
-	freenull(home);
+	free(home);
 	data->lastwd = getenvp(data, "PWD=", 1);
 	data->lastwd = ft_strjoin(data->lastwd, "/", 1);
 	data->lastwd = ft_strjoin(data->lastwd, temp->arg[data->i], 1);

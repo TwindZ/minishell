@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 11:51:52 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:49:46 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	}
 	data->prevout = 0;
 	ft_freeall(data->unset.new_env);
-	freenull(data->unset.to_find);
+	free(data->unset.to_find);
 }
 
 void	unset_adjust(t_data *data, t_ltkn *temp)

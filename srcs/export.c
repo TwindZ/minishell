@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:47:32 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:56:45 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	add_var(t_data *data, char **envp, t_ltkn *temp)
 void	modif_var(t_data *data, t_ltkn *temp)
 {
 	data->exp.new_env = env_cpy(data->envp, 0, data);
-	freenull(data->exp.new_env[data->exp.i]);
+	free(data->exp.new_env[data->exp.i]);
 	data->exp.new_env[data->exp.i] = ft_safe_calloc(
 			ft_strlen(temp->arg[1]) + 1, sizeof(char), data);
 	ft_strlcpy(data->exp.new_env[data->exp.i], temp->arg[1],

@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:21:44 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 11:52:35 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 14:52:45 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	read_maker(t_data *data)
 		data->dshd.j++;
 	while (data->dshd.templine[data->dshd.j])
 		data->readhd[data->dshd.i++] = data->dshd.templine[data->dshd.j++];
-	freenull(data->dshd.templine);
+	free(data->dshd.templine);
 	if (data->dshd.vardata)
-		freenull(data->dshd.vardata);
-	freenull(data->dshd.var);
+		free(data->dshd.vardata);
+	free(data->dshd.var);
 }
 
 void	dshd(t_data *data)
@@ -92,9 +92,11 @@ void	dshd(t_data *data)
 		ft_strlcpy(data->dshd.var, data->dshd.templine
 			+ data->dshd.save_j + 1, data->dshd.varlen + 1);
 		data->dshd.var = ft_strjoin(data->dshd.var, "=", 1);
-		//TODO si NULL
+		if(!data->dshd.var)
+			exit_free(data, 1);
 		data->dshd.vardata = getenvp(data, data->dshd.var, 1);
-		// TODO si NULL
+		if(!data->dshd.vardata)
+			exit_free(data, 1);
 		free(data->readhd);
 		data->readhd = ft_safe_calloc(ft_strlen(data->dshd.vardata)
 				+ ft_strlen(data->dshd.templine) + 2, sizeof(char), data); 
