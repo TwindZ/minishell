@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 14:32:41 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:12:24 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	parse(t_data *data)
 	prep_line(data);
 	if (ft_strlen(data->line) == 0)
 		return (1);
-	ft_printf("%s\n", data->line);
 	make_list_ltkn(data);
 	if(!data->ltkn || data->temp_in_mod == -1)
 		return (1);
@@ -82,22 +81,16 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->pid, sizeof(data->pid));
 }
 
-// void	main_core(char **envp)
-// {
-	
-// }
-
 int	main(int argc, char **argv, char **envp)
 {
-	(void) argv;
+	(void)	argv;
+	t_data	*data;
+	
 	if (argc > 1)
 		return (0);
-	t_data				*data;
-
 	data = ft_init_data(envp);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
-	// signal(SIGQUIT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
@@ -106,27 +99,22 @@ int	main(int argc, char **argv, char **envp)
 			data->read = readline("Minishell>");
 			// ft_printf("data_read %s", data->read);
 			if(!data->read)
-			{
-				// rl_replace_line("Minishell>exit salut", 0);
 				mini_exit(data, data->ltkn);
-			}
-				
 			data->rdflag = 1;
-			ft_printf("---------------------------------------\n");
-			ft_printf("*****************DEBUG*****************\n");
+			// ft_printf("---------------------------------------\n");
+			// ft_printf("*****************DEBUG*****************\n");
 			if (parse(data))
 			{
 				mini_reset(data);
 				break ;
 			}
-			print_list(data);
-			ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
-			ft_printf("---------------------------------------\n");
+			// print_list(data);
+			// ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
+			// ft_printf("---------------------------------------\n");
 			mini_execute(data);
 			ft_waiting(data);
 			mini_reset(data);
 		}
 	}
-	// main_core(envp);
 }
 //TODO reconvertir les caratere qui on ete changer durant le parsing

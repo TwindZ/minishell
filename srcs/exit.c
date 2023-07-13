@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:32:26 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:58:22 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 {
 	data->i = 0;
 	data->j = 0;
-	ft_printf("exit\n");
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	while (temp && temp->arg[data->j])
 		data->j++;
 	if (data->j > 2)

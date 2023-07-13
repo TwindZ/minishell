@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:02:20 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:47:32 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	mini_export(int fd, t_data *data, t_ltkn *temp)
 	if (temp->arg[1] == NULL)
 		print_env(fd, data);
 }
-	// TODO changer les messages d'erreurs avec stderr ou perror
 
 void	add_to_env(t_data *data, t_ltkn *temp)
 {
