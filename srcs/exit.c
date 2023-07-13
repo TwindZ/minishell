@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 10:13:16 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:00:40 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,14 @@ void	exit_args(t_data *data, t_ltkn *temp)
 		exit_free(data);
 		exit(255);
 	}
+}
+
+void *ft_mini_strdup(const char *s, t_data *data)
+{
+	void	*str;
+
+	str = NULL;
+	str = ft_safe_calloc(ft_strlen(s) + 1, sizeof(char), data);
+	ft_memcpy(str, s, ft_strlen(s) + 1);
+	return (str);
 }

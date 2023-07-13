@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 11:23:36 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:56:13 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	open_infile(t_data *data, char *file)
 {
 	if (data->exe_flag.back_pipe)
 	{
-		ft_putstr_fd("test openfile", 2);
 		data->exe_flag.back_pipe = 0;
 		if (data->fd.cmd_in > 2)
 			close(data->fd.cmd_in);

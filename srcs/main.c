@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 11:10:05 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:00:03 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_data	*ft_init_data(char **envp)
 		data = ft_calloc(1, sizeof(t_data));
 		if (!data)
 			exit (1);
-		//TODO erreur ?
 		build_env(data, envp);
 		signal(SIGINT, sig_handler);
 		signal(SIGQUIT, sig_handler);
@@ -75,13 +74,15 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->hd, sizeof(data->hd));
 	if(data->temp_infile)
 		freenull(data->temp_infile);
+	data->temp_infile = NULL;
 	if(data->temp_outfile)
 		freenull(data->temp_outfile);
+	data->temp_outfile = NULL;
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;
 	data->hdprocess = 0;
 	data->exeprocess = 0;
-	freenull(data->pid.pid);
+	free(data->pid.pid);
 	ft_bzero(&data->pid, sizeof(data->pid));
 }
 

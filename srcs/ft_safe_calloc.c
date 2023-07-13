@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_safe_calloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:57:04 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 21:55:13 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/13 10:31:35 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	*ft_safe_calloc(size_t count, size_t size, t_data *data)
 	if (!a)
 	{
 		free_list_ltkn(data->ltkn);
-		free (data->read);
-		free (data->line);
+		freenull(data->read);
+		freenull(data->line);
 		ft_freeall(data->envp);
-		free (data);
+		freenull(data);
 		ft_putstr_fd("Memory Fatal ERROR!!!!", STDERR_FILENO);
 		exit(1);
 	}

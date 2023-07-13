@@ -48,8 +48,7 @@ char	**env_cpy(char **envp, int exp, t_data *data)
 	i = 0;
 	while (i < j + exp)
 	{
-		enviro[i] = ft_strdup(envp[i]);
-		//TODO si null ?
+		enviro[i] = ft_mini_strdup(envp[i], data);
 		i++;
 	}
 	return (enviro);

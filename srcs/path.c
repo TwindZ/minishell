@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 22:23:04 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/13 11:54:42 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void	check_dir(t_data *data, t_ltkn *temp, char *arg)
 	else
 	{
 		data->pid.count++;
-		temp->path = ft_strdup(arg);
-		//TODO si null ?
+		temp->path = ft_mini_strdup(arg, data);
 	}
 }
 

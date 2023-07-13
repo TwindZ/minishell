@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 15:54:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:43:16 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,4 +269,5 @@ void	dshd(t_data *data);
 void	path_error(t_data *data, t_ltkn *temp, int err);
 int		is_builtin(char *arg);
 void	ft_waiting(t_data *data);
+void	*ft_mini_strdup(const char *s, t_data *data);
 #endif
