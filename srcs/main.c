@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 10:15:50 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:10:05 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	mini_reset(t_data *data)
 {
 	if(data->ltkn)
 		free_list_ltkn(data->ltkn);
+	data->ltkn = NULL;
 	if(data->line)
 		freenull(data->line);
 	if(data->read)

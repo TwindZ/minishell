@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 10:05:49 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:19:40 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	make_list_ltkn(t_data *data)
 	data->i = 0;
 	data->j = 0;
 	arg = NULL;
-	arg = ft_split(data->line, '\t');
+	arg = ft_split(data->line, 29);
 	if(!arg)
 		return ;
 	while (arg[data->i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 22:20:36 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/13 11:20:20 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	transform_spaces(t_data *data)
 {
 	if (data->read[data->i] == ' ')
 	{
-		if (data->j > 0 && data->line[data->j - 1] != '\t')
-			data->line[data->j++] = '\t';
+		if (data->j > 0 && data->line[data->j - 1] != 29)
+			data->line[data->j++] = 29;
 		data->i++;
 	}
 }

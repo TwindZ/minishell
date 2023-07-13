@@ -34,9 +34,9 @@ void	init_meta(t_data *data)
 void	make_temp(t_data *data)
 {
 	data->meta.len = ft_strlen(data->line);
-	if (data->j > 0 && data->line[data->i - 1] != '\t')
+	if (data->j > 0 && data->line[data->i - 1] != 29)
 		data->meta.spaces += 1;
-	if (data->line[data->j + 1] != '\t')
+	if (data->line[data->j + 1] != 29)
 		data->meta.spaces += 1;
 	data->meta.temp = ft_safe_calloc(data->meta.len + data->meta.spaces + 1,
 			sizeof(char), data);
@@ -69,8 +69,8 @@ void	place_tab(t_data *data, char meta)
 {
 	if (data->read[data->i] == meta)
 	{
-		if (data->j > 0 && data->line[data->meta.i - 1] != '\t')
-			data->line[data->j++] = '\t';
+		if (data->j > 0 && data->line[data->meta.i - 1] != 29)
+			data->line[data->j++] = 29;
 		if (data->read[data->i] == meta)
 			data->line[data->j++] = meta;
 		if (data->read[data->i + 1] == meta)
@@ -79,7 +79,7 @@ void	place_tab(t_data *data, char meta)
 			data->meta.i++;
 			data->i++;
 		}
-		if (data->line[data->meta.i + 1] != '\t')
-			data->line[data->j++] = '\t';
+		if (data->line[data->meta.i + 1] != 29)
+			data->line[data->j++] = 29;
 	}
 }
