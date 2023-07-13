@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 12:39:54 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:13:59 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	heredoc(t_data *data, char *delimiter)
 			break ;
 		dshd(data);
 		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 0);
+		//TODO si null
 		if(data->readhd)
 			freenull(data->readhd);
 		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
+		// TODO si null ?
 	}
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	set_hd_io(data);

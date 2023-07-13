@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 14:31:58 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:54:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ typedef struct s_data
 	t_pid		pid;
 	t_dshd		dshd;
 	int			syntax;
+	char		*lastwd;
 }				t_data;
 
 void	mini_execute(t_data *data);

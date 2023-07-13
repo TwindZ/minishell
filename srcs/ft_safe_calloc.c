@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_safe_calloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:57:04 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/06/29 12:59:55 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:55:13 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*The ft_calloc() function shall allocate unused space for an array of
-<count> elements each of whose size in bytes is <size>.  The space
-shall be initialized to all bits 0.*/
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data)
 {
 	void	*a;

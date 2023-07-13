@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dshd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:21:44 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/11 16:26:11 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:07:06 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	dshd(t_data *data)
 	{
 		ft_bzero(&data->dshd, sizeof(data->dshd));
 		data->dshd.templine = ft_strdup(data->readhd);
+		//TODO si null ?
 		while (data->dshd.templine[data->dshd.j] != '$')
 			data->dshd.j++;
 		data->dshd.save_j = data->dshd.j;
@@ -89,13 +90,17 @@ void	dshd(t_data *data)
 		}
 		data->dshd.j = 0;
 		data->dshd.var = ft_calloc(data->dshd.varlen + 2, sizeof(char));
+		// TODO safe calloc ?
 		ft_strlcpy(data->dshd.var, data->dshd.templine
 			+ data->dshd.save_j + 1, data->dshd.varlen + 1);
 		data->dshd.var = ft_strjoin(data->dshd.var, "=", 1);
+		//TODO si NULL
 		data->dshd.vardata = getenvp(data, data->dshd.var, 1);
+		// TODO si NULL
 		free(data->readhd);
 		data->readhd = ft_calloc(ft_strlen(data->dshd.vardata)
 				+ ft_strlen(data->dshd.templine) + 2, sizeof(char)); 
+		//TODO safe calloc
 		read_maker(data);
 	}
 }
