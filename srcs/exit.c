@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 14:53:18 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:10:58 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	if (data->j == 2)
 		exit_args(data, temp);
 	else if (temp)
-		exit_free(data);
+		exit_free(data, 0);
 	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(0);
 }
@@ -51,9 +51,9 @@ void	exit_free(t_data *data, int ex)
 	if(data->line)
 		free(data->line);
 	ft_freeall(data->envp);
-	freen(data);
+	free(data);
 	if(ex)
-		exit(1)
+		exit(1);
 }
 
 void	exit_args(t_data *data, t_ltkn *temp)
@@ -68,7 +68,7 @@ void	exit_args(t_data *data, t_ltkn *temp)
 	if (data->i == (int)ft_strlen(temp->arg[1]))
 	{
 		exitnum = ft_atoi(temp->arg[1]);
-		exit_free(data);
+		exit_free(data, 0);
 		exit(exitnum);
 	}
 	else 
@@ -76,7 +76,7 @@ void	exit_args(t_data *data, t_ltkn *temp)
 		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(temp->arg[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
-		exit_free(data);
+		exit_free(data, 0);
 		exit(255);
 	}
 }

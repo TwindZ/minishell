@@ -46,3 +46,10 @@ env | grep PATH > test | ls > test2 | < Makefile echo | < Makefile cat -e
 
 export test=$USER | env | grep test | > testlol cat -e
 
+leak heredoc
+$ seul heredoc
+$? leaks
+accent
+replace meta
+
+

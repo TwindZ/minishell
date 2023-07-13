@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 15:07:11 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:08:15 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void	mini_echo(int fd, t_ltkn *temp, t_data *data);
 void	echo_print(int fd, t_ltkn *temp, t_data *data);
 void	mini_pwd(int fd, t_data *data);
 void	mini_exit(t_data *data, t_ltkn *temp);
-void	exit_free(t_data *data, in ex);
+void	exit_free(t_data *data, int ex);
 void	exit_args(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
 void	change_dir(t_data *data, t_ltkn *temp, char *home);
