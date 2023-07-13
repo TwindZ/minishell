@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 10:14:57 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 10:15:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (0);
 	data = ft_init_data(envp);
-<<<<<<< HEAD
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-=======
->>>>>>> emman
 	while (1)
 	{
 		while (1)
