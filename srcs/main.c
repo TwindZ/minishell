@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 10:14:57 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:53:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_data	*ft_init_data(char **envp)
 		data = ft_calloc(1, sizeof(t_data));
 		if (!data)
 			exit (1);
-		//TODO erreur ?
 		build_env(data, envp);
 		signal(SIGINT, sig_handler);
 		signal(SIGQUIT, sig_handler);
@@ -62,6 +61,7 @@ void	mini_reset(t_data *data)
 {
 	if(data->ltkn)
 		free_list_ltkn(data->ltkn);
+	data->ltkn = NULL;
 	if(data->line)
 		freenull(data->line);
 	if(data->read)
@@ -74,13 +74,15 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->hd, sizeof(data->hd));
 	if(data->temp_infile)
 		freenull(data->temp_infile);
+	data->temp_infile = NULL;
 	if(data->temp_outfile)
 		freenull(data->temp_outfile);
+	data->temp_outfile = NULL;
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;
 	data->hdprocess = 0;
 	data->exeprocess = 0;
-	freenull(data->pid.pid);
+	free(data->pid.pid);
 	ft_bzero(&data->pid, sizeof(data->pid));
 }
 
@@ -92,12 +94,6 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 1)
 		return (0);
 	data = ft_init_data(envp);
-<<<<<<< HEAD
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
-=======
->>>>>>> emman
 	while (1)
 	{
 		while (1)

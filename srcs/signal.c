@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:23:51 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 09:43:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:51:13 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,4 @@ void	sig_handler(int sig)
 		else
 			rl_redisplay();
 	}
-	mini_reset(data);
 }
