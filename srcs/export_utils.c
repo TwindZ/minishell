@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:01:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:02:11 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:36:17 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void	init_export(t_data *data)
 	data->exp.swap = NULL;
 }
 
-void	error_export(t_data *data, t_ltkn *temp, int arg)
+int	error_export(t_data *data, t_ltkn *temp, int arg)
 {
 	ft_putstr_fd("Minishell: export: `", STDERR_FILENO);
 	ft_putstr_fd(temp->arg[arg], STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 	data->prevout = 1;
-	return ;
+	return (1);
 }
 
 void	export_sort(t_data *data)

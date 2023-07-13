@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 11:51:52 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:09:30 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,40 @@ void	mini_env(t_data *data)
 
 void	mini_unset(t_data *data, t_ltkn *temp)
 {
-	data->i = 0;
-	data->j = 0;
-	data->unset.to_find = NULL;
-	while (data->envp[data->i])
-		data->i++;
-	data->unset.new_env = ft_safe_calloc(data->i + 1, sizeof(char *), data);
-	data->i = 0;
-	data->unset.to_find = ft_strjoin(temp->arg[1], "=", 0);
-	unset_adjust(data, temp);
-	if (data->unset.new_env[data->j] == NULL)
+	int	i;
+
+	i = 1;
+	while (temp->arg[i])
 	{
-		ft_freeall(data->envp);
-		data->envp = env_cpy(data->unset.new_env, 0, data);
+		data->i = 0;
+		data->j = 0;
+		data->unset.to_find = NULL;
+		while (data->envp[data->i])
+			data->i++;
+		data->unset.new_env = ft_safe_calloc(data->i + 1, sizeof(char *), data);
+		data->i = 0;
+		data->unset.to_find = ft_strjoin(temp->arg[i], "=", 0);
+		unset_adjust(data, temp, i);
+		if (data->unset.new_env[data->j] == NULL)
+		{
+			ft_freeall(data->envp);
+			data->envp = env_cpy(data->unset.new_env, 0, data);
+		}
+		data->prevout = 0;
+		ft_freeall(data->unset.new_env);
+		freenull(data->unset.to_find);
+		i++;
 	}
-	data->prevout = 0;
-	ft_freeall(data->unset.new_env);
-	freenull(data->unset.to_find);
 }
 
-void	unset_adjust(t_data *data, t_ltkn *temp)
+void	unset_adjust(t_data *data, t_ltkn *temp, int i)
 {
 	while (data->envp[data->i])
 	{
-		if (temp->arg[1] == NULL || (ft_isalpha(temp->arg[1][0]) == 0
-			&& temp->arg[1][0] != 95 && temp->arg[1][0] == 47))
+		if (temp->arg[i] == NULL || (ft_isalpha(temp->arg[i][0]) == 0
+			&& temp->arg[i][0] != 95 && temp->arg[i][0] == 47))
 		{
-			unset_error(data, temp);
+			unset_error(data, temp, i);
 			return ;
 		}
 		if (ft_strncmp(data->unset.to_find, data->envp[data->i],
@@ -82,13 +89,13 @@ void	unset_adjust(t_data *data, t_ltkn *temp)
 	}
 }
 
-void	unset_error(t_data *data, t_ltkn *temp)
+void	unset_error(t_data *data, t_ltkn *temp, int i)
 {
 	ft_putstr_fd("Minishell: unset: `", STDERR_FILENO);
-	if (temp->arg[1] == NULL)
+	if (temp->arg[i] == NULL)
 		ft_putstr_fd("", STDERR_FILENO);
 	else
-		ft_putstr_fd(temp->arg[1], STDERR_FILENO);
+		ft_putstr_fd(temp->arg[i], STDERR_FILENO);
 	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
 	data->prevout = 1;
 }

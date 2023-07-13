@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 12:00:03 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 12:21:49 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ void	mini_reset(t_data *data)
 	data->ltkn = NULL;
 	if(data->line)
 		freenull(data->line);
+	data->line = NULL;
 	if(data->read)
 		freenull(data->read);
+	data->read = NULL;
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));

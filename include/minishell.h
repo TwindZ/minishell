@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 11:43:16 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:36:10 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,8 @@ void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	error_directory(t_data *data, t_ltkn *temp);
 void	error_arguments(t_data *data);
 void	mini_unset(t_data *data, t_ltkn *temp);
-void	unset_adjust(t_data *data, t_ltkn *temp);
-void	unset_error(t_data *data, t_ltkn *temp);
+void	unset_adjust(t_data *data, t_ltkn *temp, int i);
+void	unset_error(t_data *data, t_ltkn *temp, int i);
 char	**env_cpy(char **envp, int exp, t_data *data);
 
 void	mini_env(t_data *data);
@@ -252,12 +252,12 @@ void	find_var(t_data *data);
 
 void	mini_export(int fd, t_data *data, t_ltkn *temp);
 void	init_export(t_data *data);
-void	add_to_env(t_data *data, t_ltkn *temp);
+void	add_to_env(t_data *data, t_ltkn *temp, int i);
 void	print_env(int fd, t_data *data);
 void	build_env(t_data *data, char **envp);
-void	add_var(t_data *data, char **envp, t_ltkn *temp);
-void	modif_var(t_data *data, t_ltkn *temp);
-void	error_export(t_data *data, t_ltkn *temp, int arg);
+void	add_var(t_data *data, char **envp, t_ltkn *temp, int i);
+void	modif_var(t_data *data, t_ltkn *temp, int i);
+int		error_export(t_data *data, t_ltkn *temp, int arg);
 void	export_sort(t_data *data);
 
 void	mini_reset(t_data *data);
