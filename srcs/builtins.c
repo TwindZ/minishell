@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 15:59:46 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 21:59:19 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	unset_adjust(t_data *data, t_ltkn *temp)
 		else
 		{
 			data->unset.new_env[data->j] = ft_strdup(data->envp[data->i]);
+			//TODO malloc protect
 			data->j++;
 		}
 		data->i++;

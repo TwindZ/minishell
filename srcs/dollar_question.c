@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_question.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:05:01 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:02:05 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	dollar_question(t_data *data)
 		data->i++;
 		data->i++;
 		out = ft_itoa(data->prevout);
+		// TODO itoa NULL return
 		while (out[i])
 		{
 			data->line[data->j++] = out[i++];

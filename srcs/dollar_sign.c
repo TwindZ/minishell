@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_sign.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 13:10:44 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:04:08 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	dollar_sign(t_data *data)
 		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
+		//TODO si NULL ?
 		freenull(data->dolsign.tocheck);
 		freenull(data->dolsign.towrite);
 	}
@@ -66,7 +67,7 @@ void	make_tocheck(t_data *data)
 		data->dolsign.idx++;
 	}
 	data->dolsign.tocheck = ft_strjoin(data->dolsign.tocheck, "=", 1);
-}
+} // TODO si NULL ?
 
 void	adjust_line(t_data *data)
 {

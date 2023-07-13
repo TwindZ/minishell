@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/11 16:42:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:23:04 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ void	check_dir(t_data *data, t_ltkn *temp, char *arg)
 		}
 		data->prevout = 126;
 		temp->path = ft_strjoin(NULL, "*directory", 0);
+		// TODO si null ?
 	}
 	else
 	{
 		data->pid.count++;
 		temp->path = ft_strdup(arg);
+		//TODO si null ?
 	}
 }
 
@@ -39,6 +41,7 @@ int	path_pre_check(t_data *data, char *arg, t_ltkn *temp)
 	if (is_builtin(arg) == 1)
 	{
 		temp->path = ft_strjoin(temp->path, "*builtin", 0);
+		//TODO si null ?
 		return (1);
 	}
 	if (access(arg, X_OK) == 0)
@@ -61,6 +64,7 @@ char	*create_path(char *prefix, char *sufix)
 	path = NULL;
 	path = ft_strjoin(prefix, "/", 0);
 	path = ft_strjoin(path, sufix, 1);
+	// TODO si null ?
 	if (access(path, X_OK) == 0)
 		return (path);
 	free(path);
@@ -99,6 +103,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 		return ;
 	path_env = getenvp(data, "PATH", 1);
 	paths = ft_split(path_env, ':');
+	//TODO si null ?
 	if (path_env)
 	{
 		freenull(path_env);

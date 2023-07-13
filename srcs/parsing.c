@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:32:52 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:20:36 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	ft_whitespace(t_data *data)
 
 	str = NULL;
 	str = ft_strdup(data->read);
+	//TODO si null?
 	data->i = 0;
 	while ((str[data->i] == ' '
 			|| (str[data->i] >= 9 && str[data->i] <= 13)) && str[data->i])

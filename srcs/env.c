@@ -49,6 +49,7 @@ char	**env_cpy(char **envp, int exp, t_data *data)
 	while (i < j + exp)
 	{
 		enviro[i] = ft_strdup(envp[i]);
+		//TODO si null ?
 		i++;
 	}
 	return (enviro);
@@ -71,6 +72,7 @@ char	*getenvp(t_data *data, char *var, int extract)
 		{
 			data->env.j = data->env.len + 1;
 			data->env.result = ft_strjoin(NULL, "ok", 0);
+			//TODO si null ?
 			return (data->env.result);
 		}
 		data->env.i++;

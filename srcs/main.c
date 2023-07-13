@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 17:55:33 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:16:50 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ t_data	*ft_init_data(char **envp)
 		data = ft_calloc(1, sizeof(t_data));
 		if (!data)
 			exit (1);
+		//TODO erreur ?
 		build_env(data, envp);
+		signal(SIGINT, sig_handler);
+		signal(SIGQUIT, sig_handler);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	return (data);
 }
@@ -82,11 +86,6 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->pid, sizeof(data->pid));
 }
 
-// void	main_core(char **envp)
-// {
-	
-// }
-
 int	main(int argc, char **argv, char **envp)
 {
 	(void) argv;
@@ -95,10 +94,6 @@ int	main(int argc, char **argv, char **envp)
 	t_data				*data;
 
 	data = ft_init_data(envp);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	// signal(SIGQUIT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		while (1)

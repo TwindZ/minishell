@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 14:59:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:19:12 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
 	check_path(data, arg, temp);
 	data->j++;
 	return (temp);
+	//TODO si null ?
 }
 
 void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
