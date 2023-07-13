@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 13:53:57 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 09:54:54 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	check_infile(t_data *data, char **arg)
 	else
 	{
 		data->temp_in_mod = 1;
+		if(data->temp_infile)
+			freenull(data->temp_infile);
 		data->temp_infile = arg[data->i];
 	}
 	if (fd > 2)

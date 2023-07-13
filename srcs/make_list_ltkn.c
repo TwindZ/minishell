@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 22:19:12 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/13 10:05:49 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
 		return (NULL);
 	ltkn->arg[index] = content;
 	ltkn->next = NULL;
+	ltkn->infile = NULL;
+	ltkn->outfile = NULL;
 	return (ltkn);
 }

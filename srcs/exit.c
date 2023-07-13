@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 17:05:00 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 10:10:37 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,14 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 
 void	exit_free(t_data *data)
 {
-	free_list_ltkn(data->ltkn);
-	free (data->read);
-	free (data->line);
+	if(data->ltkn)
+		free_list_ltkn(data->ltkn);
+	if(data->read)
+		freenull(data->read);
+	if(data->line)
+		freenull(data->line);
 	ft_freeall(data->envp);
-	free (data);
+	freenull(data);
 }
 
 void	exit_args(t_data *data, t_ltkn *temp)
