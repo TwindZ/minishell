@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 15:43:42 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:31:06 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	mini_export(int fd, t_data *data, t_ltkn *temp)
 {
 	int	i;
-	
+
 	i = 1;
 	while (temp->arg[i])
 	{

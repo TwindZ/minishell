@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 12:19:30 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:38:37 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	mini_exit(t_data *data, t_ltkn *temp)
 {
-	int child;
-	
+	int	child;
+
 	child = 0;
-	if(data->pid.count > 0)
+	if (data->pid.count > 0)
 		child = data->pid.pid[data->pid.index - 1];
 	data->i = 0;
 	data->j = 0;
@@ -29,7 +29,7 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 		data->prevout = 1;
 		return ;
 	}
-	if(data->pid.count)
+	if (data->pid.count)
 	{
 		kill(child, SIGQUIT);
 		return ;
@@ -44,11 +44,11 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 
 void	exit_free(t_data *data)
 {
-	if(data->ltkn)
+	if (data->ltkn)
 		free_list_ltkn(data->ltkn);
-	if(data->read)
+	if (data->read)
 		freenull(data->read);
-	if(data->line)
+	if (data->line)
 		freenull(data->line);
 	ft_freeall(data->envp);
 	freenull(data);
@@ -56,7 +56,7 @@ void	exit_free(t_data *data)
 
 void	exit_args(t_data *data, t_ltkn *temp)
 {
-	int exitnum;
+	int	exitnum;
 
 	exitnum = 0;
 	if (temp->arg[1][0] == '-' || temp->arg[1][0] == '+')

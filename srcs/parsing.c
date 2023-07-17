@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 12:00:21 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:30:26 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	transform_spaces(t_data *data)
 
 void	write_chars(t_data *data)
 {
-	while (data->read[data->i] >= 33 && data->read[data->i] <= 126
-		&& data->read[data->i] != '$' && data->read[data->i] != '|'
-		&& data->read[data->i] != '<' && data->read[data->i] != '>')
+	while (data->read[data->i] && data->read[data->i] != '$'
+		&& data->read[data->i] != '|' && data->read[data->i] != '<'
+		&& data->read[data->i] != '>' && data->read[data->i] != ' ')
 	{
 		if (data->read[data->i] == '"' || data->read[data->i] == 39)
 			break ;

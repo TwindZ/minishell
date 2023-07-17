@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 15:09:30 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:34:54 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	mini_pwd(int fd, t_data *data)
 {
 	char	buffer[PATH_MAX];
 	char	*cwd;
-	
+
 	cwd = getcwd(buffer, sizeof(buffer));
-	if(!cwd)
+	if (!cwd)
 		cwd = data->lastwd;
 	ft_putstr_fd(cwd, fd);
 	ft_putstr_fd("\n", fd);
@@ -82,7 +82,8 @@ void	unset_adjust(t_data *data, t_ltkn *temp, int i)
 			;
 		else
 		{
-			data->unset.new_env[data->j] = ft_mini_strdup(data->envp[data->i], data);
+			data->unset.new_env[data->j]
+				= ft_mini_strdup(data->envp[data->i], data);
 			data->j++;
 		}
 		data->i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_meta.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 12:00:26 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:30:04 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	check_infile(t_data *data, char **arg)
 	else
 	{
 		data->temp_in_mod = 1;
-		if(data->temp_infile)
+		if (data->temp_infile)
 			freenull(data->temp_infile);
 		data->temp_infile = arg[data->i];
 	}

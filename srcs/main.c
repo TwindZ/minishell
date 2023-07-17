@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 12:21:49 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:37:19 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,42 +42,42 @@ int	parse(t_data *data)
 	if (ft_strlen(data->line) == 0)
 		return (1);
 	make_list_ltkn(data);
-	if(!data->ltkn || data->temp_in_mod == -1)
+	if (!data->ltkn || data->temp_in_mod == -1)
 		return (1);
 	return (0);
 }
 
 void	close_fd(t_data *data)
 {
-	if(data->fd.cmd_in > 2)
+	if (data->fd.cmd_in > 2)
 		close(data->fd.cmd_in);
-	if(data->fd.cmd_next_in > 2)
+	if (data->fd.cmd_next_in > 2)
 		close(data->fd.cmd_next_in);
-	if(data->fd.cmd_out > 2)
+	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
 }
 
 void	mini_reset(t_data *data)
 {
-	if(data->ltkn)
+	if (data->ltkn)
 		free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
-	if(data->line)
+	if (data->line)
 		freenull(data->line);
 	data->line = NULL;
-	if(data->read)
+	if (data->read)
 		freenull(data->read);
 	data->read = NULL;
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));
-	if(data->hd.data)
+	if (data->hd.data)
 		freenull(data->hd.data);
 	ft_bzero(&data->hd, sizeof(data->hd));
-	if(data->temp_infile)
+	if (data->temp_infile)
 		freenull(data->temp_infile);
 	data->temp_infile = NULL;
-	if(data->temp_outfile)
+	if (data->temp_outfile)
 		freenull(data->temp_outfile);
 	data->temp_outfile = NULL;
 	data->temp_in_mod = 0;
@@ -90,9 +90,9 @@ void	mini_reset(t_data *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	(void)	argv;
 	t_data	*data;
-	
+	(void) argv;
+
 	if (argc > 1)
 		return (0);
 	data = ft_init_data(envp);
@@ -101,20 +101,14 @@ int	main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			data->read = readline("Minishell>");
-			// ft_printf("data_read %s", data->read);
 			if(!data->read)
 				mini_exit(data, data->ltkn);
 			data->rdflag = 1;
-			// ft_printf("---------------------------------------\n");
-			// ft_printf("*****************DEBUG*****************\n");
 			if (parse(data))
 			{
 				mini_reset(data);
 				break ;
 			}
-			// print_list(data);
-			// ft_printf("**-^-^-^-^-^-^-^-DEBUG-^-^-^-^-^-^-^-**\n");
-			// ft_printf("---------------------------------------\n");
 			mini_execute(data);
 			ft_waiting(data);
 			mini_reset(data);
