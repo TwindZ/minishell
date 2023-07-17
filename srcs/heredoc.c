@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 16:48:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:40:30 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	heredoc(t_data *data, char *delimiter)
 			free(data->readhd);
 		data->hd.data = ft_mini_strjoin(data->hd.data, "\n", 1, data);
 	}
+	// free(delimiter);
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	set_hd_io(data);
 	ft_putstr_fd(data->hd.data, STDOUT_FILENO);
