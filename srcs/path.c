@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 11:07:31 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:17:29 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 		return ;
 	path_env = getenvp(data, "PATH", 1);
 	paths = ft_split(path_env, ':');
-	//TODO si null ?
 	if (path_env)
 	{
 		free(path_env);
