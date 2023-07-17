@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn_util.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:25:23 by emman             #+#    #+#             */
-/*   Updated: 2023/07/12 22:18:01 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/17 11:13:46 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,42 @@ void	print_list(t_data *data)
 		ft_printf("frontpipe : %i\n\n", temp->front_pipe);
 		temp = temp->next;
 	}
+}
+
+t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
+{
+	int	nbarg;
+
+	nbarg = 0;
+	nbarg = ft_count_arg(arg, data->i);
+	if (!data->ltkn)
+	{
+		temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+		data->ltkn = temp;
+	}
+	else
+	{
+		temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
+		temp = temp->next;
+	}
+	check_path(data, arg, temp);
+	data->j++;
+	return (temp);
+}
+
+t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
+{
+	t_ltkn	*ltkn;
+
+	ltkn = ft_calloc(1, sizeof(t_ltkn));
+	if (!ltkn)
+		return (NULL);
+	ltkn->arg = ft_calloc(nbarg + 1, sizeof(char *));
+	if (!ltkn)
+		return (NULL);
+	ltkn->arg[index] = content;
+	ltkn->next = NULL;
+	ltkn->infile = NULL;
+	ltkn->outfile = NULL;
+	return (ltkn);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/12 15:11:18 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/07/17 10:59:14 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS =	main.c					\
 		signal.c				\
 		ft_safe_calloc.c		\
 		dshd.c					\
+		dshd_util.c				\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/

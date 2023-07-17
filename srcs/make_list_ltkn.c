@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 09:59:37 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:12:41 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,6 @@ int	ft_count_arg(char **arg, int i)
 	while ((ft_strncmp(arg[i], "|\0", 2)) && arg[i++])
 		j++;
 	return (j);
-}
-
-t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
-{
-	int	nbarg;
-
-	nbarg = 0;
-	nbarg = ft_count_arg(arg, data->i);
-	if (!data->ltkn)
-	{
-		temp = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
-		data->ltkn = temp;
-	}
-	else
-	{
-		temp->next = ft_lstnew_tkn(arg[data->i], nbarg, data->j);
-		temp = temp->next;
-	}
-	check_path(data, arg, temp);
-	data->j++;
-	return (temp);
-	//TODO si null ?
 }
 
 void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
@@ -63,19 +41,8 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 	}
 }
 
-// TODO if (!arg)
-void	make_list_ltkn(t_data *data)
+void	create_list(t_data *data, t_ltkn *temp, char **arg)
 {
-	char	**arg;
-	t_ltkn	*temp;
-
-	temp = NULL;
-	data->i = 0;
-	data->j = 0;
-	arg = NULL;
-	arg = ft_split(data->line, 29);
-	if (!arg)
-		return ;
 	while (arg[data->i])
 	{
 		if (data->j == 0 && is_meta(data, arg) == 0
@@ -90,24 +57,22 @@ void	make_list_ltkn(t_data *data)
 			set_redirect(data, arg, temp);
 		data->i++;
 	}
+}
+
+void	make_list_ltkn(t_data *data)
+{
+	char	**arg;
+	t_ltkn	*temp;
+
+	temp = NULL;
+	data->i = 0;
+	data->j = 0;
+	arg = NULL;
+	arg = ft_split(data->line, 29);
+	if (!arg)
+		return ;
+	create_list(data, temp, arg);
 	if (arg)
 		free(arg);
 	arg = NULL;
-}
-
-t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index)
-{
-	t_ltkn	*ltkn;
-
-	ltkn = ft_calloc(1, sizeof(t_ltkn));
-	if (!ltkn)
-		return (NULL);
-	ltkn->arg = ft_calloc(nbarg + 1, sizeof(char *));
-	if (!ltkn)
-		return (NULL);
-	ltkn->arg[index] = content;
-	ltkn->next = NULL;
-	ltkn->infile = NULL;
-	ltkn->outfile = NULL;
-	return (ltkn);
 }

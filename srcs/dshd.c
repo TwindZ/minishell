@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dshd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:21:44 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 10:40:55 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:02:38 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-void	dshd_init(t_data *data)
-{
-	data->dshd.templine = NULL;
-	data->dshd.vardata = NULL;
-	data->dshd.var = NULL;
-	data->dshd.varlen = 0;
-	data->dshd.j = 0;
-	data->dshd.i = 0;
-	data->dshd.k = 0;
-	data->dshd.save_j = 0;
-}
-
-int	dollar(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int	var_char(char c)
-{
-	if (ft_isalnum(c) || c == '_')
-		return (1);
-	return (0);
-}
 
 void	read_maker(t_data *data)
 {
@@ -82,11 +49,23 @@ void	get_var_data(t_data *data)
 	if (!data->dshd.var)
 		exit_free(data, 1);
 	data->dshd.vardata = getenvp(data, data->dshd.var, 1);
-	if (!data->dshd.vardata)
-		exit_free(data, 1);
 	free(data->readhd);
 	data->readhd = ft_safe_calloc(ft_strlen(data->dshd.vardata)
 			+ ft_strlen(data->dshd.templine) + 2, sizeof(char), data);
+}
+
+void	dol_resolve(t_data *data)
+{
+	if (data->dshd.varlen == 0)
+	{
+		data->dshd.templine[data->dshd.j - 1] = 29;
+		data->readhd = ft_mini_strdup(data->dshd.templine, data);
+	}
+	else
+	{
+		get_var_data(data);
+		read_maker(data);
+	}
 }
 
 void	dshd(t_data *data)
@@ -104,16 +83,7 @@ void	dshd(t_data *data)
 			&& var_char(data->dshd.templine[data->dshd.j]))
 			data->dshd.j++;
 		data->dshd.varlen = data->dshd.j - (data->dshd.save_j + 1);
-		if (data->dshd.varlen == 0)
-		{
-			data->dshd.templine[data->dshd.j - 1] = 29;
-			data->readhd = ft_mini_strdup(data->dshd.templine, data);
-		}
-		else
-		{
-			get_var_data(data);
-			read_maker(data);
-		}
+		dol_resolve(data);
 	}
 	data->dshd.i = 0;
 	while (data->readhd[data->dshd.i])
