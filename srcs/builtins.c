@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 08:34:54 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:29:17 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 		}
 		data->prevout = 0;
 		ft_freeall(data->unset.new_env);
-		freenull(data->unset.to_find);
+		free(data->unset.to_find);
 		i++;
 	}
 }
