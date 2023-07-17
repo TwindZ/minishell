@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/16 21:34:15 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/17 10:41:49 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	ft_waiting(t_data *data)
 			else
 				data->prevout = WTERMSIG(status);
 		}
-		data->exit_out = 0;
 	}
+	data->exit_out = 0;
 }
 
 void	mini_execute(t_data *data)
