@@ -6,7 +6,11 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/07/17 10:57:38 by fbouchar         ###   ########.fr       */
+=======
+/*   Updated: 2023/07/17 11:11:56 by emlamoth         ###   ########.fr       */
+>>>>>>> emman
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +228,8 @@ void	remake_line(t_data *data, char meta);
 void	place_tab(t_data *data, char meta);
 
 t_ltkn	*ft_lstnew_tkn(char *content, int nbarg, int index);
+t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp);
+int		ft_count_arg(char **arg, int i);
 void	make_list_ltkn(t_data *data);
 void	print_list(t_data *data);
 void	free_ltkn(t_ltkn *ltkn);
@@ -272,4 +278,7 @@ void	ft_waiting(t_data *data);
 void	*ft_mini_strdup(const char *s, t_data *data);
 void	set_redirection(t_data *data, t_ltkn *temp);
 char	*ft_mini_strjoin(char *s1, char *s2, int fr, t_data *data);
+void	dshd_init(t_data *data);
+int		dollar(char *line);
+int		var_char(char c);
 #endif

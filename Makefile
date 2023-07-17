@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
+#    By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/17 11:01:38 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/07/17 11:16:06 by emlamoth         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS =	main.c					\
 		ft_safe_calloc.c		\
 		ft_mini_strjoin.c		\
 		dshd.c					\
+		dshd_util.c				\
 	
 LIBRLINE = readline-8.2
 LIBRLINE_DIR = ./libs/readline/
