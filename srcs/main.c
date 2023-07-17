@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 11:31:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:33:09 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	mini_reset(t_data *data)
 	data->temp_out_mod = 0;
 	data->hdprocess = 0;
 	data->exeprocess = 0;
+	data->syntax = 0;
 	free(data->pid.pid);
 	ft_bzero(&data->pid, sizeof(data->pid));
 }

@@ -1,4 +1,0 @@
-
-Notes :
-
--	regarder si c'est execv qui gère l'intérieur des double ou single quotes.

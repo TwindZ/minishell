@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 10:44:24 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:36:53 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,8 @@ void	mini_execute(t_data *data)
 	{
 		meta_replace(temp);
 		set_redirection(data, temp);
+		if (data->syntax)
+			return ;
 		if (!temp->path || ft_strncmp(temp->path, "*directory", 10) == 0)
 			break ;
 		else if (strncmp(temp->path, "*builtin", 9) == 0)
