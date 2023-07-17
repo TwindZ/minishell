@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 12:36:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:07:05 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	set_io(t_data *data)
 	data->exe_flag.file_out = 0;
 }
 
-void	executer(t_data *data, char *path, char **argv)
+void	executer(t_data *data, t_ltkn *temp)
 {
 	data->exeprocess = 1;
 	data->pid.pid[data->pid.index] = fork();
@@ -57,8 +57,11 @@ void	executer(t_data *data, char *path, char **argv)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		set_io(data);
-		if (execve(path, argv, data->envp) == -1)
+		if (execve(temp->path, temp->arg, data->envp) == -1)
+		{
+			ft_freeall(data->envp);
 			exit(EXIT_FAILURE);
+		}
 	}
 	else
 	{
@@ -118,7 +121,7 @@ void	mini_execute(t_data *data)
 		else if (strncmp(temp->path, "*builtin", 9) == 0)
 			builtin(data, temp);
 		else if (temp->path)
-			executer(data, temp->path, temp->arg);
+			executer(data, temp);
 		temp = temp->next;
 		data->exe_flag.file_out = 0;
 	}

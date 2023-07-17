@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 11:08:54 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:47:34 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_list_ltkn(t_ltkn *ltkn)
 
 void	free_reset(t_data *data)
 {
-	if (data->ltkn)
+	if (data->ltkn && data->execve_free == 0)
 		free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
 	if (data->line)

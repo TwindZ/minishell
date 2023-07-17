@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:25:23 by emman             #+#    #+#             */
-/*   Updated: 2023/07/17 11:13:46 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 17:08:43 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp)
 	{
 		temp->front_pipe = 1;
 		data->j = 0;
+		// free(arg[data->i]);
 		return ;
 	}
 	else if (is_meta(data, arg))

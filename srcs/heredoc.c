@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 11:00:39 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:48:17 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	heredoc(t_data *data, char *delimiter)
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
 		dshd(data);
-		data->hd.data = ft_mini_strjoin(data->hd.data, data->readhd, 0, data);
+		data->hd.data = ft_mini_strjoin(data->hd.data, data->readhd, 1, data);
 		if (data->readhd)
 			free(data->readhd);
 		data->hd.data = ft_mini_strjoin(data->hd.data, "\n", 1, data);
@@ -55,7 +55,8 @@ void	heredoc(t_data *data, char *delimiter)
 	ft_putstr_fd(data->hd.data, STDOUT_FILENO);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
-	exit(0);
+	mini_reset(data);
+	exit_free(data, 1);
 }
 
 void	heredoc_set(t_data *data, char *delimiter)

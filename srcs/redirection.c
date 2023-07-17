@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 09:58:23 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:03:51 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	ft_pipe(t_data *data)
 {
 	int	fd[2];
 
-	pipe(fd);
+	if(pipe(fd) == -1)
+		exit (-1);
 	data->fd.cmd_next_in = fd[0];
 	data->exe_flag.back_pipe = 1;
 	if (data->exe_flag.file_out == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 11:17:29 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:42:14 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	paths = NULL;
 	if (path_pre_check(data, arg[data->i], temp))
 		return ;
-	path_env = getenvp(data, "PATH", 1);
+	path_env = getenvp(data, "PATH=", 1);
 	paths = ft_split(path_env, ':');
 	if (path_env)
 	{
