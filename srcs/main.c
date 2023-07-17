@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 11:31:17 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:37:55 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	mini_reset(t_data *data)
 		free(data->temp_outfile);
 	if (data->lastwd)
 		free(data->lastwd);
+	data->lastwd = NULL;
 	data->temp_outfile = NULL;
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;

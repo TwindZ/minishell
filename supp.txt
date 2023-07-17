@@ -1,25 +1,40 @@
-
 {
-	leak readline
-	Memcheck:Leak
-	...
-	fun:readline
+   add_history
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:add_history
+   ...
 }
 {
-	leak add_history
-	Memcheck:Leak
-	...
-	fun:add_history
+   readline
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:readline
+   ...
 }
 {
-	leak NXMapRemove
-	Memcheck:Leak
-	...
-	fun:NXMapRemove
+   fork
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:fork
+   ...
 }
 {
-    leak fork
-    Memcheck:Leak
-    ...
-    fun:fork
+   libSystem_atfork_child
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:  fun:libSystem_atfork_child
+   ...
+}
+{
+   xpc_atfork_child
+   Memcheck:Leak
+   match-leak-kinds: all
+   ...
+   fun:xpc_atfork_child
+   ...
 }
