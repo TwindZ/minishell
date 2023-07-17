@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:17:06 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 08:31:10 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:49:51 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	echo_print(int fd, t_ltkn *temp, t_data *data)
 	}
 	else if (ft_strncmp(temp->arg[data->i], "-n\0", 3) && data->flag == 0)
 	{
-		meta_replace(temp);
 		ft_putstr_fd(temp->arg[data->i], fd);
 		if (ft_strncmp(temp->arg[data->i + 1], "-n\0", 3))
 			data->flag = 0;

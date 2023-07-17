@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 09:35:19 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:58:53 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	write_chars(t_data *data)
 	}
 }
 
-void *ft_mini_strdup(const char *s, t_data *data)
+void	*ft_mini_strdup(const char *s, t_data *data)
 {
 	void	*str;
 

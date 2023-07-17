@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/16 21:26:14 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/17 09:58:23 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	open_infile(t_data *data, char *file)
 	}
 }
 
-void set_redirection(t_data *data, t_ltkn *temp)
+void	set_redirection(t_data *data, t_ltkn *temp)
 {
-		data->exe_flag.front_pipe = temp->front_pipe;
+	data->exe_flag.front_pipe = temp->front_pipe;
 	if (temp->in_mod == 1)
 		open_infile(data, temp->infile);
 	if (temp->in_mod == 2)

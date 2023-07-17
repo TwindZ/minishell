@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 09:35:06 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:30:48 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	mini_reset(t_data *data)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	*data;
-	(void) argv;
 
+	(void) argv;
 	if (argc > 1)
 		return (0);
 	data = ft_init_data(envp);
@@ -115,4 +115,3 @@ int	main(int argc, char **argv, char **envp)
 		}
 	}
 }
-//TODO reconvertir les caratere qui on ete changer durant le parsing

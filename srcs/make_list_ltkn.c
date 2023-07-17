@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_list_ltkn.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 15:04:08 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:59:37 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	make_list_ltkn(t_data *data)
 	data->j = 0;
 	arg = NULL;
 	arg = ft_split(data->line, 29);
-	if(!arg)
+	if (!arg)
 		return ;
 	while (arg[data->i])
 	{
@@ -83,13 +83,14 @@ void	make_list_ltkn(t_data *data)
 			temp = new_node(data, arg, temp);
 		else
 			build_cmd_param(data, arg, temp);
-		if (arg[data->i] == NULL || data->temp_in_mod == -1 || data->syntax == -1)
+		if (arg[data->i] == NULL || data->temp_in_mod == -1
+			|| data->syntax == -1)
 			break ;
 		if (temp)
 			set_redirect(data, arg, temp);
 		data->i++;
 	}
-	if(arg)
+	if (arg)
 		free(arg);
 	arg = NULL;
 }

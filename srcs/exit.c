@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 09:31:49 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:00:38 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	exit_free(t_data *data, int ex)
 	if (ex)
 		exit(1);
 }
+
 void	exit_args_err(t_data *data, t_ltkn *temp)
 {
 	ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);

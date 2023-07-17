@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:47:35 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 08:51:38 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:49:59 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	replace_meta(t_data *data)
 		data->i++;
 	}
 }
-//TODO changer les caractères pour du ascii ou du non imprimable.
+
 void	meta_replace(t_ltkn *temp)
 {
 	int	i;

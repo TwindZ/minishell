@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_meta.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 09:36:22 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:57:44 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ void	set_heredoc(t_data *data, char **arg)
 	arg[data->i] = NULL;
 	data->i++;
 	if (arg[data->i] && is_meta(data, arg) == 0
-		&& ft_strncmp(arg[data->i], "|\0", 2) && ft_strncmp(arg[data->i], "\n", 2))
+		&& ft_strncmp(arg[data->i], "|\0", 2)
+		&& ft_strncmp(arg[data->i], "\n", 2))
 	{
 		data->temp_in_mod = 2;
 		data->temp_infile = arg[data->i];
