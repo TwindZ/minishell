@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 14:45:48 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/15 14:34:01 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_waiting(t_data *data)
 		waitpid(data->pid.pid[data->pid.index], &status, 0);
 		data->pid.index++;
 		data->pid.count--;
-		if (WIFEXITED(status))
+		if (WIFEXITED(status) && data->exit_out == 0)
 			data->prevout = WEXITSTATUS(status);
 		else if (WIFSIGNALED(status))
 		{
@@ -96,6 +96,7 @@ void	ft_waiting(t_data *data)
 			else
 				data->prevout = WTERMSIG(status);
 		}
+		data->exit_out = 0;
 	}
 }
 

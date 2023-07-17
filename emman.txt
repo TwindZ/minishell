@@ -47,9 +47,11 @@ env | grep PATH > test | ls > test2 | < Makefile echo | < Makefile cat -e
 export test=$USER | env | grep test | > testlol cat -e
 
 leak heredoc
-$ seul heredoc
+$ seul heredoc fait
 $? leaks
 accent
 replace meta
 
 
+ls | exit 56 ok
+parsing.c:23 pour les é
