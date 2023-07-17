@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:47:35 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/12 11:22:25 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 08:51:38 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	replace_meta(t_data *data)
 		|| data->read[data->i] == '>')
 	{
 		if (data->read[data->i] == '|')
-			data->line[data->j++] = '?';
+			data->line[data->j++] = 28;
 		if (data->read[data->i] == '<')
-			data->line[data->j++] = '%';
+			data->line[data->j++] = 30;
 		if (data->read[data->i] == '>')
-			data->line[data->j++] = '@';
+			data->line[data->j++] = 31;
 		data->i++;
 	}
 }
@@ -38,11 +38,11 @@ void	meta_replace(t_ltkn *temp)
 		i = 0;
 		while (temp->arg[j][i])
 		{
-			if (temp->arg[j][i] == '?')
+			if (temp->arg[j][i] == 28)
 				temp->arg[j][i++] = '|';
-			else if (temp->arg[j][i] == '%')
+			else if (temp->arg[j][i] == 30)
 				temp->arg[j][i++] = '<';
-			else if (temp->arg[j][i] == '@')
+			else if (temp->arg[j][i] == 31)
 				temp->arg[j][i++] = '>';
 			else
 				i++;
