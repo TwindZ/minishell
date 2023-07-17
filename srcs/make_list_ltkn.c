@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 09:59:37 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:13:19 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_ltkn	*new_node(t_data *data, char **arg, t_ltkn *temp)
 	check_path(data, arg, temp);
 	data->j++;
 	return (temp);
-	//TODO si null ?
 }
 
 void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
@@ -63,7 +62,6 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 	}
 }
 
-// TODO if (!arg)
 void	make_list_ltkn(t_data *data)
 {
 	char	**arg;

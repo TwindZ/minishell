@@ -70,8 +70,7 @@ char	*getenvp(t_data *data, char *var, int extract)
 			&& extract == 0)
 		{
 			data->env.j = data->env.len + 1;
-			data->env.result = ft_strjoin(NULL, "ok", 0);
-			//TODO si null ?
+			data->env.result = ft_mini_strjoin(NULL, "ok", 0, data);
 			return (data->env.result);
 		}
 		data->env.i++;

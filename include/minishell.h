@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 09:34:03 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 10:57:38 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,6 +261,7 @@ int		error_export(t_data *data, t_ltkn *temp, int arg);
 void	export_sort(t_data *data);
 
 void	mini_reset(t_data *data);
+void	free_reset(t_data *data);
 t_data	*ft_init_data(char **envp);
 void	main_core(char **envp);
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data);
@@ -270,4 +271,5 @@ int		is_builtin(char *arg);
 void	ft_waiting(t_data *data);
 void	*ft_mini_strdup(const char *s, t_data *data);
 void	set_redirection(t_data *data, t_ltkn *temp);
+char	*ft_mini_strjoin(char *s1, char *s2, int fr, t_data *data);
 #endif

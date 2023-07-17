@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 15:05:03 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:07:31 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	check_dir(t_data *data, t_ltkn *temp, char *arg)
 			temp->path = NULL;
 		}
 		data->prevout = 126;
-		temp->path = ft_strjoin(NULL, "*directory", 0);
-		// TODO si null ?
+		temp->path = ft_mini_strjoin(NULL, "*directory", 0, data);
 	}
 	else
 	{
@@ -39,8 +38,7 @@ int	path_pre_check(t_data *data, char *arg, t_ltkn *temp)
 {
 	if (is_builtin(arg) == 1)
 	{
-		temp->path = ft_strjoin(temp->path, "*builtin", 0);
-		//TODO si null ?
+		temp->path = ft_mini_strjoin(temp->path, "*builtin", 0, data);
 		return (1);
 	}
 	if (access(arg, X_OK) == 0)
@@ -56,14 +54,13 @@ int	path_pre_check(t_data *data, char *arg, t_ltkn *temp)
 	return (0);
 }
 
-char	*create_path(char *prefix, char *sufix)
+char	*create_path(char *prefix, char *sufix, t_data *data)
 {
 	char	*path;
 
 	path = NULL;
-	path = ft_strjoin(prefix, "/", 0);
-	path = ft_strjoin(path, sufix, 1);
-	// TODO si null ?
+	path = ft_mini_strjoin(prefix, "/", 0, data);
+	path = ft_mini_strjoin(path, sufix, 1, data);
 	if (access(path, X_OK) == 0)
 		return (path);
 	free(path);
@@ -80,7 +77,7 @@ void	find_path(t_data *data, t_ltkn *temp, char **paths, char **arg)
 	{
 		if (temp->path)
 			free(temp->path);
-		temp->path = create_path(paths[i], arg[data->i]);
+		temp->path = create_path(paths[i], arg[data->i], data);
 		if (temp->path)
 		{
 			data->pid.count++;

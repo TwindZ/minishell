@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 10:00:18 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:00:39 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,10 @@ void	heredoc(t_data *data, char *delimiter)
 		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
 			break ;
 		dshd(data);
-		data->hd.data = ft_strjoin(data->hd.data, data->readhd, 0);
-		//TODO si null
+		data->hd.data = ft_mini_strjoin(data->hd.data, data->readhd, 0, data);
 		if (data->readhd)
 			free(data->readhd);
-		data->hd.data = ft_strjoin(data->hd.data, "\n", 1);
-		// TODO si null ?
+		data->hd.data = ft_mini_strjoin(data->hd.data, "\n", 1, data);
 	}
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	set_hd_io(data);
