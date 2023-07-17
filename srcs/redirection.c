@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 11:56:13 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:26:14 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,17 @@ void	open_infile(t_data *data, char *file)
 		ft_putstr_fd(": No such file or directory\n", 2);
 		data->prevout = 1;
 	}
+}
+
+void set_redirection(t_data *data, t_ltkn *temp)
+{
+		data->exe_flag.front_pipe = temp->front_pipe;
+	if (temp->in_mod == 1)
+		open_infile(data, temp->infile);
+	if (temp->in_mod == 2)
+		heredoc_set(data, temp->infile);
+	if (temp->out_mod > 0)
+		open_outfile(data, temp->outfile, temp->out_mod);
+	if (temp->front_pipe)
+		ft_pipe(data);
 }

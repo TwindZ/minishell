@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:57:04 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 10:31:35 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:00:12 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	*ft_safe_calloc(size_t count, size_t size, t_data *data)
 	if (!a)
 	{
 		free_list_ltkn(data->ltkn);
-		freenull(data->read);
-		freenull(data->line);
+		free(data->read);
+		free(data->line);
 		ft_freeall(data->envp);
-		freenull(data);
+		free(data);
 		ft_putstr_fd("Memory Fatal ERROR!!!!", STDERR_FILENO);
 		exit(1);
 	}

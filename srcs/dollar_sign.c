@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_sign.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 08:39:08 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:29:55 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	dollar_sign(t_data *data)
 		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
 		if (data->dolsign.towrite != NULL)
 			adjust_line(data);
-		//TODO si NULL ?
-		freenull(data->dolsign.tocheck);
-		freenull(data->dolsign.towrite);
+		free(data->dolsign.tocheck);
+		free(data->dolsign.towrite);
 	}
 }
 
@@ -67,7 +66,7 @@ void	make_tocheck(t_data *data)
 		data->dolsign.idx++;
 	}
 	data->dolsign.tocheck = ft_strjoin(data->dolsign.tocheck, "=", 1);
-} // TODO si NULL ?
+}
 
 void	adjust_line(t_data *data)
 {
@@ -79,7 +78,7 @@ void	adjust_line(t_data *data)
 		data->dolsign.i++;
 	}
 	data->dolsign.i = 0;
-	freenull(data->line);
+	free(data->line);
 	data->line = ft_safe_calloc((data->dolsign.linelen
 				+ data->dolsign.towritelen
 				+ ft_strlen(data->read) + 2), sizeof(char), data);
@@ -92,7 +91,7 @@ void	adjust_line(t_data *data)
 	while (data->dolsign.towritelen-- != 0)
 		data->line[data->j++] = data->dolsign.towrite[data->dolsign.i++];
 	if (data->linetemp != NULL)
-		freenull(data->linetemp);
+		free(data->linetemp);
 }
 
 void	init_adjust(t_data *data)
