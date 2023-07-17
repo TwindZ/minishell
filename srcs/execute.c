@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/15 14:34:01 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/16 21:34:15 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,15 +109,8 @@ void	mini_execute(t_data *data)
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
-		data->exe_flag.front_pipe = temp->front_pipe;
-		if (temp->in_mod == 1)
-			open_infile(data, temp->infile);
-		if (temp->in_mod == 2)
-			heredoc_set(data, temp->infile);
-		if (temp->out_mod > 0)
-			open_outfile(data, temp->outfile, temp->out_mod);
-		if (temp->front_pipe)
-			ft_pipe(data);
+		// meta_replace(temp);
+		set_redirection(data, temp);
 		if (!temp->path || ft_strncmp(temp->path, "*directory", 10) == 0)
 			break ;
 		else if (strncmp(temp->path, "*builtin", 9) == 0)
