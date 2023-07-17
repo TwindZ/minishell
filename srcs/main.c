@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 09:17:21 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:35:06 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,22 +63,22 @@ void	mini_reset(t_data *data)
 		free_list_ltkn(data->ltkn);
 	data->ltkn = NULL;
 	if (data->line)
-		freenull(data->line);
+		free(data->line);
 	data->line = NULL;
 	if (data->read)
-		freenull(data->read);
+		free(data->read);
 	data->read = NULL;
 	ft_bzero(&data->exe_flag, sizeof(data->exe_flag));
 	close_fd(data);
 	ft_bzero(&data->fd, sizeof(data->fd));
 	if (data->hd.data)
-		freenull(data->hd.data);
+		free(data->hd.data);
 	ft_bzero(&data->hd, sizeof(data->hd));
 	if (data->temp_infile)
-		freenull(data->temp_infile);
+		free(data->temp_infile);
 	data->temp_infile = NULL;
 	if (data->temp_outfile)
-		freenull(data->temp_outfile);
+		free(data->temp_outfile);
 	data->temp_outfile = NULL;
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;
@@ -101,7 +101,7 @@ int	main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			data->read = readline("Minishell>");
-			if(!data->read)
+			if (!data->read)
 				mini_exit(data, data->ltkn);
 			data->rdflag = 1;
 			if (parse(data))

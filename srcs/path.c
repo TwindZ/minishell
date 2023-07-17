@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 11:54:42 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:05:03 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	find_path(t_data *data, t_ltkn *temp, char **paths, char **arg)
 	while (paths[i])
 	{
 		if (temp->path)
-			freenull(temp->path);
+			free(temp->path);
 		temp->path = create_path(paths[i], arg[data->i]);
 		if (temp->path)
 		{
@@ -105,7 +105,7 @@ void	check_path(t_data *data, char **arg, t_ltkn *temp)
 	//TODO si null ?
 	if (path_env)
 	{
-		freenull(path_env);
+		free(path_env);
 	}
 	if (paths)
 		find_path(data, temp, paths, arg);

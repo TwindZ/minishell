@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:54:41 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 08:30:26 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/17 09:35:19 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ int	ft_whitespace(t_data *data)
 		data->i++;
 	if (str[data->i] == '\0')
 	{
-		freenull(str);
+		free(str);
 		return (0);
 	}
-	freenull(str);
+	free(str);
 	return (1);
 }
 
@@ -72,4 +72,14 @@ void	write_chars(t_data *data)
 			break ;
 		data->line[data->j++] = data->read[data->i++];
 	}
+}
+
+void *ft_mini_strdup(const char *s, t_data *data)
+{
+	void	*str;
+
+	str = NULL;
+	str = ft_safe_calloc(ft_strlen(s) + 1, sizeof(char), data);
+	ft_memcpy(str, s, ft_strlen(s) + 1);
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/13 12:00:08 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/13 15:04:08 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 		data->temp_out_mod = 0;
 		data->temp_infile = NULL;
 		data->temp_outfile = NULL;
-		freenull(arg[data->i]);
+		free(arg[data->i]);
 	}
 }
 
