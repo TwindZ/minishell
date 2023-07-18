@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 14:25:11 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:04:43 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct s_data
 	int			syntax;
 	char		*lastwd;
 	int			execve_free;
+	int			hdpid;
 }				t_data;
 
 void	mini_execute(t_data *data);

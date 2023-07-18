@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 13:40:32 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:15:09 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	heredoc(t_data *data, t_ltkn *temp)
 
 void	heredoc_set(t_data *data, t_ltkn *temp)
 {
+	if(data->hdpid > 0)
+		waitpid(data->hdpid, NULL, 0);
 	data->hd.i = 0;
 	if (data->fd.cmd_in > 2)
 		close(data->fd.cmd_in);
@@ -79,6 +81,7 @@ void	heredoc_set(t_data *data, t_ltkn *temp)
 		if (data->fd.cmd_out > 2)
 			close(data->fd.cmd_out);
 		data->fd.cmd_in = data->fd.cmd_next_in;
+		data->hdpid = data->pid.pid[data->pid.index];
 	}
 	data->pid.index++;
 	data->hdprocess = 0;
