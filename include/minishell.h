@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 13:02:46 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:11:16 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ void	mini_exit(t_data *data, t_ltkn *temp);
 void	exit_free(t_data *data, int ex);
 void	exit_args(t_data *data, t_ltkn *temp);
 void	mini_cd(t_data *data, t_ltkn *temp);
+void	change_oldpwd(t_data *data);
 void	change_dir(t_data *data, t_ltkn *temp, char *home);
 void	error_directory(t_data *data, t_ltkn *temp);
 void	error_arguments(t_data *data);
