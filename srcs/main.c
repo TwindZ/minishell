@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 17:41:45 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 07:36:18 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,14 @@ int	main(int argc, char **argv, char **envp)
 	{
 		while (1)
 		{
+			// int i;
+			// i = 0
+			// char **dest;
+			// dest = ft_tabcpy(data->envp);
+			// while(dest[i])
+			// {
+			// 	i++;
+			// }
 			data->read = readline("Minishell>");
 			if (!data->read)
 				mini_exit(data, data->ltkn);
