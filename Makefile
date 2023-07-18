@@ -6,7 +6,7 @@
 #    By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 10:27:08 by emlamoth          #+#    #+#              #
-#    Updated: 2023/07/18 14:12:10 by fbouchar         ###   ########.fr        #
+#    Updated: 2023/07/18 14:30:42 by fbouchar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS =	main.c					\
 		export_utils.c			\
 		echo.c					\
 		cd.c					\
+		cd_utils.c				\
 		exit.c					\
 		signal.c				\
 		ft_safe_calloc.c		\
