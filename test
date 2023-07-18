@@ -1,0 +1,8 @@
+Makefile
+include
+libs
+minishell
+minishell.dSYM
+srcs
+supp.txt
+test
