@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/18 13:37:05 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:26:49 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 	{
 		temp->in_mod = data->temp_in_mod;
 		temp->out_mod = data->temp_out_mod;
-		if(temp->infile)
-			free(temp->infile);
-		if(temp->outfile)
-			free(temp->outfile);
-		temp->outfile = NULL;
-		temp->infile = NULL;
+		// if(temp->infile)
+		// 	free(temp->infile);
+		// if(temp->outfile)
+		// 	free(temp->outfile);
+		// temp->outfile = NULL;
+		// temp->infile = NULL;
 		temp->infile = ft_mini_strdup(data->temp_infile, data);
 		temp->outfile = ft_mini_strdup(data->temp_outfile, data);
 		free(data->temp_outfile);

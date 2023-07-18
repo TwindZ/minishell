@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 12:37:18 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:30:19 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	set_out(t_data *data, char **arg, int mod)
 		data->temp_out_mod = mod;
 		if (data->temp_outfile)
 			free(data->temp_outfile);
-		data->temp_outfile = arg[data->i];
+		data->temp_outfile = NULL;
+		data->temp_outfile = ft_mini_strdup(arg[data->i], data);
 	}
 	else
 	{
@@ -56,7 +57,8 @@ void	check_infile(t_data *data, char **arg)
 		data->temp_in_mod = 1;
 		if (data->temp_infile)
 			free(data->temp_infile);
-		data->temp_infile = arg[data->i];
+		data->temp_infile = NULL;
+		data->temp_infile = ft_mini_strdup(arg[data->i], data);
 	}
 	if (fd > 2)
 		close (fd);
@@ -93,7 +95,7 @@ void	set_heredoc(t_data *data, char **arg)
 		&& ft_strncmp(arg[data->i], "\n", 2))
 	{
 		data->temp_in_mod = 2;
-		data->temp_infile = arg[data->i];
+		data->temp_infile = ft_mini_strdup(arg[data->i], data);;
 	}
 	else
 	{

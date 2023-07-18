@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 14:46:12 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:07:53 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	open_infile(t_data *data, char *file)
 
 void	set_redirection(t_data *data, t_ltkn *temp)
 {
+	dup2(STDOUT_FILENO, data->fd.cmd_out);
 	data->exe_flag.front_pipe = temp->front_pipe;
 	if (temp->in_mod == 1)
 		open_infile(data, temp->infile);
