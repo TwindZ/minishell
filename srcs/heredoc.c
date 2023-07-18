@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 17:15:09 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:17:51 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	heredoc(t_data *data, t_ltkn *temp)
 	{
 		data->hd.i = 0;
 		data->readhd = readline(">");
-		if (ft_strncmp(data->readhd, temp->infile, ft_strlen(temp->infile) + 1) == 0)
+		if (ft_strncmp(data->readhd, temp->infile,
+				ft_strlen(temp->infile) + 1) == 0)
 			break ;
 		dshd(data);
 		data->hd.data = ft_mini_strjoin(data->hd.data, data->readhd, 1, data);
@@ -53,7 +54,7 @@ void	heredoc(t_data *data, t_ltkn *temp)
 	}
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	set_hd_io(data);
-	if(data->hd.data)
+	if (data->hd.data)
 		ft_putstr_fd(data->hd.data, STDOUT_FILENO);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
@@ -64,7 +65,7 @@ void	heredoc(t_data *data, t_ltkn *temp)
 
 void	heredoc_set(t_data *data, t_ltkn *temp)
 {
-	if(data->hdpid > 0)
+	if (data->hdpid > 0)
 		waitpid(data->hdpid, NULL, 0);
 	data->hd.i = 0;
 	if (data->fd.cmd_in > 2)

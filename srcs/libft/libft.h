@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 12:55:14 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 07:34:33 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/18 17:31:09 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ char		**ft_split(char const *s, char c);
 char		**ft_freeall(char **ar);
 
 char		**ft_tabdup(char **src);
+void		ft_freenull(char **ptr);
 
 #endif

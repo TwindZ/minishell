@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 16:07:53 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:19:28 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_pipe(t_data *data)
 {
 	int	fd[2];
 
-	if(pipe(fd) == -1)
+	if (pipe(fd) == -1)
 		exit (-1);
 	data->fd.cmd_next_in = fd[0];
 	data->exe_flag.back_pipe = 1;

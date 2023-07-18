@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:19:05 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/18 14:34:17 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:16:39 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	change_pwd(t_data *data)
 {
 	t_ltkn	*export;
 	char	*cwd;
-	
+
 	cwd = NULL;
 	cwd = getcwd(NULL, 0);
 	export = ft_lstnew_tkn(ft_mini_strjoin(NULL, "export", 0, data), 2, 0);
@@ -55,7 +55,7 @@ void	change_oldpwd(t_data *data)
 {
 	t_ltkn	*export;
 	char	*cwd;
-	
+
 	cwd = NULL;
 	cwd = getcwd(NULL, 0);
 	export = ft_lstnew_tkn(ft_mini_strjoin(NULL, "export", 0, data), 2, 0);
