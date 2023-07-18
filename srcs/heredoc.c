@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 17:40:30 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:40:32 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,32 +35,34 @@ void	set_hd_io(t_data *data)
 	data->exe_flag.file_out = 0;
 }
 
-void	heredoc(t_data *data, char *delimiter)
+void	heredoc(t_data *data, t_ltkn *temp)
 {
 	data->readhd = NULL;
 	while (1)
 	{
 		data->hd.i = 0;
 		data->readhd = readline(">");
-		if (ft_strncmp(data->readhd, delimiter, ft_strlen(delimiter)) == 0)
+		if (ft_strncmp(data->readhd, temp->infile, ft_strlen(temp->infile) + 1) == 0)
 			break ;
 		dshd(data);
 		data->hd.data = ft_mini_strjoin(data->hd.data, data->readhd, 1, data);
 		if (data->readhd)
 			free(data->readhd);
+		data->readhd = NULL;
 		data->hd.data = ft_mini_strjoin(data->hd.data, "\n", 1, data);
 	}
-	// free(delimiter);
 	data->fd.cmd_in = data->fd.cmd_next_in;
 	set_hd_io(data);
-	ft_putstr_fd(data->hd.data, STDOUT_FILENO);
+	if(data->hd.data)
+		ft_putstr_fd(data->hd.data, STDOUT_FILENO);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
 	mini_reset(data);
 	exit_free(data, 1);
+	exit (0);
 }
 
-void	heredoc_set(t_data *data, char *delimiter)
+void	heredoc_set(t_data *data, t_ltkn *temp)
 {
 	data->hd.i = 0;
 	if (data->fd.cmd_in > 2)
@@ -69,7 +71,7 @@ void	heredoc_set(t_data *data, char *delimiter)
 	data->hdprocess = 1;
 	data->pid.pid[data->pid.index] = fork();
 	if (data->pid.pid[data->pid.index] == 0)
-		heredoc(data, delimiter);
+		heredoc(data, temp);
 	else
 	{
 		if (data->fd.cmd_in > 2)

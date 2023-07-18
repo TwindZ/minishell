@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/29 10:58:18 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 17:39:31 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:05:54 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ void	free_list_ltkn(t_ltkn *ltkn)
 	{
 		temp = ltkn->next;
 		ltkn->arg = ft_freeall(ltkn->arg);
-		free(ltkn->arg);
 		if (ltkn->path)
 			free(ltkn->path);
+		ltkn->path = NULL;
 		if(ltkn->infile)
 			free(ltkn->infile);
+		ltkn->infile = NULL;
 		if(ltkn->outfile)
 			free(ltkn->outfile);
-		free(ltkn);
+		ltkn->outfile = NULL ;
+		if(ltkn)
+			free(ltkn);
 		ltkn = temp;
 	}
 }

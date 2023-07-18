@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 16:23:39 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 15:22:33 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:02:46 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,8 +178,8 @@ void	mini_execute(t_data *data);
 void	arg_list(t_data *data);
 void	open_infile(t_data *data, char *file);
 void	open_outfile(t_data *data, char *file, int mod);		
-void	heredoc(t_data *data, char *delimiter);
-void	heredoc_set(t_data *data, char *delimiter);
+void	heredoc(t_data *data, t_ltkn *temp);
+void	heredoc_set(t_data *data, t_ltkn *temp);
 void	free_list_ltkn(t_ltkn *ltkn);
 void	ft_pipe(t_data *data);
 void	set_meta(t_data *data, char **arg);

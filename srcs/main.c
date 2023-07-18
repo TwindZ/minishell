@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 09:39:22 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 07:36:18 by emman            ###   ########.fr       */
+/*   Updated: 2023/07/18 14:06:28 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	mini_reset(t_data *data)
 	ft_bzero(&data->fd, sizeof(data->fd));
 	if (data->hd.data)
 		free(data->hd.data);
+	data->hd.data = NULL;
 	ft_bzero(&data->hd, sizeof(data->hd));
 	if (data->temp_infile)
 		free(data->temp_infile);
@@ -72,14 +73,11 @@ void	mini_reset(t_data *data)
 	if (data->temp_outfile)
 		free(data->temp_outfile);
 	data->temp_outfile = NULL;
-	// if (data->lastwd)
-	// 	free(data->lastwd);
 	data->temp_in_mod = 0;
 	data->temp_out_mod = 0;
 	data->hdprocess = 0;
 	data->exeprocess = 0;
 	data->syntax = 0;
-	// data->execve_free = 0;
 	free(data->pid.pid);
 	ft_bzero(&data->pid, sizeof(data->pid));
 }
@@ -96,14 +94,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		while (1)
 		{
-			// int i;
-			// i = 0
-			// char **dest;
-			// dest = ft_tabcpy(data->envp);
-			// while(dest[i])
-			// {
-			// 	i++;
-			// }
 			data->read = readline("Minishell>");
 			if (!data->read)
 				mini_exit(data, data->ltkn);

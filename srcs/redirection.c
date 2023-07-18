@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 16:03:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 14:08:04 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	set_redirection(t_data *data, t_ltkn *temp)
 	if (temp->in_mod == 1)
 		open_infile(data, temp->infile);
 	if (temp->in_mod == 2)
-		heredoc_set(data, temp->infile);
+		heredoc_set(data, temp);
 	if (temp->out_mod > 0)
 		open_outfile(data, temp->outfile, temp->out_mod);
 	if (temp->front_pipe)

@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 11:15:44 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:37:05 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,20 @@ void	set_redirect(t_data *data, char **arg, t_ltkn *temp)
 	{
 		temp->in_mod = data->temp_in_mod;
 		temp->out_mod = data->temp_out_mod;
-		temp->infile = data->temp_infile;
-		temp->outfile = data->temp_outfile;
+		if(temp->infile)
+			free(temp->infile);
+		if(temp->outfile)
+			free(temp->outfile);
+		temp->outfile = NULL;
+		temp->infile = NULL;
+		temp->infile = ft_mini_strdup(data->temp_infile, data);
+		temp->outfile = ft_mini_strdup(data->temp_outfile, data);
+		free(data->temp_outfile);
+		data->temp_outfile = NULL;
+		free(data->temp_infile);
+		data->temp_infile = NULL;
 	}
-	if (temp && strncmp(arg[data->i], "|\0", 2) == 0)
+	else if (temp && strncmp(arg[data->i], "|\0", 2) == 0)
 	{
 		data->temp_in_mod = 0;
 		data->temp_out_mod = 0;

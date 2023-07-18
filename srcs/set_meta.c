@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 12:32:08 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 12:37:18 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ void	set_meta(t_data *data, char **arg)
 		set_out(data, arg, 2);
 	else if (ft_strncmp(arg[data->i], "<\0", 2) == 0)
 		set_infile(data, arg);
-	else if (ft_strncmp(arg[data->i], "<<", 3) == 0)
+	else if (ft_strncmp(arg[data->i], "<<\0", 3) == 0)
 		set_heredoc(data, arg);
 }

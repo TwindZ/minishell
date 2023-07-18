@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:21:44 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 11:02:38 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/18 13:26:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	dol_resolve(t_data *data)
 	{
 		data->dshd.templine[data->dshd.j - 1] = 29;
 		data->readhd = ft_mini_strdup(data->dshd.templine, data);
+		free(data->dshd.templine);
+		data->dshd.templine = NULL;
 	}
 	else
 	{
