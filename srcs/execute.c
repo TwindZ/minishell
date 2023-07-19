@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 17:40:00 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:24:44 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	mini_execute(t_data *data)
 	temp = data->ltkn;
 	while (temp != NULL)
 	{
+		if (temp->path)
+		{	
 		meta_replace(temp);
 		set_redirection(data, temp);
 		if (data->syntax)
@@ -122,7 +124,8 @@ void	mini_execute(t_data *data)
 			builtin(data, temp);
 		else if (temp->path)
 			executer(data, temp);
-		temp = temp->next;
 		data->exe_flag.file_out = 0;
+		}
+		temp = temp->next;
 	}
 }
