@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/19 13:24:44 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:26:47 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,18 +113,18 @@ void	mini_execute(t_data *data)
 	while (temp != NULL)
 	{
 		if (temp->path)
-		{	
-		meta_replace(temp);
-		set_redirection(data, temp);
-		if (data->syntax)
-			return ;
-		if (!temp->path || ft_strncmp(temp->path, "*directory", 10) == 0)
-			break ;
-		else if (strncmp(temp->path, "*builtin", 9) == 0)
-			builtin(data, temp);
-		else if (temp->path)
-			executer(data, temp);
-		data->exe_flag.file_out = 0;
+		{
+			meta_replace(temp);
+			set_redirection(data, temp);
+			if (data->syntax)
+				return ;
+			if (!temp->path || ft_strncmp(temp->path, "*directory", 10) == 0)
+				break ;
+			else if (strncmp(temp->path, "*builtin", 9) == 0)
+				builtin(data, temp);
+			else if (temp->path)
+				executer(data, temp);
+			data->exe_flag.file_out = 0;
 		}
 		temp = temp->next;
 	}

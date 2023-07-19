@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/19 13:22:06 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:27:07 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	kill_child(t_data *data)
 
 	child = 0;
 	if (data->pid.count > 0)
-		if(data->pid.index - 1 >= 0)
+		if (data->pid.index - 1 >= 0)
 			child = data->pid.pid[data->pid.index - 1];
 	if (data->pid.count)
 	{
