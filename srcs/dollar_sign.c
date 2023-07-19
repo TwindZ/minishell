@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_sign.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:46:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 09:29:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:47:50 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	dollar_sign(t_data *data)
 		if (data->read[data->i + 1] == '?')
 			return ;
 		if (data->read[data->i + 1] == ' ' || data->read[data->i + 1] == '\0'
-			|| data->read[data->i + 1] == '"')
+			|| data->read[data->i + 1] == '=')
 			data->line[data->j++] = '$';
 		make_tocheck(data);
 		data->dolsign.towrite = getenvp(data, data->dolsign.tocheck, 1);
