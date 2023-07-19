@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/18 09:38:06 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:52:27 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	int	i;
 
 	i = 1;
+	data->flag = 0;
 	while (temp->arg[i])
 	{
 		data->i = 0;
@@ -55,7 +56,7 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 		data->i = 0;
 		data->unset.to_find = ft_mini_strjoin(temp->arg[i], "=", 0, data);
 		unset_adjust(data, temp, i);
-		if (data->unset.new_env[data->j] == NULL)
+		if (data->unset.new_env[data->j] == NULL && data->flag == 0)
 		{
 			ft_freeall(data->envp);
 			data->envp = env_cpy(data->unset.new_env, 0, data);
@@ -74,10 +75,11 @@ void	unset_adjust(t_data *data, t_ltkn *temp, int i)
 		if (temp->arg[i] == NULL || (ft_isalpha(temp->arg[i][0]) == 0
 			&& temp->arg[i][0] != 95 && temp->arg[i][0] == 47))
 		{
+			data->flag = 1;
 			unset_error(data, temp, i);
 			return ;
 		}
-		if (ft_strncmp(data->unset.to_find, data->envp[data->i],
+		else if (ft_strncmp(data->unset.to_find, data->envp[data->i],
 				ft_strlen(data->unset.to_find)) == 0)
 			;
 		else

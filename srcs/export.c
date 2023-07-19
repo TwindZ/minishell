@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 09:32:41 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:24:30 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,20 +91,22 @@ void	modif_var(t_data *data, t_ltkn *temp, int i)
 
 void	print_env(int fd, t_data *data)
 {
+	while (data->envp[data->exp.j])
+			data->exp.j++;
 	data->exp.temp_env = env_cpy(data->envp, 0, data);
+	data->exp.i = 0;
 	while (data->exp.i < data->exp.j - 1)
 	{
 		data->exp.k = 0;
 		while (data->exp.k < data->exp.j - 1)
-		{
 			export_sort(data);
-		}
 		data->exp.i++;
 	}
 	data->exp.i = 0;
 	while (data->exp.temp_env[data->exp.i])
 	{
-		ft_putstr_fd("declare -x ", fd);
+		if (data->exe_flag.front_pipe == 0)
+			ft_putstr_fd("declare -x ", fd);
 		ft_putstr_fd(data->exp.temp_env[data->exp.i++], fd);
 		ft_putstr_fd("\n", fd);
 		data->prevout = 0;
