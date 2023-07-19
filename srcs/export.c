@@ -6,7 +6,7 @@
 /*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:43:27 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/19 11:24:30 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:30:26 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	modif_var(t_data *data, t_ltkn *temp, int i)
 void	print_env(int fd, t_data *data)
 {
 	while (data->envp[data->exp.j])
-			data->exp.j++;
+		data->exp.j++;
 	data->exp.temp_env = env_cpy(data->envp, 0, data);
 	data->exp.i = 0;
 	while (data->exp.i < data->exp.j - 1)
