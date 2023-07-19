@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 13:23:39 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/18 17:30:11 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:50:24 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,12 @@ void	create_list(t_data *data, t_ltkn *temp, char **arg)
 			build_cmd_param(data, arg, temp);
 		if (arg[data->i] == NULL || data->temp_in_mod == -1
 			|| data->syntax == -1)
+		{
+			while (arg[data->i])
+				ft_freenull(&arg[data->i++]);
+			mini_reset(data);
 			break ;
+		}
 		if (temp)
 			set_redirect(data, arg, temp);
 		data->i++;

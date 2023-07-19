@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:25:23 by emman             #+#    #+#             */
-/*   Updated: 2023/07/18 12:31:01 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:52:03 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,17 @@ void	build_cmd_param(t_data *data, char **arg, t_ltkn *temp)
 	{
 		temp->front_pipe = 1;
 		data->j = 0;
-		// free(arg[data->i]);
-		return ;
+		if (arg[data->i + 1] == NULL)
+		{
+			data->syntax = -1;
+			ft_putstr_fd
+				("Minishell: syntax error near unexpected token\n", 2);
+		}
+	}
+	else if (strncmp(arg[data->i], "|\0", 2) == 0 && !temp)
+	{
+		data->syntax = -1;
+		ft_putstr_fd("Minishell: syntax error near unexpected token\n", 2);
 	}
 	else if (is_meta(data, arg))
 		set_meta(data, arg);
