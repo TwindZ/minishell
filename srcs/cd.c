@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:19:05 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/18 17:16:39 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:45:29 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 		data->i++;
 	change_dir(data, temp, home);
 	free(home);
+	if (data->lastwd)
+		ft_freenull(&data->lastwd);
 	data->lastwd = getenvp(data, "PWD=", 1);
 	data->lastwd = ft_mini_strjoin(data->lastwd, "/", 1, data);
 	data->lastwd = ft_mini_strjoin(data->lastwd, temp->arg[data->i], 1, data);
@@ -58,6 +60,8 @@ void	change_oldpwd(t_data *data)
 
 	cwd = NULL;
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		cwd = ft_mini_strdup(data->lastwd, data);
 	export = ft_lstnew_tkn(ft_mini_strjoin(NULL, "export", 0, data), 2, 0);
 	export->arg[1] = ft_mini_strjoin("OLDPWD=", cwd, 0, data);
 	mini_export(1, data, export);
