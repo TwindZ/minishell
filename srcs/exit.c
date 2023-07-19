@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 10:00:38 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:27:07 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	kill_child(t_data *data)
 
 	child = 0;
 	if (data->pid.count > 0)
-		child = data->pid.pid[data->pid.index - 1];
+		if (data->pid.index - 1 >= 0)
+			child = data->pid.pid[data->pid.index - 1];
 	if (data->pid.count)
 	{
 		kill(child, SIGQUIT);
@@ -57,6 +58,9 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 
 void	exit_free(t_data *data, int ex)
 {
+	if (data->lastwd)
+		free(data->lastwd);
+	data->lastwd = NULL;
 	if (data->ltkn)
 		free_list_ltkn(data->ltkn);
 	if (data->read)

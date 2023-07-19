@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 16:40:52 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 11:16:14 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	set_heredoc(t_data *data, char **arg)
 		&& ft_strncmp(arg[data->i], "|\0", 2)
 		&& ft_strncmp(arg[data->i], "\n", 2))
 	{
+		ft_freenull(&data->temp_infile);
 		data->temp_in_mod = 2;
 		data->temp_infile = arg[data->i];
 	}

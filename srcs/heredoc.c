@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 17:17:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/19 12:49:51 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	set_hd_io(t_data *data)
 
 void	heredoc(t_data *data, t_ltkn *temp)
 {
-	data->readhd = NULL;
 	while (1)
 	{
 		data->hd.i = 0;
@@ -58,6 +57,8 @@ void	heredoc(t_data *data, t_ltkn *temp)
 		ft_putstr_fd(data->hd.data, STDOUT_FILENO);
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
+	if (data->readhd)
+		ft_freenull(&data->readhd);
 	mini_reset(data);
 	exit_free(data, 1);
 	exit (0);
