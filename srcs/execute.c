@@ -6,7 +6,7 @@
 /*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/19 13:26:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/20 08:51:36 by emlamoth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	builtin(t_data *data, t_ltkn *temp)
 		mini_unset(data, temp);
 	else if (ft_strncmp(temp->arg[0], "exit\0", 5) == 0)
 		mini_exit(data, temp);
-	data->fd.cmd_in = data->fd.cmd_next_in;
 	if (data->fd.cmd_out > 2)
 		close(data->fd.cmd_out);
+	if (data->fd.cmd_in > 2)
+		close(data->fd.cmd_in);
+	data->fd.cmd_in = data->fd.cmd_next_in;
 }
 
 void	set_io(t_data *data)
