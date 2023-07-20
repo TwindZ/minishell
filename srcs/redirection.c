@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 17:19:28 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/20 08:54:33 by fbouchar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	open_infile(t_data *data, char *file)
 
 void	set_redirection(t_data *data, t_ltkn *temp)
 {
-	dup2(STDOUT_FILENO, data->fd.cmd_out);
 	data->exe_flag.front_pipe = temp->front_pipe;
 	if (temp->in_mod == 1)
 		open_infile(data, temp->infile);
@@ -87,4 +86,6 @@ void	set_redirection(t_data *data, t_ltkn *temp)
 		open_outfile(data, temp->outfile, temp->out_mod);
 	if (temp->front_pipe)
 		ft_pipe(data);
+	if (temp->out_mod == 0 && temp->front_pipe == 0)
+		dup2(STDOUT_FILENO, data->fd.cmd_out);
 }
