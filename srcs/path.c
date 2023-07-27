@@ -3,15 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 14:50:01 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 15:42:14 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:56:40 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*These functions are used to determine if an argument is a valid command by 
+searching its path in the environment variable PATH.*/
+
+/* These functions are used to check if the argument is a directory. */
 void	check_dir(t_data *data, t_ltkn *temp, char *arg)
 {
 	if (chdir(arg) == 0)
@@ -34,6 +38,8 @@ void	check_dir(t_data *data, t_ltkn *temp, char *arg)
 	}
 }
 
+/* These functions are used to check if the argument is a built-in command
+or if it is an absolute file path. */
 int	path_pre_check(t_data *data, char *arg, t_ltkn *temp)
 {
 	if (is_builtin(arg) == 1)
@@ -54,6 +60,8 @@ int	path_pre_check(t_data *data, char *arg, t_ltkn *temp)
 	return (0);
 }
 
+/*The two next functions are used to create the complete path, test the access,
+and if the access works, the path is stored in the command node.*/
 char	*create_path(char *prefix, char *sufix, t_data *data)
 {
 	char	*path;
@@ -88,6 +96,8 @@ void	find_path(t_data *data, t_ltkn *temp, char **paths, char **arg)
 	ft_freeall(paths);
 }
 
+/*This is the main function for the path parameter of the node;
+the data of the environment variable PATH is split here.*/
 void	check_path(t_data *data, char **arg, t_ltkn *temp)
 {
 	char	**paths;

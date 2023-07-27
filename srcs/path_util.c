@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   path_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:39:08 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/12 09:42:24 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:36:06 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+
+/* Utilities for path.c */
 
 void	path_error(t_data *data, t_ltkn *temp, int err)
 {

@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:23:51 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 17:19:56 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:42:05 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*Simple minishell signal handler*/
 void	sig_handler(int sig)
 {
 	t_data	*data;
