@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:35:04 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/19 12:52:27 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/08/27 10:08:34 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function returns the current working directory.*/
 void	mini_pwd(int fd, t_data *data)
 {
 	char	buffer[PATH_MAX];
@@ -25,6 +26,7 @@ void	mini_pwd(int fd, t_data *data)
 	data->prevout = 0;
 }
 
+/*This function returns the environment of minishell.*/
 void	mini_env(t_data *data)
 {
 	int	i;
@@ -39,6 +41,8 @@ void	mini_env(t_data *data)
 	data->prevout = 0;
 }
 
+/*This function removes an environment variable from the minishell by copying
+the environment to a new one without the variable to unset.*/
 void	mini_unset(t_data *data, t_ltkn *temp)
 {
 	int	i;
@@ -68,6 +72,8 @@ void	mini_unset(t_data *data, t_ltkn *temp)
 	}
 }
 
+/*This function is used by mini_unset to recopy the environment without the
+environment variable to remove.*/
 void	unset_adjust(t_data *data, t_ltkn *temp, int i)
 {
 	while (data->envp[data->i])
@@ -92,6 +98,7 @@ void	unset_adjust(t_data *data, t_ltkn *temp, int i)
 	}
 }
 
+/*Error handler for mini_unset.*/
 void	unset_error(t_data *data, t_ltkn *temp, int i)
 {
 	ft_putstr_fd("Minishell: unset: `", STDERR_FILENO);

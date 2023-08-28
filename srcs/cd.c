@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:19:05 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/19 12:45:29 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/27 20:56:56 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function changes the directory and updates the PWD and OLDPWD
+environment variables. If mini_cd has no argument, it changes the directory to
+the home directory.*/
 void	mini_cd(t_data *data, t_ltkn *temp)
 {
 	char	*home;
@@ -38,6 +41,8 @@ void	mini_cd(t_data *data, t_ltkn *temp)
 	change_pwd(data);
 }
 
+/*This function updates the PWD environment variable using the
+mini_export function.*/
 void	change_pwd(t_data *data)
 {
 	t_ltkn	*export;
@@ -53,6 +58,8 @@ void	change_pwd(t_data *data)
 	free_list_ltkn(export);
 }
 
+/*This function updates the OLDPWD environment variable using the
+mini_export function.*/
 void	change_oldpwd(t_data *data)
 {
 	t_ltkn	*export;
@@ -70,6 +77,8 @@ void	change_oldpwd(t_data *data)
 	free_list_ltkn(export);
 }
 
+/*This function changes the working directory using the chdir function and
+handles non-existing directories.*/
 void	change_dir(t_data *data, t_ltkn *temp, char *home)
 {
 	int	result;

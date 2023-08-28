@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   dollar_question.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 10:35:46 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/08/27 21:08:21 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function displays the last exit status stored in the
+data.prevout variable.*/
 void	dollar_question(t_data *data)
 {
 	char	*out;

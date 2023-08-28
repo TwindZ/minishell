@@ -6,7 +6,7 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:33:30 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/27 17:30:56 by emman            ###   ########.fr       */
+/*   Updated: 2023/08/27 21:13:05 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 /*These functions are used to set input and output parameters 
 for each command.*/
-
-
 void	set_out(t_data *data, char **arg, int mod)
 {
 	free(arg[data->i]);
