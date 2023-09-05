@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_strjoin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbouchar <fbouchar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:56:57 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/17 11:08:42 by fbouchar         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:38:39 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function is a custom strjoin implementation for minishell, utilizing
+safe_calloc.*/
 char	*ft_mini_strjoin(char *s1, char *s2, int fr, t_data *data)
 {
 	unsigned int	lens1;

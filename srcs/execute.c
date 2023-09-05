@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 10:25:57 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/20 14:09:22 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/28 10:01:11 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function selects the correct builtin by comparing the first argument of
+argv using strncmp.*/
 void	builtin(t_data *data, t_ltkn *temp)
 {
 	if (ft_strncmp(temp->arg[0], "echo\0", 5) == 0)
@@ -35,6 +37,8 @@ void	builtin(t_data *data, t_ltkn *temp)
 	data->fd.cmd_in = data->fd.cmd_next_in;
 }
 
+/*This function duplicates the redirection before the execve and closes all
+deprecated file descriptors.*/
 void	set_io(t_data *data)
 {
 	if (data->exe_flag.back_pipe || data->exe_flag.file_in)
@@ -51,6 +55,9 @@ void	set_io(t_data *data)
 	data->exe_flag.file_out = 0;
 }
 
+
+/*This function is the core of the executer where the fork is done for the
+execve function. Each PID is kept for the waiting part of the executer.*/
 void	executer(t_data *data, t_ltkn *temp)
 {
 	data->exeprocess = 1;
@@ -76,6 +83,9 @@ void	executer(t_data *data, t_ltkn *temp)
 	data->pid.index++;
 }
 
+/*This function waits for every child process to finish, monitors the exit
+status of each individual child process, and stores this status in the prevout
+variable, which is later used by $?.*/
 void	ft_waiting(t_data *data)
 {
 	int	status;
@@ -105,6 +115,8 @@ void	ft_waiting(t_data *data)
 	data->exit_out = 0;
 }
 
+/*This function performs the final parsing of each node, setting up input and
+output file redirection, and then initiates the execution.*/
 void	mini_execute(t_data *data)
 {
 	t_ltkn	*temp;

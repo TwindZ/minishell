@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 11:24:58 by fbouchar          #+#    #+#             */
-/*   Updated: 2023/07/19 13:27:07 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/29 12:14:28 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function is used by mini_exit to terminate a child process in
+scenarios where the exit command is used subsequent to a piped function.*/
 int	kill_child(t_data *data)
 {
 	int	child;
@@ -30,6 +32,9 @@ int	kill_child(t_data *data)
 	return (0);
 }
 
+/*This function exits the shell if used alone; otherwise, it terminates the
+process called before the exit command. It can also be used with a numeric
+argument to set the exit status.*/
 void	mini_exit(t_data *data, t_ltkn *temp)
 {
 	data->i = 0;
@@ -56,6 +61,8 @@ void	mini_exit(t_data *data, t_ltkn *temp)
 	exit(0);
 }
 
+/*This function deallocates all necessary variables when the mini_exit
+function is called.*/
 void	exit_free(t_data *data, int ex)
 {
 	if (data->lastwd)
@@ -73,6 +80,7 @@ void	exit_free(t_data *data, int ex)
 		exit(1);
 }
 
+/*This function handles errors related to exit arguments.*/
 void	exit_args_err(t_data *data, t_ltkn *temp)
 {
 	ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
@@ -84,6 +92,8 @@ void	exit_args_err(t_data *data, t_ltkn *temp)
 	exit(255);
 }
 
+/*This function guarantees that the exit argument consists
+only of numerical characters.*/
 void	exit_args(t_data *data, t_ltkn *temp)
 {
 	int	exitnum;

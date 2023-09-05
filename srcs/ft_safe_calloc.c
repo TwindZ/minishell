@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_safe_calloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 10:57:04 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/13 15:00:12 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:40:22 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*This function is a custom implementation of calloc that prevents memory leaks
+in case of a malloc failure by deallocating memory.*/
 void	*ft_safe_calloc(size_t count, size_t size, t_data *data)
 {
 	void	*a;

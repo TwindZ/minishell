@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   dshd.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:21:44 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/18 13:26:47 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:36:31 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+This function duplicates the line, substituting environment variables with
+corresponding data and preserving the rest of the line. */
 void	read_maker(t_data *data)
 {
 	while (data->dshd.templine[data->dshd.j])
@@ -38,6 +41,7 @@ void	read_maker(t_data *data)
 	free(data->dshd.var);
 }
 
+/*This function retrieves data from the environment variable.*/
 void	get_var_data(t_data *data)
 {
 	data->dshd.j = 0;
@@ -54,6 +58,9 @@ void	get_var_data(t_data *data)
 			+ ft_strlen(data->dshd.templine) + 2, sizeof(char), data);
 }
 
+/*This function temporarily replaces a standalone dollar sign with the ASCII 29
+character; otherwise, it substitutes it with the corresponding environment
+variable.*/
 void	dol_resolve(t_data *data)
 {
 	if (data->dshd.varlen == 0)
@@ -70,6 +77,7 @@ void	dol_resolve(t_data *data)
 	}
 }
 
+/*This function converts environment variables present in the heredoc input.*/
 void	dshd(t_data *data)
 {
 	dshd_init(data);

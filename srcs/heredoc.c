@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:03 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/19 12:49:51 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/31 20:48:56 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ void	set_hd_io(t_data *data)
 	data->exe_flag.file_out = 0;
 }
 
+/*The heredoc function employs the readline function to obtain each line, then
+concatenates them using strjoin. The resulting concatenated text is sent
+through a pipe to serve as the input for the command invoking the heredoc.*/
 void	heredoc(t_data *data, t_ltkn *temp)
 {
 	while (1)

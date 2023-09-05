@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dshd_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emlamoth <emlamoth@student.42.fr>          +#+  +:+       +#+        */
+/*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 10:57:55 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/17 10:59:55 by emlamoth         ###   ########.fr       */
+/*   Updated: 2023/08/30 09:08:14 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*Initialization for the heredoc environment variable resolver function*/
 void	dshd_init(t_data *data)
 {
 	data->dshd.templine = NULL;
@@ -24,6 +25,7 @@ void	dshd_init(t_data *data)
 	data->dshd.save_j = 0;
 }
 
+/*This function checks if a dollar sign is present in the heredoc line.*/
 int	dollar(char *line)
 {
 	int	i;
@@ -38,6 +40,7 @@ int	dollar(char *line)
 	return (0);
 }
 
+/*This function checks for valid characters in environment variables.*/
 int	var_char(char c)
 {
 	if (ft_isalnum(c) || c == '_')

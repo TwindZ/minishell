@@ -6,14 +6,13 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 16:39:08 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/27 17:36:06 by emman            ###   ########.fr       */
+/*   Updated: 2023/08/28 10:11:53 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/* Utilities for path.c */
-
+/*This function handles path errors.*/
 void	path_error(t_data *data, t_ltkn *temp, int err)
 {
 	ft_putstr_fd("Minishell: ", 2);
@@ -24,7 +23,9 @@ void	path_error(t_data *data, t_ltkn *temp, int err)
 		ft_putstr_fd(": no such file or directory\n", STDERR_FILENO);
 	data->prevout = 127;
 }
-
+/*
+This function returns 1 if the provided argument is a builtin, otherwise,
+it returns 0.*/
 int	is_builtin(char *arg)
 {
 	if (!strncmp(arg, "echo\0", 5)

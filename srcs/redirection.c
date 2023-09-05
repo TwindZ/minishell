@@ -6,14 +6,13 @@
 /*   By: emman <emman@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 09:51:07 by emlamoth          #+#    #+#             */
-/*   Updated: 2023/07/27 17:33:42 by emman            ###   ########.fr       */
+/*   Updated: 2023/08/28 10:03:34 by emman            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
 /*These functions apply parameters to the command during the execution*/
-
 void	ft_pipe(t_data *data)
 {
 	int	fd[2];
